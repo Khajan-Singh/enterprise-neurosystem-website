@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+/*
+  PLACEHOLDER DESIGN TOKENS
+  --------------------------------------------------------------
+  This is a neutral, professional stand-in palette/type system so
+  every page is fully laid out and legible before the final visual
+  identity is applied. TODO: replace once the user supplies their
+  design styles/references (see content/enterprise-neurosystem-content.md
+  "Design references" section and the plan's Appendix B).
+*/
+:root {
+  --color-bg: #ffffff;
+  --color-bg-subtle: #f7f7f5;
+  --color-ink: #16171a;
+  --color-ink-muted: #55585f;
+  --color-line: #e4e4e0;
+  --color-accent: #2b3a67;
+  --color-accent-soft: #eef1f8;
+
+  /* Nav bar blue, per user direction. */
+  --color-nav: #ddeeff;
+  --color-nav-line: #bcd9f2;
+
+  /* Hero neural-globe animation, matching the logo's node style. */
+  --color-net-line: #737373;
+  --color-net-core: #ffa500;
+
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-subtle: var(--color-bg-subtle);
+  --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-line: var(--color-line);
+  --color-accent: var(--color-accent);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-nav: var(--color-nav);
+  --color-nav-line: var(--color-nav-line);
+  --color-net-line: var(--color-net-line);
+  --color-net-core: var(--color-net-core);
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Consistent, visible keyboard focus ring across the site */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/*
+  Card elevation
+  --------------------------------------------------------------
+  A soft, layered shadow (tight contact shadow + a longer ambient
+  falloff) so cards read as distinct raised surfaces against the
+  white/near-white section backgrounds, instead of relying on the
+  faint border alone.
+*/
+.card-surface {
+  border: 1px solid var(--color-line);
+  box-shadow:
+    0 1px 2px rgba(22, 23, 26, 0.05),
+    0 14px 28px -14px rgba(22, 23, 26, 0.18);
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card-surface-hover:hover {
+  border-color: color-mix(in srgb, var(--color-ink) 18%, var(--color-line));
+  box-shadow:
+    0 2px 4px rgba(22, 23, 26, 0.06),
+    0 20px 36px -16px rgba(22, 23, 26, 0.22);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-surface-hover:hover {
+    transform: none;
+  }
+}
