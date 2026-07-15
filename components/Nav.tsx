@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "./Container";
+import { AmbientShadow } from "./AmbientShadow";
 
 const aboutLinks = [
   { href: "/mission", label: "Mission" },
@@ -66,7 +67,10 @@ export function Nav() {
           : "border-nav-line bg-nav"
       }`}
     >
-      <Container className="flex h-24 items-center justify-between">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <AmbientShadow opacity={0.1} />
+      </div>
+      <Container className="relative flex h-24 items-center justify-between">
         <Link
           href="/"
           className="flex items-center gap-3"
