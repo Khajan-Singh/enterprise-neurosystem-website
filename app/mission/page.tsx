@@ -3,6 +3,7 @@ import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTASection } from "@/components/CTASection";
 import { SectionSidebar } from "@/components/SectionSidebar";
+import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata: Metadata = {
@@ -75,8 +76,9 @@ const sections = [
 export default function MissionPage() {
   return (
     <>
-      <section className="border-b border-line bg-page-header">
-        <Container className="pb-10 pt-14 sm:pt-20">
+      <section className="relative overflow-hidden border-b border-line bg-page-header">
+        <AmbientShadow opacity={0.1} />
+        <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading eyebrow="About" title="Mission" />
           </Reveal>

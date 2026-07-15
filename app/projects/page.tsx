@@ -3,6 +3,7 @@ import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProjectCard } from "@/components/ProjectCard";
 import { CTASection } from "@/components/CTASection";
+import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 import { projects } from "@/data/projects";
 
@@ -15,8 +16,9 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <section className="border-b border-line bg-page-header">
-        <Container className="grid gap-8 pb-10 pt-14 sm:pt-20 md:grid-cols-2 md:gap-16">
+      <section className="relative overflow-hidden border-b border-line bg-page-header">
+        <AmbientShadow opacity={0.1} />
+        <Container className="relative grid gap-8 pb-10 pt-14 sm:pt-20 md:grid-cols-2 md:gap-16">
           <Reveal>
             <SectionHeading
               eyebrow="Community"

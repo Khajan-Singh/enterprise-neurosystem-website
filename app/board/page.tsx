@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BoardCard } from "@/components/BoardCard";
+import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 import { boardMembers } from "@/data/board";
 
@@ -14,8 +15,9 @@ export const metadata: Metadata = {
 export default function BoardPage() {
   return (
     <>
-      <section className="border-b border-line bg-page-header">
-        <Container className="pb-10 pt-14 sm:pt-20">
+      <section className="relative overflow-hidden border-b border-line bg-page-header">
+        <AmbientShadow opacity={0.1} />
+        <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
               eyebrow="About"
