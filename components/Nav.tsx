@@ -185,7 +185,7 @@ export function Nav() {
       {open && (
         <nav className="border-t border-nav-line bg-nav md:hidden">
           <Container className="flex flex-col gap-1 py-4">
-            <p className="px-2 pb-1 pt-2 text-xs font-medium uppercase tracking-widest text-ink-muted">
+            <p className="border-b border-nav-line px-2 pb-2 pt-2 text-xs font-medium uppercase tracking-widest text-ink-muted">
               About
             </p>
             {aboutLinks.map((link) => (
