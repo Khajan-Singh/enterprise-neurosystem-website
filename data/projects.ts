@@ -3,6 +3,39 @@ export type Project = {
   description: string;
 };
 
+export type Deployment = {
+  slug: string;
+  name: string;
+  location: string;
+  summary: string;
+  image: string;
+  partners: string[];
+  href: string;
+};
+
+export const deployments: Deployment[] = [
+  {
+    slug: "uganda",
+    name: "Uganda National AI Sensor Network",
+    location: "Bwindi Impenetrable Forest & Lake Victoria, Uganda",
+    summary:
+      "A national network of environmental sensors, approved for funding by Uganda's Minister of Science, Technology and Innovation — starting at Bwindi's mountain gorilla habitat and a robotic AI sensor monitoring Lake Victoria's algal blooms. Data stays in Uganda, on Uganda's terms.",
+    image: "/uganda/bwindi-gorilla.jpg",
+    partners: ["Uganda STI Ministry", "JPL / Caltech", "Makerere University"],
+    href: "/projects/uganda",
+  },
+  {
+    slug: "jpl-dangermond",
+    name: "Dangermond Preserve",
+    location: "Santa Barbara County, California, USA",
+    summary:
+      "The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, developed with JPL/Caltech and The Nature Conservancy.",
+    image: "/jpl/dangermond-coastline.jpg",
+    partners: ["JPL / Caltech", "The Nature Conservancy", "NCEAS"],
+    href: "/projects/dangermond",
+  },
+];
+
 export const projects: Project[] = [
   {
     name: "Acoustic Analysis",

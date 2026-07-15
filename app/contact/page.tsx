@@ -7,7 +7,7 @@ import { Reveal } from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Reach the Enterprise Neurosystem community directly, and see what organizations and individuals can expect from getting involved.",
+    "Join us. Change the planet. Reach the Enterprise Neurosystem community directly, and see what organizations and individuals can expect from getting involved.",
 };
 
 const paths = [
@@ -36,9 +36,9 @@ export default function ContactPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Reach out"
+              eyebrow="Join us. Change the planet."
               title="Contact"
-              description="What organizations and individuals can expect when they reach out to join the community."
+              description="We're looking for philanthropic partners, volunteer scientists, AI engineers, and network architects. Here's what organizations and individuals can expect when they reach out to join the community."
             />
           </Reveal>
         </Container>
@@ -107,12 +107,19 @@ export default function ContactPage() {
                 </div>
 
                 <p className="font-display text-lg font-medium text-ink">
-                  Please contact Bill Wright (
+                  Please contact Bill Wright, Chair, Enterprise Neurosystem (
                   <a
                     href="mailto:bwright@redhat.com"
                     className="text-accent hover:underline"
                   >
                     bwright@redhat.com
+                  </a>{" "}
+                  ·{" "}
+                  <a
+                    href="tel:+14157105207"
+                    className="text-accent hover:underline"
+                  >
+                    +1-415-710-5207
                   </a>
                   ) for any questions regarding community membership.
                 </p>

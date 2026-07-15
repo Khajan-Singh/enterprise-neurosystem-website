@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProjectCard } from "@/components/ProjectCard";
+import { DeploymentCard } from "@/components/DeploymentCard";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
-import { projects } from "@/data/projects";
+import { projects, deployments } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Nine sensor and AI projects — from beehives to satellites — built by the Enterprise Neurosystem community to monitor and manage climate change.",
+    "Flagship deployments in Uganda and at the Dangermond Preserve, plus nine research workstreams — from beehives to satellites — built by the Enterprise Neurosystem community.",
 };
 
 export default function ProjectsPage() {
@@ -22,7 +23,7 @@ export default function ProjectsPage() {
             <SectionHeading
               eyebrow="Community"
               title="Projects"
-              description="We anticipate deploying hundreds of non-intrusive sensor networks across a multitude of species in nature. This includes forests and fungi, ant colonies, beehives, mussels, birds, kelp, coral reefs, and various mammal and plant species that can be monitored for real-time climate impact and predictive analysis."
+              description="From national sensor networks in Uganda to research on beehives and mussel beds, the community builds the sensors, AI models, and infrastructure needed to monitor and manage climate change events."
             />
           </Reveal>
           <Reveal delay={0.1}>
@@ -39,9 +40,41 @@ export default function ProjectsPage() {
         </Container>
       </section>
 
+      {/* Flagship deployments */}
       <section>
         <Container className="py-20">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <Reveal>
+            <SectionHeading
+              eyebrow="In the field"
+              title="Flagship deployments"
+              description="Real, government-backed deployments of the Enterprise Neurosystem architecture, built with national ministries, research institutions, and local communities."
+            />
+          </Reveal>
+          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+            {deployments.map((deployment, i) => (
+              <Reveal key={deployment.slug} delay={0.06 * i}>
+                <DeploymentCard deployment={deployment} />
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Research workstreams */}
+      <section
+        id="research-workstreams"
+        className="relative scroll-mt-28 overflow-hidden border-t border-nav-line bg-nav"
+      >
+        <AmbientShadow />
+        <Container className="relative py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Earlier & ongoing"
+              title="Research workstreams"
+              description="We anticipate deploying hundreds of non-intrusive sensor networks across a multitude of species in nature — forests and fungi, ant colonies, beehives, mussels, birds, kelp, coral reefs, and more."
+            />
+          </Reveal>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, i) => (
               <Reveal key={project.name} delay={0.04 * (i % 3)}>
                 <ProjectCard project={project} textured />
