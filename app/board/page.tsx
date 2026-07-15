@@ -16,7 +16,7 @@ export default function BoardPage() {
   return (
     <>
       <section className="relative overflow-hidden border-b border-line bg-page-header">
-        <AmbientShadow opacity={0.1} />
+        <AmbientShadow opacity={0.07} />
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading

@@ -12,7 +12,7 @@
 :root {
   --color-bg: #ffffff;
   --color-bg-subtle: #f7f7f5;
-  --color-page-header: #e2f1ff;
+  --color-page-header: #ddeeff;
   --color-ink: #16171a;
   --color-ink-muted: #55585f;
   --color-line: #e4e4e0;
@@ -20,7 +20,7 @@
   --color-accent-soft: #eef1f8;
 
   /* Nav bar blue, per user direction. */
-  --color-nav: #deefff;
+  --color-nav: #ddeeff;
   --color-nav-line: #bcd9f2;
 
   /* Hero neural-globe animation, matching the logo's node style. */
