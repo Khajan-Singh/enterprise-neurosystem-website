@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 export default function WorkstreamsPage() {
   return (
     <>
-      <section className="border-b border-line bg-bg-subtle">
-        <Container className="py-20 sm:py-28">
+      <section className="border-b border-line bg-page-header">
+        <Container className="pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
               eyebrow="Community"
@@ -54,7 +54,7 @@ export default function WorkstreamsPage() {
       <CTASection
         title="Join the effort"
         description="Interested contributors can join a workstream through community onboarding."
-        primary={{ href: "/get-involved", label: "Get involved" }}
+        primary={{ href: "/contact", label: "Get involved" }}
       />
     </>
   );

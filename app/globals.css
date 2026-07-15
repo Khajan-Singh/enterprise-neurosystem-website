@@ -12,6 +12,7 @@
 :root {
   --color-bg: #ffffff;
   --color-bg-subtle: #f7f7f5;
+  --color-page-header: #cfe3f5;
   --color-ink: #16171a;
   --color-ink-muted: #55585f;
   --color-line: #e4e4e0;
@@ -33,6 +34,7 @@
 @theme inline {
   --color-bg: var(--color-bg);
   --color-bg-subtle: var(--color-bg-subtle);
+  --color-page-header: var(--color-page-header);
   --color-ink: var(--color-ink);
   --color-ink-muted: var(--color-ink-muted);
   --color-line: var(--color-line);

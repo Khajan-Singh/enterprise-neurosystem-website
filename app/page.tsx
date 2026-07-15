@@ -30,25 +30,22 @@ export default function Home() {
             </Reveal>
             <Reveal delay={0.16}>
               <p className="max-w-2xl text-lg leading-relaxed text-ink-muted">
-                Enterprise Neurosystem is founded on the principle that all
-                the species and ecosystems on this planet are part of a
-                single system. Humanity&apos;s impact on that system —
-                through climate change — now demands a global-scale AI
-                network to understand its contributing factors and generate
-                new solutions.
+                The Enterprise Neurosystem is founded on the principle that all the species and ecosystems on this planet are part of a single system. And humanity has had an unprecedented impact on this system with the advent of climate change. A global-scale AI network is now required – to understand the multitude of contributing factors, and to generate new solutions to this crisis.
+
+
               </p>
             </Reveal>
             <Reveal delay={0.24}>
               <div className="flex flex-wrap gap-4">
                 <Link
-                  href="/get-involved"
+                  href="/projects"
                   className="rounded-full bg-ink px-6 py-3 text-sm font-medium text-bg transition-opacity hover:opacity-85"
                 >
-                  Join a workstream
+                  Explore Projects
                 </Link>
                 <Link
                   href="/mission"
-                  className="rounded-full border border-line px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink/40"
+                  className="rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
                 >
                   Read the mission
                 </Link>
@@ -75,7 +72,7 @@ export default function Home() {
       </section>
 
       {/* The AI Neurosystem */}
-      <section className="border-t border-line bg-bg-subtle">
+      <section className="border-t border-nav-line bg-nav">
         <Container className="grid gap-12 py-24 md:grid-cols-2 md:gap-16">
           <Reveal>
             <SectionHeading
@@ -108,7 +105,7 @@ export default function Home() {
             <SectionHeading
               eyebrow="The Global AI Network"
               title="A consortium, not a company"
-              description="190 participants from over 30 companies and academic institutions collaborate in the open — sharing sensor networks, AI models, and infrastructure in a single global architecture."
+              description="Participants from companies and academic institutions collaborate in the open — sharing sensor networks, AI models, and infrastructure in a single global architecture."
               align="center"
             />
           </Reveal>
@@ -121,7 +118,7 @@ export default function Home() {
       </section>
 
       {/* Featured projects */}
-      <section className="border-t border-line bg-bg-subtle">
+      <section className="border-t border-nav-line bg-nav">
         <Container className="py-24">
           <Reveal>
             <SectionHeading
@@ -153,7 +150,7 @@ export default function Home() {
       <CTASection
         title="Join a workstream"
         description="Contribute to the self-describing digital asset catalog or the AI signal processing framework — our consortium is a community, welcome to all."
-        primary={{ href: "/get-involved", label: "Get involved" }}
+        primary={{ href: "/contact", label: "Get involved" }}
         secondary={{ href: "/workstreams", label: "See workstreams" }}
       />
     </>

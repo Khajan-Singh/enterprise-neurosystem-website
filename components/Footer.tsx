@@ -14,7 +14,6 @@ const columns = [
     heading: "Community",
     links: [
       { href: "/press", label: "Press Releases" },
-      { href: "/get-involved", label: "Get Involved" },
       { href: "/projects", label: "Projects" },
       { href: "/workstreams", label: "Workstreams" },
     ],
