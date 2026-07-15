@@ -12,7 +12,7 @@
       "net-line": { "role": "tertiary", "displayName": "Signal Gray", "canonical": "#737373" },
       "bg": { "role": "neutral", "displayName": "Paper White", "canonical": "#ffffff" },
       "bg-subtle": { "role": "neutral", "displayName": "Subtle Paper", "canonical": "#f7f7f5" },
-      "page-header": { "role": "neutral", "displayName": "Header Gray", "canonical": "#e2e2df" },
+      "page-header": { "role": "neutral", "displayName": "Chrome Blue (page header)", "canonical": "#ddeeff" },
       "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#16171a" },
       "ink-muted": { "role": "neutral", "displayName": "Ink Muted", "canonical": "#55585f" },
       "line": { "role": "neutral", "displayName": "Line", "canonical": "#e4e4e0" }
@@ -24,7 +24,8 @@
     },
     "shadows": [
       { "name": "card-resting", "value": "0 1px 2px rgba(22,23,26,0.05), 0 14px 28px -14px rgba(22,23,26,0.18)", "purpose": "Default ambient shadow on every .card-surface element." },
-      { "name": "card-hover", "value": "0 2px 4px rgba(22,23,26,0.06), 0 20px 36px -16px rgba(22,23,26,0.22)", "purpose": "Intensified shadow plus 2px lift on .card-surface-hover:hover." }
+      { "name": "card-hover", "value": "0 2px 4px rgba(22,23,26,0.06), 0 20px 36px -16px rgba(22,23,26,0.22)", "purpose": "Intensified shadow plus 2px lift on .card-surface-hover:hover." },
+      { "name": "card-textured", "value": "radial-gradient(120% 120% at 50% -10%, rgba(255,255,255,0.9), rgba(255,255,255,0) 55%), linear-gradient(180deg, #ffffff 0%, #f1f1ee 100%), url(data:image/svg+xml grain-noise-svg)", "purpose": "Layered gradient + self-contained SVG grain overlay (background-blend-mode: overlay), plus a two-tone border (color-mix Ink 30% at rest, 45% on hover). Default card surface site-wide: Projects, Workstreams, Press, Contact's path cards, and the homepage's featured-project cards." }
     ],
     "motion": [
       { "name": "ease-standard", "value": "ease", "purpose": "Card shadow/border/transform transitions (0.2s)." },
@@ -49,7 +50,7 @@
       "name": "Ghost Button (on dark)",
       "kind": "button",
       "refersTo": "button-ghost",
-      "description": "Secondary CTA on the dark CTASection band; bordered, transparent fill.",
+      "description": "Secondary CTA on a dark surface (e.g. the Footer); bordered, transparent fill.",
       "html": "<button class=\"ds-btn-ghost\">See the projects</button>",
       "css": ".ds-btn-ghost { background: transparent; color: #ffffff; padding: 12px 24px; border-radius: 9999px; border: 1px solid rgba(255,255,255,0.3); font-size: 14px; font-weight: 500; transition: border-color 0.2s ease; } .ds-btn-ghost:hover { border-color: rgba(255,255,255,0.6); }"
     },
@@ -60,6 +61,14 @@
       "description": "Ambient-shadow card used for board members, projects, and workstream entries; always populated with specific named content.",
       "html": "<article class=\"ds-card\"><h3 class=\"ds-card-title\">Bill Wright</h3><p class=\"ds-card-subtitle\">Chair</p><p class=\"ds-card-body\">Enterprise Neurosystem is the brainchild of Bill Wright...</p></article>",
       "css": ".ds-card { background: #ffffff; border: 1px solid #e4e4e0; border-radius: 16px; padding: 24px; box-shadow: 0 1px 2px rgba(22,23,26,0.05), 0 14px 28px -14px rgba(22,23,26,0.18); transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease; } .ds-card:hover { box-shadow: 0 2px 4px rgba(22,23,26,0.06), 0 20px 36px -16px rgba(22,23,26,0.22); transform: translateY(-2px); border-color: color-mix(in srgb, #16171a 18%, #e4e4e0); } .ds-card-title { font-weight: 600; font-size: 18px; color: #16171a; } .ds-card-subtitle { margin-top: 4px; font-size: 14px; font-weight: 500; color: #2b3a67; } .ds-card-body { margin-top: 12px; font-size: 14px; line-height: 1.6; color: #55585f; }"
+    },
+    {
+      "name": "Textured Project Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "The default card surface site-wide (Projects, Workstreams, Press, Contact's path cards, homepage featured-project cards): a top-lit radial sheen, a self-contained SVG grain overlay, and a two-tone Ink/Line border (30% at rest, 45% on hover) on top of the standard card shadow.",
+      "html": "<article class=\"ds-card-textured\"><h3 class=\"ds-card-title\">Beehive Sensor Network</h3><p class=\"ds-card-body\">Non-intrusive acoustic and thermal sensors monitor colony health in real time.</p></article>",
+      "css": ".ds-card-textured { background-color: #ffffff; background-image: radial-gradient(120% 120% at 50% -10%, rgba(255,255,255,0.9), rgba(255,255,255,0) 55%), linear-gradient(180deg, #ffffff 0%, #f1f1ee 100%), url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\"); background-blend-mode: normal, normal, overlay; border-width: 1.25px; border-style: solid; border-color: color-mix(in srgb, #16171a 30%, #e4e4e0); border-radius: 16px; padding: 24px; box-shadow: 0 1px 2px rgba(22,23,26,0.05), 0 14px 28px -14px rgba(22,23,26,0.18); transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease; } .ds-card-textured:hover { box-shadow: 0 2px 4px rgba(22,23,26,0.06), 0 20px 36px -16px rgba(22,23,26,0.22); transform: translateY(-2px); border-color: color-mix(in srgb, #16171a 45%, #e4e4e0); } .ds-card-title { font-weight: 600; font-size: 18px; color: #16171a; } .ds-card-body { margin-top: 12px; font-size: 14px; line-height: 1.6; color: #55585f; }"
     },
     {
       "name": "Text Input",
@@ -73,9 +82,17 @@
       "name": "Nav Bar",
       "kind": "nav",
       "refersTo": "nav",
-      "description": "Sticky top navigation; Chrome Blue chrome, blurs and pales on scroll.",
-      "html": "<header class=\"ds-nav\"><div class=\"ds-nav-inner\"><span class=\"ds-nav-brand\">Enterprise Neurosystem</span><nav class=\"ds-nav-links\"><a class=\"ds-nav-link ds-nav-link-active\" href=\"#\">Mission</a><a class=\"ds-nav-link\" href=\"#\">Charter</a><a class=\"ds-nav-cta\" href=\"#\">Contact</a></nav></div></header>",
-      "css": ".ds-nav { position: sticky; top: 0; background: #ddeeff; border-bottom: 1px solid #bcd9f2; transition: all 0.3s ease; } .ds-nav-inner { display: flex; align-items: center; justify-content: space-between; height: 96px; padding: 0 24px; } .ds-nav-brand { font-weight: 600; font-size: 18px; color: #16171a; letter-spacing: -0.02em; } .ds-nav-links { display: flex; align-items: center; gap: 32px; } .ds-nav-link { font-size: 16px; color: rgba(22,23,26,0.7); transition: color 0.2s ease; } .ds-nav-link:hover { color: #16171a; } .ds-nav-link-active { font-weight: 600; color: #16171a; } .ds-nav-cta { background: #16171a; color: #ffffff; padding: 10px 20px; border-radius: 9999px; font-size: 16px; font-weight: 500; }"
+      "description": "Sticky top navigation, permanently translucent/blurred (no scroll-triggered toggle). Mission/Charter/Board are grouped under an 'About' dropdown (hover-opens, click-pins) instead of flat links.",
+      "html": "<header class=\"ds-nav\"><div class=\"ds-nav-inner\"><span class=\"ds-nav-brand\">Enterprise Neurosystem</span><nav class=\"ds-nav-links\"><a class=\"ds-nav-link ds-nav-link-active\" href=\"#\">About</a><a class=\"ds-nav-link\" href=\"#\">Projects</a><a class=\"ds-nav-cta\" href=\"#\">Contact</a></nav></div></header>",
+      "css": ".ds-nav { position: sticky; top: 0; background: rgba(221,238,255,0.7); backdrop-filter: blur(4px); border-bottom: 1px solid rgba(188,217,242,0.6); } .ds-nav-inner { display: flex; align-items: center; justify-content: space-between; height: 96px; padding: 0 24px; } .ds-nav-brand { font-weight: 600; font-size: 18px; color: #16171a; letter-spacing: -0.02em; } .ds-nav-links { display: flex; align-items: center; gap: 32px; } .ds-nav-link { font-size: 16px; color: rgba(22,23,26,0.7); transition: color 0.2s ease; } .ds-nav-link:hover { color: #16171a; } .ds-nav-link-active { font-weight: 600; color: #16171a; } .ds-nav-cta { background: #16171a; color: #ffffff; padding: 10px 20px; border-radius: 9999px; font-size: 16px; font-weight: 500; }"
+    },
+    {
+      "name": "Footer",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "The site's single closing dark element (bg-ink), replacing the old per-page CTASection banners. Three link columns (About, Community, Connect) plus a copyright bar.",
+      "html": "<footer class=\"ds-footer\"><p class=\"ds-footer-brand\">Enterprise Neurosystem</p><p class=\"ds-footer-heading\">About</p></footer>",
+      "css": ".ds-footer { background: #16171a; border-top: 1px solid rgba(255,255,255,0.1); padding: 64px 24px; } .ds-footer-brand { color: #ffffff; font-weight: 600; font-size: 14px; } .ds-footer-heading { margin-top: 24px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.05em; font-size: 12px; text-decoration: underline; text-underline-offset: 5px; }"
     }
   ],
   "narrative": {
@@ -89,9 +106,11 @@
     ],
     "rules": [
       { "name": "The Function-Only Navy Rule", "body": "Governing Navy never fills a background larger than a focus ring or a small badge. If navy is being used to color a surface rather than a link, label, or outline, that's a violation.", "section": "colors" },
-      { "name": "The Two-Blues Rule", "body": "Chrome Blue (nav) and Governing Navy (accent) are never interchangeable. Chrome Blue always means \"you are in site chrome\"; Governing Navy always means \"this is an interactive/functional content element.\"", "section": "colors" },
+      { "name": "The Two-Blues Rule", "body": "Chrome Blue (nav/page-header) and Governing Navy (accent) are never interchangeable. Chrome Blue always means \"you are in site chrome or a page's own header band\"; Governing Navy always means \"this is an interactive/functional content element.\" Chrome Blue currently spans two tokens (--color-nav and --color-page-header) set to the same value by choice.", "section": "colors" },
       { "name": "The One-Family Rule", "body": "Every weight and size on the site comes from Geist. A second family is never introduced for \"variety\"; hierarchy comes from size and weight steps only.", "section": "typography" },
-      { "name": "The Always-Lifted Rule", "body": "A .card-surface element is never shadowless. If a new elevated surface is added without a resting shadow, it isn't following this system.", "section": "elevation" }
+      { "name": "The Always-Lifted Rule", "body": "A .card-surface element is never shadowless. If a new elevated surface is added without a resting shadow, it isn't following this system.", "section": "elevation" },
+      { "name": "The Grain-Is-Local Rule", "body": ".card-textured's noise layer is a self-contained SVG data URI, not a network-fetched image (unlike the homepage's AmbientShadow, which does fetch Framer-hosted textures). Prefer this pattern for any future texture that must never silently fail to load.", "section": "elevation" },
+      { "name": "The Default Card Rule", "body": ".card-textured is the default card surface, not a special case reserved for one page. Any new card grid should reach for .card-surface .card-surface-hover .card-textured together unless there's a specific reason to keep a card flatter (e.g. a nested secondary card inside another card, where the outer card already carries the texture).", "section": "elevation" }
     ],
     "dos": [
       "Do spend Governing Navy (#2b3a67) only on links, focus rings, and eyebrow labels — function, never fill.",
@@ -103,10 +122,11 @@
     "donts": [
       "Don't introduce a second typeface. Geist carries the entire system; hierarchy comes from weight/size, not font-pairing.",
       "Don't use gradient text (background-clip: text + gradient) anywhere; this system uses solid Ink or Governing Navy for emphasis.",
-      "Don't build hero-metric blocks (big number + small label + gradient accent) — this is an institutional consortium site, not a SaaS product pitch.",
+      "Don't add a *new* hero-metric block (big number + small label + gradient accent) without asking — the homepage's StatRow is exactly this pattern and is a deliberate, standing exception (flagged in a design critique, removed, then explicitly restored by the user), not a precedent for adding more.",
       "Don't add a tiny uppercase tracked eyebrow to every single section reflexively.",
       "Don't use border-left/border-right as a colored accent stripe on cards or callouts.",
-      "Don't let Chrome Blue (nav) and Governing Navy (accent) bleed into each other's role."
+      "Don't let Chrome Blue (nav/page-header) and Governing Navy (accent) bleed into each other's role.",
+      "Don't reintroduce a per-page dark CTA banner (the old CTASection component, deleted). The Footer is now the site's one closing dark element."
     ]
   }
 }

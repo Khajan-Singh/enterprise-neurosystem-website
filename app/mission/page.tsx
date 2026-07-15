@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
-import { CTASection } from "@/components/CTASection";
 import { SectionSidebar } from "@/components/SectionSidebar";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
@@ -133,13 +132,6 @@ export default function MissionPage() {
           </div>
         </Container>
       </section>
-
-      <CTASection
-        title="See how the mission takes shape"
-        description="The Charter defines how the community is governed; the Board leads it; the Projects and Workstreams are where the mission becomes practice."
-        primary={{ href: "/charter", label: "Read the charter" }}
-        secondary={{ href: "/projects", label: "See the projects" }}
-      />
     </>
   );
 }

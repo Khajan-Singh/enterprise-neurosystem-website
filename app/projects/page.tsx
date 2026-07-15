@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProjectCard } from "@/components/ProjectCard";
-import { CTASection } from "@/components/CTASection";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 import { projects } from "@/data/projects";
@@ -45,19 +44,12 @@ export default function ProjectsPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, i) => (
               <Reveal key={project.name} delay={0.04 * (i % 3)}>
-                <ProjectCard project={project} />
+                <ProjectCard project={project} textured />
               </Reveal>
             ))}
           </div>
         </Container>
       </section>
-
-      <CTASection
-        title="Platform work happens in the workstreams"
-        description="The digital asset catalog and AI signal processing framework are where these projects plug in."
-        primary={{ href: "/workstreams", label: "See workstreams" }}
-        secondary={{ href: "/contact", label: "Get involved" }}
-      />
     </>
   );
 }

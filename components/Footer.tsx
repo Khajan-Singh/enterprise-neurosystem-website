@@ -33,7 +33,7 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-bg-subtle">
+    <footer className="border-t border-bg/10 bg-ink">
       <Container className="grid gap-10 py-16 sm:grid-cols-2 md:grid-cols-4">
         <div className="sm:col-span-2 md:col-span-1">
           <div className="flex items-center gap-2">
@@ -44,11 +44,11 @@ export function Footer() {
               height={82}
               className="h-6 w-auto rounded-sm"
             />
-            <p className="font-display text-sm font-semibold tracking-tight text-ink">
+            <p className="font-display text-sm font-semibold tracking-tight text-bg">
               Enterprise Neurosystem
             </p>
           </div>
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-muted">
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-bg/70">
             An open source AI research community treating the planet&apos;s
             species and ecosystems as a single system.
           </p>
@@ -56,7 +56,7 @@ export function Footer() {
 
         {columns.map((col) => (
           <div key={col.heading}>
-            <p className="text-xs font-medium uppercase tracking-wide text-ink-muted underline underline-offset-5">
+            <p className="text-xs font-medium uppercase tracking-wide text-bg/70 underline underline-offset-5">
               {col.heading}
             </p>
             <ul className="mt-4 flex flex-col gap-2.5">
@@ -64,7 +64,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-ink-muted transition-colors hover:text-ink"
+                    className="text-sm text-bg/70 transition-colors hover:text-bg"
                   >
                     {link.label}
                   </Link>
@@ -75,8 +75,8 @@ export function Footer() {
         ))}
       </Container>
 
-      <div className="border-t border-line">
-        <Container className="flex flex-col gap-2 py-6 text-xs text-ink-muted sm:flex-row sm:items-center sm:justify-between">
+      <div className="border-t border-bg/10">
+        <Container className="flex flex-col gap-2 py-6 text-xs text-bg/60 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Enterprise Neurosystem.</p>
           <p>Documentation and marketing content licensed CC BY.</p>
         </Container>

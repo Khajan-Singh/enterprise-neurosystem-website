@@ -52,6 +52,15 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   cards now sit at the top of the Contact page). Each route is a plain server component; the
   only client components are ones that need interactivity/browser APIs (`Nav`, `Reveal`,
   `NeuralGlobe`, `SectionSidebar`, `etheral-shadow` — all marked `"use client"`).
+- **`components/Nav.tsx`** is permanently translucent/blurred (`bg-nav/70`, `backdrop-blur-sm`) —
+  there is no scroll-triggered solid-to-transparent toggle (removed on purpose; it caused a
+  visible lag/jump). "Mission", "Charter", and "Board" are grouped under an "About" dropdown
+  rather than flat top-level links: it opens on hover, and a click "pins" it open (stays open
+  after the mouse leaves until clicked again, a link is picked, Escape is pressed, or a click
+  lands outside it). Its panel is horizontally centered under the trigger
+  (`left-1/2 -translate-x-1/2`); the gap between trigger and panel is `padding` (`pt-3` on the
+  wrapper), not `margin` — a margin-based gap creates a dead zone the mouse can "fall through,"
+  closing the menu before the pointer reaches the panel.
 - **Content vs. presentation split.** `data/board.ts` and `data/projects.ts` export typed arrays
   consumed by `BoardCard`/`ProjectCard`/the workstreams page — edit data there, not in JSX.
   Longer prose (mission, charter) lives inline in each page file as a `sections` array (`id`,
@@ -75,19 +84,32 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   interchangeable: `--color-nav` (the nav bar / homepage's blue sections) and
   `--color-page-header` (the header band at the top of every non-homepage page) — see
   `DESIGN.md`'s "Two-Blues Rule".
-- **`.card-surface` / `.card-surface-hover`** in `globals.css` are the shared elevation/shadow
-  utilities used by every card-like surface across the site (project cards, board cards,
-  workstream entries, forms) — reuse these instead of ad hoc `shadow-*` classes so elevation
-  stays consistent.
+- **`.card-surface` / `.card-surface-hover` / `.card-textured`** in `globals.css` are the shared
+  elevation utilities used by every card-like surface across the site — reuse these instead of ad
+  hoc `shadow-*`/`border-*` classes so elevation stays consistent. `.card-surface` is the base
+  shadow (resting + hover-intensified); `.card-textured` layers a gradient sheen, a self-contained
+  SVG grain overlay, and a darker two-tone border (`color-mix` 30% ink at rest → 45% on hover) on
+  top of it, and is now the *default* — every card and pill on the site uses all three classes
+  together (`card-surface card-surface-hover card-textured`), including `BoardCard`, `ProjectCard`,
+  the Workstreams/Press/Contact page cards, the homepage's intro quote card, and the organization
+  pills in `LogoWall`. There are no remaining plain (non-textured) cards; don't add a new one
+  without a specific reason (e.g. a card nested inside another card).
 - **`components/AmbientShadow.tsx`** wraps `components/ui/etheral-shadow.tsx` (a Framer
   Motion–animated SVG-filter background effect) with this site's navy color and motion settings
-  baked in — it's applied behind the homepage's blue (`bg-nav`) sections and every page's blue
-  header band. Use `<AmbientShadow opacity={n} />` rather than importing `EtherealShadow`
-  directly, so the effect's color/animation config stays in one place. The parent section needs
-  `relative overflow-hidden` and its `Container` needs `relative` so content stacks above it (see
-  any page-header section for the pattern) — but put `overflow-hidden` on the shadow's own
-  wrapper div (as done in `Nav.tsx`), not on an element that also contains an absolutely
-  positioned popover/dropdown, or the popover gets clipped too.
+  baked in — it's applied behind the homepage's blue (`bg-nav`) sections, every page's blue
+  header band, and the nav bar itself. Use `<AmbientShadow opacity={n} />` rather than importing
+  `EtherealShadow` directly, so the effect's color/animation config stays in one place. The parent
+  section needs `relative overflow-hidden` and its `Container` needs `relative` so content stacks
+  above it (see any page-header section for the pattern) — but put `overflow-hidden` on the
+  shadow's own wrapper div (as done in `Nav.tsx`), not on an element that also contains an
+  absolutely positioned popover/dropdown, or the popover gets clipped too. Note this fetches its
+  noise/mask textures from Framer's CDN (a real external dependency); `.card-textured`'s grain is
+  a self-contained SVG data URI instead — prefer that pattern for anything that must never
+  silently fail to load.
+- **`components/Footer.tsx`** is now the site's single closing dark element (`bg-ink`, light text
+  at 70%/60% opacity, `border-bg/10` hairlines). There is no more per-page dark CTA banner — the
+  old `components/CTASection.tsx` was deleted once every page's CTA was removed; don't reintroduce
+  one without discussing it first.
 - **`components/Reveal.tsx`** wraps Framer Motion's scroll-triggered fade/slide-in and
   auto-disables via `useReducedMotion()`; it's the standard way content enters on scroll
   throughout the site — reuse it rather than adding bespoke motion.

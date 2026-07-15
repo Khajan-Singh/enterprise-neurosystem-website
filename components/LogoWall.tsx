@@ -25,7 +25,7 @@ export function LogoWall({
         {organizations.map((org) => (
           <li
             key={org}
-            className="rounded-full border border-ink/30 bg-bg px-4 py-1.5 font-display text-sm font-semibold text-ink"
+            className="card-surface card-surface-hover card-textured rounded-full px-4 py-1.5 font-display text-sm font-semibold text-ink"
           >
             {org}
           </li>

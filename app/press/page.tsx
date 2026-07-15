@@ -36,10 +36,10 @@ export default function PressPage() {
 
       <section>
         <Container className="py-20">
-          <div className="flex max-w-3xl flex-col divide-y divide-line">
+          <div className="flex max-w-3xl flex-col gap-6">
             {releases.map((release, i) => (
               <Reveal key={release.title} delay={0.05 * i}>
-                <article className="py-8 first:pt-0">
+                <article className="card-surface card-surface-hover card-textured rounded-2xl p-8">
                   <h2 className="font-display text-xl font-semibold text-ink">
                     {release.title}
                   </h2>

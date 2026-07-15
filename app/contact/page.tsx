@@ -49,7 +49,7 @@ export default function ContactPage() {
           <div className="grid gap-6 sm:grid-cols-3">
             {paths.map((path, i) => (
               <Reveal key={path.title} delay={0.06 * i}>
-                <div className="card-surface card-surface-hover flex h-full flex-col gap-3 rounded-2xl bg-bg p-6">
+                <div className="card-surface card-surface-hover card-textured flex h-full flex-col gap-3 rounded-2xl p-6">
                   <h2 className="font-display text-lg font-semibold text-ink">
                     {path.title}
                   </h2>
