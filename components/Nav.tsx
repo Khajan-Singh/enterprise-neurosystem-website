@@ -24,7 +24,6 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [aboutPinned, setAboutPinned] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const aboutRef = useRef<HTMLDivElement>(null);
 
   const closeAbout = () => {
@@ -33,13 +32,6 @@ export function Nav() {
   };
 
   const aboutActive = aboutLinks.some((link) => link.href === pathname);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     if (!aboutOpen) return;
@@ -60,13 +52,7 @@ export function Nav() {
   }, [aboutOpen]);
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b transition-all duration-300 ${
-        scrolled
-          ? "border-nav-line/60 bg-nav/70 shadow-[0_8px_30px_-12px_rgba(22,23,26,0.25)] backdrop-blur-sm"
-          : "border-nav-line bg-nav"
-      }`}
-    >
+    <header className="sticky top-0 z-50 border-b border-nav-line/60 bg-nav/70 shadow-[0_8px_30px_-12px_rgba(22,23,26,0.1)] backdrop-blur-sm">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <AmbientShadow opacity={0.1} />
       </div>
