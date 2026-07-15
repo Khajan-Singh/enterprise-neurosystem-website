@@ -4,7 +4,6 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { StatRow } from "@/components/StatRow";
 import { LogoWall } from "@/components/LogoWall";
 import { ProjectCard } from "@/components/ProjectCard";
-import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
 import { NeuralGlobe } from "@/components/NeuralGlobe";
 import { AmbientShadow } from "@/components/AmbientShadow";
@@ -85,7 +84,7 @@ export default function Home() {
             />
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="card-surface flex flex-col gap-6 rounded-2xl bg-bg p-8">
+            <div className="card-surface card-surface-hover card-textured flex flex-col gap-6 rounded-2xl p-8">
               <p className="text-base leading-relaxed text-ink-muted">
                 &ldquo;Humanity must directly engage with AI, as the combined
                 effect of human and machine deterministic capabilities is
@@ -103,7 +102,7 @@ export default function Home() {
 
       {/* Global network / stat context */}
       <section>
-        <Container className="py-24">
+        <Container className="py-20">
           <Reveal>
             <SectionHeading
               eyebrow="The Global AI Network"
@@ -123,7 +122,7 @@ export default function Home() {
       {/* Featured projects */}
       <section className="relative overflow-hidden border-t border-nav-line bg-nav">
         <AmbientShadow />
-        <Container className="relative py-24">
+        <Container className="relative py-17">
           <Reveal>
             <SectionHeading
               eyebrow="Projects"
@@ -134,7 +133,7 @@ export default function Home() {
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project, i) => (
               <Reveal key={project.name} delay={0.05 * i}>
-                <ProjectCard project={project} />
+                <ProjectCard project={project} textured />
               </Reveal>
             ))}
           </div>
@@ -150,13 +149,6 @@ export default function Home() {
           </Reveal>
         </Container>
       </section>
-
-      <CTASection
-        title="Join a workstream"
-        description="Contribute to the self-describing digital asset catalog or the AI signal processing framework — our consortium is a community, welcome to all."
-        primary={{ href: "/contact", label: "Get involved" }}
-        secondary={{ href: "/workstreams", label: "See workstreams" }}
-      />
     </>
   );
 }

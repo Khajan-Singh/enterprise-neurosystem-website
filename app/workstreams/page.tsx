@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
-import { CTASection } from "@/components/CTASection";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 import { workstreams } from "@/data/projects";
@@ -32,7 +31,7 @@ export default function WorkstreamsPage() {
         <Container className="flex flex-col gap-8 py-20">
           {workstreams.map((ws, i) => (
             <Reveal key={ws.name} delay={0.06 * i}>
-              <article className="card-surface flex flex-col gap-4 rounded-2xl bg-bg p-8 sm:p-10">
+              <article className="card-surface card-surface-hover card-textured flex flex-col gap-4 rounded-2xl p-8 sm:p-10">
                 <h2 className="font-display text-xl font-semibold text-ink sm:text-2xl">
                   {ws.name}
                 </h2>
@@ -52,12 +51,6 @@ export default function WorkstreamsPage() {
           ))}
         </Container>
       </section>
-
-      <CTASection
-        title="Join the effort"
-        description="Interested contributors can join a workstream through community onboarding."
-        primary={{ href: "/contact", label: "Get involved" }}
-      />
     </>
   );
 }

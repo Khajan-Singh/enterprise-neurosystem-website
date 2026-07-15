@@ -111,3 +111,29 @@ body {
     transform: none;
   }
 }
+
+/*
+  Textured card surface
+  --------------------------------------------------------------
+  A soft top-lit gradient plus a fine grain overlay (self-contained SVG
+  data URI, no network dependency) so cards read as a tactile raised
+  surface rather than flat white — used on the Projects page grid.
+*/
+.card-textured {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(
+      120% 120% at 50% -10%,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0) 55%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #f1f1ee 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-blend-mode: normal, normal, overlay;
+  border-width: 1.25px;
+  border-color: color-mix(in srgb, var(--color-ink) 30%, var(--color-line));
+}
+
+.card-textured.card-surface-hover:hover {
+  border-color: color-mix(in srgb, var(--color-ink) 45%, var(--color-line));
+}

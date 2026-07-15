@@ -2,7 +2,7 @@ const stats = [
   { value: "190+", label: "Participants" },
   { value: "30+", label: "Companies & institutions" },
   { value: "9+", label: "Active climate/AI projects" },
-  {value: "Open Source", label: "Research Community"},
+  {value: "Open", label: "Research Community"},
 ];
 
 export function StatRow() {

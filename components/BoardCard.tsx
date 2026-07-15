@@ -3,7 +3,7 @@ import { BoardMember } from "@/data/board";
 
 export function BoardCard({ member }: { member: BoardMember }) {
   return (
-    <article className="card-surface card-surface-hover flex h-full flex-col gap-3 rounded-2xl bg-bg p-6">
+    <article className="card-surface card-surface-hover card-textured flex h-full flex-col gap-3 rounded-2xl p-6">
       <div className="flex items-center gap-4">
         <Image
           src={member.image}
