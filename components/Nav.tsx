@@ -122,7 +122,7 @@ export function Nav() {
             </button>
 
             {aboutOpen && (
-              <div className="absolute left-0 top-full z-10 w-48 pt-3">
+              <div className="absolute left-1/2 top-full z-10 w-48 -translate-x-1/2 pt-3">
                 <div className="rounded-xl border border-line bg-bg py-2 shadow-[0_20px_36px_-16px_rgba(22,23,26,0.22)]">
                   {aboutLinks.map((link) => {
                     const active = pathname === link.href;
