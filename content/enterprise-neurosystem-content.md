@@ -188,6 +188,171 @@ the Governing Board / sector representation process.
 - **Community:** Press Releases · Get involved · Projects · Workstreams
 - **Contact**
 
+## Project Overview Deck (2026)
+
+> Extracted from `Enterprise_Neurosystem_Project_Overview_Redesigned.pptx` (17 slides, 31 photos),
+> supplied 2026-07-15. This is a current strategic overview — sharper and more concrete than the
+> scraped site content above. Where the two conflict, this deck reflects the newer story and
+> should generally win; the sections below drive `/vision`, `/projects/uganda`, `/partners`,
+> and `/nlip`, plus the homepage rewrite.
+
+### Positioning (slide 1)
+
+**"Internet of Nature · Planetary AI · Equal Access for All"**
+**"A Global AI Architecture for Environmental Intelligence — Enterprise Neurosystem"**
+
+### The Vision (slide 2)
+
+- A single global AI neurology, with equal access for all nations.
+- Analyzes natural systems on a global scale to understand environmental impacts on the plant
+  and animal species of the world — **the Internet of Nature**.
+- Integrates existing projects — satellite networks, and atmospheric, oceanic, seismic and
+  agricultural sensors — for deeper AI cross-correlation.
+- Enables access for developing nations to current AI models, historical data, and sharing of
+  indigenous knowledge of local habitats and species.
+- Acts as an early warning architecture, and an AI recommendation engine for course-correction.
+
+### How It Works (slide 3)
+
+Satellites and other atmospheric/oceanic observation methods are already in place, alongside
+mobile and satellite communications networks. Sensors will be placed among key species, forests,
+crops and natural resources — monitoring waterways, soil, atmospheric pollution, and other areas
+of human impact. Sensors pass data to the primary network, then to AI instances in each country
+for real-time pattern analysis. AI cross-correlates real-time data with historical data by area.
+Deeper early-warning patterns emerge: population density levels for multiple species,
+deforestation, soil moisture levels, agricultural monitoring, flood and drought conditions,
+atmospheric pollution, wildfire risks, irrigation levels, and so on. With all this data, highly
+accurate AI early-warning predictions and new course-correction recommendations become possible.
+
+### The Payoff (slide 4)
+
+A single AI network — with global-scale data and pattern identification — provides the first
+complete picture of our planetary environment, via a single unified global AI architecture,
+enabled by satellites, sensors and mobile networks. This provides the most accurate early
+warning capability possible, plus course-correction recommendations for species preservation,
+agriculture resilience, and water resource optimization.
+
+**This provides parity for developing nations** — equal access to the same shared AI resources
+as every other country — **and eliminates bias**, since today only a small group of wealthy
+nations has access to large data sets and deep environmental analysis.
+
+Ancillary benefit: over time, species communications (acoustics, behavioral, etc.) will be
+analyzed for patterns across thousands of species — **a Rosetta Stone for animal and insect
+communications**.
+
+Slide 5: "Leading to a single AI observation, analysis and early warning platform."
+
+### Uganda Project (slides 6–11, 16)
+
+**Uganda Ministry of Science, Technology and Innovation (STI) — Economic Development.**
+Uganda's Chief Scientist contacted the Enterprise Neurosystem following a UNFCCC panel
+discussion at COP 29. The STI was formed by the Presidency to drive a stronger economic
+foundation via advanced technology — Uganda now has an electric bus factory and lithium battery
+production coming online, with materials largely sourced in-country using 100% renewable energy.
+Four economic enablement projects: an AI LLM Foundation Model, cloud data centers, a climate
+change early warning system, and advanced IT training. A national network of environmental
+sensors, in partnership with the Enterprise Neurosystem and **JPL/Caltech**, has been approved
+for funding by the Minister of STI.
+
+**National AI Sensor Network — Bwindi.** The ENS team visited Uganda for STI Ministry
+government meetings, and toured the **Bwindi Impenetrable Forest** and its mountain gorillas. It
+became evident this area would be an ideal site for a sensor monitoring project. Bwindi is
+proposed as the first site for a national AI sensor network to monitor environment and
+resources, via advanced sensor development and deployment; **JPL/Caltech and the Enterprise
+Neurosystem will codevelop these capabilities with Ugandan universities and scientists.**
+
+**Lake Victoria.** Millions of Africans rely on Lake Victoria for fresh water, agriculture, and
+power — the heart of the Nile River, which supports agriculture across Egypt and Sudan. Sewage,
+climate change and agricultural runoff have caused algal blooms leading to "dead zones" for
+marine life. AI analysis can surface the deeper causes and conditions, and in time, recommend
+course correction.
+
+**Robotic Sensor Project.** Uganda's Space and Aeronautics Ministry proposed creating a robotic
+sensor with AI capabilities to monitor Lake Victoria. The Enterprise Neurosystem has been
+engaged to develop this project; a full-stack architecture has been designed for the AI
+infrastructure, with sensor design/implementation now underway. **JPL/Caltech** formally
+partners on sensor and network technology design and knowledge transfer to Uganda; **Makerere
+University** also partners on environmental sensor and AI model design. Immediate economic
+benefits: water and agriculture security, and wide-scale species preservation. Uganda's deep
+manufacturing capabilities mean it will manufacture the advanced sensors required for a global
+environmental analysis network.
+
+**The National Network Effect.** Lake Victoria and Bwindi will be networked together, providing
+a unified frame of analysis; over time, agricultural regions, forests and wetlands across the
+country will be added. Thousands of ecosystems and impacts can then be analyzed and charted in
+real time, with AI's 24/7 capability providing ongoing analysis around the clock. **This network
+effect is managed by Uganda — the data remains in Uganda, shared for scientific and business
+value on Uganda's own terms.**
+
+**Crane National AI Model / Atomic Language Model (ALM).** Developed with the Uganda Crane AI
+team and the Enterprise Neurosystem. Larger LLMs present power-consumption and raw-compute
+issues that make their climate impact and business model unsustainable at this scale. The
+Atomic Model is **50KB in size**, based on Ugandan (Bantu) languages, and runs on standard
+non-GPU chipsets and small IoT devices — sensors, Raspberry Pi, 2G phones, etc. — based on
+mathematical principles popularized by the **UOR Foundation** to drive greater AI efficiency.
+
+### United Nations, USDA and Global Engagement (slides 12–13)
+
+- Active support of UNFCCC and UN University programs.
+- Built and sponsored the **UNFCCC TEC and CTCN AI Grand Challenges**.
+- Participate in the **United Nations & ITU Early Warning 4 All (EW4All) Initiative**.
+- Partnered with the **UAE and USDA** on the AI Grand Challenge competition for innovations in
+  smart agriculture.
+- Co-creation of new enablement initiatives at **COP 28 and COP 29** (AI Grand Challenge, etc.).
+  Delivered keynote talks on AI technology at **Africa Climate Week** and **Asia Pacific Climate
+  Week**.
+- AI presentations delivered at the UNFCCC TEC/CTCN joint meetings in Korea and Germany.
+- **UNFCCC AI Innovation Grand Challenge** (hosted 2024, with UNFCCC TEC) — supports AI
+  innovators in developing nations. **Winner: Dr. Letetia Addison**, University of West Indies,
+  Trinidad and Tobago, for her **AI4SIDS** platform proposal. Open-source AI applications made
+  available free of charge to developing nations.
+
+### CalTech / JPL and The Nature Conservancy (slide 14)
+
+The JPL–Enterprise Neurosystem engagement began at a United Nations University event in Bonn,
+Germany. Meetings were then held at JPL/Caltech and NCEAS to discuss the Enterprise Neurosystem
+concept and architecture. **The Dangermond Preserve will be the first deployment of the EN
+architecture in the US** — incorporating integrated satellite data, atmospherics, ground sensors
+and multi-species analysis into a global data fabric and API integration framework, imbued with
+AI cross-correlation. Applications extend to Earth analysis and planetary exploration. **David
+Schimel** (Nobel Peace Prize) is the JPL executive sponsor for this project, pictured with
+**Ravi Sinha**.
+
+### NLIP — Natural Language Interaction Protocol (slide 15)
+
+**Dr. Dinesh Verma** (IBM Research and Enterprise Neurosystem CTO) proposed a universal chatbot
+for all consumer mobile applications, and realized that approach — and the EN architecture in
+turn — requires a GenAI-to-GenAI communications protocol as a global standard. He initiated an
+Enterprise Neurosystem community project, **NLIP**, recently **adopted by ECMA as a global
+standard and working group**. Backers now include **Cisco, Hewlett Packard, Hitachi, IBM,
+Microsoft, Red Hat** and multiple academic institutions.
+
+### Closing CTA (slide 17)
+
+"**SUPPORT THE MISSION · VOLUNTEER YOUR EXPERTISE · JOIN THE NETWORK** — Join Us. Change the
+Planet." The Enterprise Neurosystem is looking for philanthropic partners, volunteer scientists,
+AI engineers & network architects. Contact: **Bill Wright**, Chair, Enterprise Neurosystem,
++1-415-710-5207.
+
+### Deck photo → site asset mapping
+
+| Site asset | Slide | Description |
+| --- | --- | --- |
+| `public/uganda/bwindi-gorilla.jpg` | 8 | Mountain gorilla, Bwindi Impenetrable Forest |
+| `public/uganda/team-and-rangers.jpg` | 8 | ENS team with Uganda Wildlife Authority rangers, Bwindi |
+| `public/uganda/bwindi-forest-mist.jpg` | 8 | Misty forest/lake landscape near Bwindi |
+| `public/uganda/aerial-lake.jpg` | 9/10 | Aerial view, lake near Bwindi region |
+| `public/uganda/lake-victoria-aerial-1.jpg` | 9 | Aerial view of Lake Victoria shoreline, algal bloom visible |
+| `public/uganda/lake-victoria-aerial-2.jpg` | 9 | Aerial view of Lake Victoria, algal bloom visible |
+| `public/uganda/sensor-boards.jpg` | 10 | Robotic sensor circuit boards in development |
+| `public/uganda/sti-ministry-meeting-1.jpg` | 7 | Uganda STI Ministry event/meeting |
+| `public/uganda/sti-ministry-meeting-2.jpg` | 7 | Uganda STI Ministry delegation group photo |
+| `public/uganda/manufacturing-factory.jpg` | 7 | Ugandan manufacturing facility (machine tooling) |
+| `public/jpl/dangermond-coastline.jpg` | 14 | Dangermond Preserve coastline |
+| `public/jpl/dangermond-historical-imagery-tool.jpg` | 14 | TNC Dangermond historical-imagery mapping tool |
+| `public/jpl/schimel-and-sinha.jpg` | 14 | David Schimel (JPL) and Ravi Sinha |
+| `public/partners/unfccc-grand-challenge-winner.jpg` | 13 | Dr. Letetia Addison receiving the UNFCCC TEC AI Innovation Grand Challenge award, COP 29 |
+
 ## Design references (for later visual pass — not yet finalized)
 
 - **askshepherd.ai:** minimal light/off-white background, modern sans-serif, large bold

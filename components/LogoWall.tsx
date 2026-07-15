@@ -1,4 +1,4 @@
-const organizations = [
+const defaultOrganizations = [
   "Stanford SLAC",
   "UC Berkeley",
   "IBM Research",
@@ -13,8 +13,10 @@ const organizations = [
 
 export function LogoWall({
   label = "Participants come from organizations including",
+  organizations = defaultOrganizations,
 }: {
   label?: string;
+  organizations?: string[];
 }) {
   return (
     <div>
