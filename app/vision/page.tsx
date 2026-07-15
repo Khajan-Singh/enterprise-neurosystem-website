@@ -74,7 +74,7 @@ const sections = [
     id: "architecture",
     title: "Architecture",
     body: [
-      "Every yellow circle is a sensor network of its own — sometimes thousands of nodes strong. They sit wherever there's something to watch: rivers, jungles, fish farms, ant colonies, plant species, and the networks described above. A first tier of AI, wired directly to each network, reads the real-time data and picks out the patterns.",
+      "Every yellow circle is a sensor network of its own. They sit wherever there's something to watch: rivers, jungles, fish farms, ant colonies, plant species, and the networks described above. A first tier of AI, wired directly to each network, reads the real-time data and picks out the patterns.",
       "Those patterns and anomalies climb to a second tier — regional AI — which folds them into a larger analysis. From there it's countrywide: every sensor, one architecture, one holistic view of how climate change is moving through species, resources, and farmland. And it doesn't stop at any border — the same architecture scales up again to measure pollution and climate impact across the whole planet.",
     ],
   },
@@ -192,8 +192,8 @@ export default function VisionPage() {
                   )}
 
                   {section.id === "architecture" && (
-                    <div className="mt-6 grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-start lg:gap-10">
-                      <div className="card-surface card-surface-hover card-textured rounded-2xl p-4 sm:p-6">
+                    <div className="mt-6 grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-stretch lg:gap-10">
+                      <div className="card-surface card-surface-hover card-textured flex min-h-[420px] items-center justify-center rounded-2xl p-4 sm:p-6 lg:min-h-0">
                         <ArchitectureDiagram />
                       </div>
                       <div className="flex flex-col gap-4 pt-2 text-base leading-relaxed text-ink-muted sm:text-lg">
