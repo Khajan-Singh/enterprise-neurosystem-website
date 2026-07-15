@@ -6,22 +6,36 @@ type Node = { x: number; y: number; r: number; label: string; kind: "sn" | "ai" 
 type Edge = { from: Node; to: Node; delay: number };
 
 // Three clusters of sensor networks (SN), each feeding one mid-tier AI
-// node, all three converging on a single root AI node below. Cluster
-// spacing is derived from the fan's own trig so adjacent clusters never
-// overlap, and canvas bounds are set tight around the actual content so
-// the tree fills its box instead of floating in empty space.
-const FAN_DIST = 175;
-const FAN_HALF_ANGLE = 65; // degrees
-const SN_R = 30;
-const MID_R = 46;
-const MID_Y = 250;
+// node, all three converging on a single root AI node below. The card
+// this renders into is portrait (narrower than it is tall), so the SN
+// fan's horizontal spread and its vertical distance from the mid AI
+// node are deliberately decoupled: FAN_ARC_R controls how wide/arced
+// the fan looks (kept modest so three clusters fit side by side without
+// overlapping), while FAN_LIFT is a separate, large vertical offset that
+// pushes the whole fan up and away from its mid node. Coupling both to
+// a single trig radius (as a true polar fan would) forces the canvas
+// into a wide/landscape shape that gets badly letterboxed inside a
+// portrait card; decoupling them lets the diagram stretch tall — SN
+// fan up near the top, mid AI row centered lower, root AI near the
+// bottom — filling the card's full height instead of leaving a long
+// empty gap under a cluster of tiny nodes.
+const FAN_ARC_R = 380;
+const FAN_HALF_ANGLE = 36; // degrees
+const FAN_LIFT = 1183;
+const SN_R = 55;
+const MID_R = 100;
+const ROOT_R = 135;
+const MID_Y = 1658;
+const ROOT_GAP = 1128; // vertical distance from the mid AI row down to the root
+const MARGIN = 40;
 
-const CLUSTER_SPACING = 420;
-const CLUSTER_CENTERS = [230, 230 + CLUSTER_SPACING, 230 + CLUSTER_SPACING * 2];
-const CANVAS_W = CLUSTER_CENTERS[2] + FAN_DIST + SN_R + 40;
-const ROOT: Node = { x: CLUSTER_CENTERS[1], y: 590, r: 85, label: "AI", kind: "root" };
-const ARROW_LEN = 110;
-const CANVAS_H = ROOT.y + ROOT.r + 8 + ARROW_LEN + 40;
+const CLUSTER_SPACING = 580;
+const FAN_REACH = FAN_ARC_R * Math.sin((FAN_HALF_ANGLE * Math.PI) / 180);
+const CENTER_X = CLUSTER_SPACING + FAN_REACH + SN_R + MARGIN;
+const CLUSTER_CENTERS = [CENTER_X - CLUSTER_SPACING, CENTER_X, CENTER_X + CLUSTER_SPACING];
+const CANVAS_W = CENTER_X * 2;
+const ROOT: Node = { x: CENTER_X, y: MID_Y + ROOT_GAP, r: ROOT_R, label: "AI", kind: "root" };
+const CANVAS_H = ROOT.y + ROOT.r + MARGIN;
 
 function buildCluster(cx: number): { mid: Node; sn: Node[] } {
   const mid: Node = { x: cx, y: MID_Y, r: MID_R, label: "AI", kind: "ai" };
@@ -29,8 +43,8 @@ function buildCluster(cx: number): { mid: Node; sn: Node[] } {
     const angleDeg = -FAN_HALF_ANGLE + i * (FAN_HALF_ANGLE / 2);
     const angle = (angleDeg * Math.PI) / 180;
     return {
-      x: cx + FAN_DIST * Math.sin(angle),
-      y: MID_Y - FAN_DIST * Math.cos(angle),
+      x: cx + FAN_ARC_R * Math.sin(angle),
+      y: MID_Y - FAN_LIFT - FAN_ARC_R * Math.cos(angle),
       r: SN_R,
       label: "SN",
       kind: "sn" as const,
@@ -60,6 +74,23 @@ const allNodes: Node[] = [
 const fillFor = (kind: Node["kind"]) =>
   kind === "sn" ? "var(--color-net-core)" : "var(--color-accent)";
 
+// Trim each edge to the boundary of its target node (rather than its
+// center) so the line visibly flows straight into the node instead of
+// disappearing under it at an angle.
+function trimmedEdge(edge: Edge) {
+  const dx = edge.to.x - edge.from.x;
+  const dy = edge.to.y - edge.from.y;
+  const dist = Math.hypot(dx, dy);
+  const ux = dx / dist;
+  const uy = dy / dist;
+  return {
+    x1: edge.from.x + ux * edge.from.r,
+    y1: edge.from.y + uy * edge.from.r,
+    x2: edge.to.x - ux * edge.to.r,
+    y2: edge.to.y - uy * edge.to.r,
+  };
+}
+
 function Pulse({ edge, reduceMotion }: { edge: Edge; reduceMotion: boolean }) {
   if (reduceMotion) return null;
   return (
@@ -87,10 +118,9 @@ function Pulse({ edge, reduceMotion }: { edge: Edge; reduceMotion: boolean }) {
 /**
  * An animated redraw of the sensor-network / AI hierarchy: three
  * clusters of "SN" sensor networks each feed a mid-tier "AI" node,
- * which converge on a single root AI node — with an arrow below
- * hinting the hierarchy continues to scale outward. Small pulses
- * travel bottom-up in a staggered, looping wave to narrate the data
- * flow described in the Architecture section's text. Respects
+ * which converge on a single root AI node. Small pulses travel
+ * bottom-up in a staggered, looping wave to narrate the data flow
+ * described in the Architecture section's text. Respects
  * prefers-reduced-motion by rendering static nodes/edges with no pulses.
  */
 export function ArchitectureDiagram() {
@@ -100,7 +130,7 @@ export function ArchitectureDiagram() {
     <svg
       viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`}
       role="img"
-      aria-label="Diagram: three clusters of sensor networks each feed a mid-tier AI node, which converge on a single root AI node that scales outward to cross-border analysis."
+      aria-label="Diagram: three clusters of sensor networks each feed a mid-tier AI node, which converge on a single root AI node."
       className="h-full w-full"
     >
       <defs>
@@ -111,62 +141,23 @@ export function ArchitectureDiagram() {
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
-        <marker
-          id="archArrow"
-          viewBox="0 0 10 10"
-          refX="5"
-          refY="8"
-          markerWidth="7"
-          markerHeight="7"
-          orient="auto"
-        >
-          <path d="M0,0 L10,5 L0,10 z" style={{ fill: "var(--color-accent)" }} />
-        </marker>
       </defs>
 
       {/* edges */}
-      {edges.map((edge, i) => (
-        <line
-          key={i}
-          x1={edge.from.x}
-          y1={edge.from.y}
-          x2={edge.to.x}
-          y2={edge.to.y}
-          style={{ stroke: "var(--color-line)" }}
-          strokeWidth={2.5}
-        />
-      ))}
-
-      {/* outward arrow below the root */}
-      <line
-        x1={ROOT.x}
-        y1={ROOT.y + ROOT.r + 8}
-        x2={ROOT.x}
-        y2={ROOT.y + ROOT.r + 8 + ARROW_LEN}
-        style={{ stroke: "var(--color-accent)" }}
-        strokeWidth={5}
-        markerEnd="url(#archArrow)"
-      />
-      {!reduceMotion && (
-        <motion.circle
-          r={6}
-          style={{ fill: "var(--color-net-core)" }}
-          filter="url(#archGlow)"
-          initial={{ cy: ROOT.y + ROOT.r + 16, opacity: 0 }}
-          animate={{
-            cy: [ROOT.y + ROOT.r + 16, ROOT.y + ROOT.r + 8 + ARROW_LEN - 14],
-            opacity: [0, 1, 1, 0],
-          }}
-          transition={{
-            duration: 0.5,
-            delay: 1.4,
-            repeat: Infinity,
-            repeatDelay: 3.5,
-            ease: "easeInOut",
-          }}
-          cx={ROOT.x}
-        />
-      )}
+      {edges.map((edge, i) => {
+        const { x1, y1, x2, y2 } = trimmedEdge(edge);
+        return (
+          <line
+            key={i}
+            x1={x1}
+            y1={y1}
+            x2={x2}
+            y2={y2}
+            style={{ stroke: "var(--color-line)" }}
+            strokeWidth={3}
+          />
+        );
+      })}
 
       {/* traveling pulses */}
       {edges.map((edge, i) => (
@@ -183,7 +174,7 @@ export function ArchitectureDiagram() {
             textAnchor="middle"
             dominantBaseline="central"
             style={{ fill: "#ffffff" }}
-            fontSize={node.kind === "root" ? 30 : node.kind === "sn" ? 16 : 20}
+            fontSize={node.kind === "root" ? 62 : node.kind === "sn" ? 34 : 50}
             fontWeight={700}
           >
             {node.label}
