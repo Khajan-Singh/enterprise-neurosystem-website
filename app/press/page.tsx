@@ -19,27 +19,37 @@ const releases = [
 
 export default function PressPage() {
   return (
-    <section className="border-b border-line">
-      <Container className="py-20 sm:py-28">
-        <Reveal>
-          <SectionHeading eyebrow="Community" title="Press Releases" />
-        </Reveal>
+    <>
+      <section className="border-b border-line bg-page-header">
+        <Container className="pb-10 pt-14 sm:pt-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Community"
+              title="Press Releases"
+              description="News and announcements from the Enterprise Neurosystem community."
+            />
+          </Reveal>
+        </Container>
+      </section>
 
-        <div className="mt-14 flex max-w-3xl flex-col divide-y divide-line">
-          {releases.map((release, i) => (
-            <Reveal key={release.title} delay={0.05 * i}>
-              <article className="py-8 first:pt-0">
-                <h2 className="font-display text-xl font-semibold text-ink">
-                  {release.title}
-                </h2>
-                <p className="mt-3 text-base leading-relaxed text-ink-muted">
-                  {release.summary}
-                </p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </Container>
-    </section>
+      <section>
+        <Container className="py-20">
+          <div className="flex max-w-3xl flex-col divide-y divide-line">
+            {releases.map((release, i) => (
+              <Reveal key={release.title} delay={0.05 * i}>
+                <article className="py-8 first:pt-0">
+                  <h2 className="font-display text-xl font-semibold text-ink">
+                    {release.title}
+                  </h2>
+                  <p className="mt-3 text-base leading-relaxed text-ink-muted">
+                    {release.summary}
+                  </p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+    </>
   );
 }

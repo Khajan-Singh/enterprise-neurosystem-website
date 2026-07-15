@@ -1,8 +1,8 @@
 const stats = [
   { value: "190+", label: "Participants" },
   { value: "30+", label: "Companies & institutions" },
-  { value: "9", label: "Active climate/AI projects" },
-  { value: "2", label: "Open workstreams" },
+  { value: "9+", label: "Active climate/AI projects" },
+  {value: "Open Source", label: "Research Community"},
 ];
 
 export function StatRow() {

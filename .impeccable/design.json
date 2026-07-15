@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-14T00:00:00.000Z",
+  "title": "Design System: Enterprise Neurosystem",
+  "extensions": {
+    "colorMeta": {
+      "accent": { "role": "primary", "displayName": "Governing Navy", "canonical": "#2b3a67", "tonalRamp": ["#0d1220", "#161d33", "#202a4a", "#2b3a67", "#3d5188", "#5b71aa", "#8a9ccb", "#c3ccea"] },
+      "nav": { "role": "secondary", "displayName": "Chrome Blue", "canonical": "#ddeeff", "tonalRamp": ["#0a1a2b", "#123049", "#1c4c72", "#2e6ea0", "#5c9bcb", "#9cc4e4", "#ddeeff", "#f2f9ff"] },
+      "nav-line": { "role": "secondary", "displayName": "Chrome Blue Line", "canonical": "#bcd9f2" },
+      "accent-soft": { "role": "secondary", "displayName": "Accent Soft", "canonical": "#eef1f8" },
+      "net-core": { "role": "tertiary", "displayName": "Signal Orange", "canonical": "#ffa500" },
+      "net-line": { "role": "tertiary", "displayName": "Signal Gray", "canonical": "#737373" },
+      "bg": { "role": "neutral", "displayName": "Paper White", "canonical": "#ffffff" },
+      "bg-subtle": { "role": "neutral", "displayName": "Subtle Paper", "canonical": "#f7f7f5" },
+      "page-header": { "role": "neutral", "displayName": "Header Gray", "canonical": "#e2e2df" },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#16171a" },
+      "ink-muted": { "role": "neutral", "displayName": "Ink Muted", "canonical": "#55585f" },
+      "line": { "role": "neutral", "displayName": "Line", "canonical": "#e4e4e0" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Section and page headings." },
+      "body": { "displayName": "Body", "purpose": "Running prose, card descriptions, form copy." },
+      "label": { "displayName": "Label", "purpose": "Eyebrow labels above page headings; form field labels." }
+    },
+    "shadows": [
+      { "name": "card-resting", "value": "0 1px 2px rgba(22,23,26,0.05), 0 14px 28px -14px rgba(22,23,26,0.18)", "purpose": "Default ambient shadow on every .card-surface element." },
+      { "name": "card-hover", "value": "0 2px 4px rgba(22,23,26,0.06), 0 20px 36px -16px rgba(22,23,26,0.22)", "purpose": "Intensified shadow plus 2px lift on .card-surface-hover:hover." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "ease", "purpose": "Card shadow/border/transform transitions (0.2s)." },
+      { "name": "duration-nav", "value": "300ms", "purpose": "Nav bar scrolled-state transition." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled pill CTA button used for the site's primary actions (Contact, Send message).",
+      "html": "<button class=\"ds-btn-primary\">Send message</button>",
+      "css": ".ds-btn-primary { background: #16171a; color: #ffffff; padding: 12px 24px; border-radius: 9999px; font-size: 14px; font-weight: 500; border: none; transition: opacity 0.2s ease; } .ds-btn-primary:hover { opacity: 0.85; } .ds-btn-primary:focus-visible { outline: 2px solid #2b3a67; outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button (on dark)",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary CTA on the dark CTASection band; bordered, transparent fill.",
+      "html": "<button class=\"ds-btn-ghost\">See the projects</button>",
+      "css": ".ds-btn-ghost { background: transparent; color: #ffffff; padding: 12px 24px; border-radius: 9999px; border: 1px solid rgba(255,255,255,0.3); font-size: 14px; font-weight: 500; transition: border-color 0.2s ease; } .ds-btn-ghost:hover { border-color: rgba(255,255,255,0.6); }"
+    },
+    {
+      "name": "Board / Project Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Ambient-shadow card used for board members, projects, and workstream entries; always populated with specific named content.",
+      "html": "<article class=\"ds-card\"><h3 class=\"ds-card-title\">Bill Wright</h3><p class=\"ds-card-subtitle\">Chair</p><p class=\"ds-card-body\">Enterprise Neurosystem is the brainchild of Bill Wright...</p></article>",
+      "css": ".ds-card { background: #ffffff; border: 1px solid #e4e4e0; border-radius: 16px; padding: 24px; box-shadow: 0 1px 2px rgba(22,23,26,0.05), 0 14px 28px -14px rgba(22,23,26,0.18); transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease; } .ds-card:hover { box-shadow: 0 2px 4px rgba(22,23,26,0.06), 0 20px 36px -16px rgba(22,23,26,0.22); transform: translateY(-2px); border-color: color-mix(in srgb, #16171a 18%, #e4e4e0); } .ds-card-title { font-weight: 600; font-size: 18px; color: #16171a; } .ds-card-subtitle { margin-top: 4px; font-size: 14px; font-weight: 500; color: #2b3a67; } .ds-card-body { margin-top: 12px; font-size: 14px; line-height: 1.6; color: #55585f; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Standard text field used in the Get Involved / Contact forms.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-label\" for=\"ds-name\">Name</label><input class=\"ds-input\" id=\"ds-name\" type=\"text\" /></div>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 8px; } .ds-label { font-size: 14px; font-weight: 500; color: #16171a; } .ds-input { border: 1px solid #e4e4e0; background: #ffffff; border-radius: 8px; padding: 10px 16px; font-size: 14px; color: #16171a; outline: none; } .ds-input:focus-visible { outline: 2px solid #2b3a67; outline-offset: 3px; }"
+    },
+    {
+      "name": "Nav Bar",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Sticky top navigation; Chrome Blue chrome, blurs and pales on scroll.",
+      "html": "<header class=\"ds-nav\"><div class=\"ds-nav-inner\"><span class=\"ds-nav-brand\">Enterprise Neurosystem</span><nav class=\"ds-nav-links\"><a class=\"ds-nav-link ds-nav-link-active\" href=\"#\">Mission</a><a class=\"ds-nav-link\" href=\"#\">Charter</a><a class=\"ds-nav-cta\" href=\"#\">Contact</a></nav></div></header>",
+      "css": ".ds-nav { position: sticky; top: 0; background: #ddeeff; border-bottom: 1px solid #bcd9f2; transition: all 0.3s ease; } .ds-nav-inner { display: flex; align-items: center; justify-content: space-between; height: 96px; padding: 0 24px; } .ds-nav-brand { font-weight: 600; font-size: 18px; color: #16171a; letter-spacing: -0.02em; } .ds-nav-links { display: flex; align-items: center; gap: 32px; } .ds-nav-link { font-size: 16px; color: rgba(22,23,26,0.7); transition: color 0.2s ease; } .ds-nav-link:hover { color: #16171a; } .ds-nav-link-active { font-weight: 600; color: #16171a; } .ds-nav-cta { background: #16171a; color: #ffffff; padding: 10px 20px; border-radius: 9999px; font-size: 16px; font-weight: 500; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Governing Record",
+    "overview": "This system reads like the visual language of a standing institutional body, closer to a charter, a board minutes book, or an annual report than a product marketing site. Surfaces stay near-white and quiet; a single deep navy (accent, #2b3a67) is spent deliberately on links, focus states, and the eyebrow labels that name each page's section, never as decoration. A second, distinct blue (#ddeeff, the nav bar) marks the site's own wayfinding chrome as separate from body content, so navigation always reads as \"the frame,\" not \"the page.\"\n\nThe system explicitly rejects SaaS-landing-page scaffolding: no gradient text, no hero-metric blocks, no glassmorphism, no uniform icon+heading+text card walls repeated as filler. Where cards are used (board members, projects), each one is dense with specific, named content (a real title, a real affiliation, a real bio), never a placeholder pattern stretched to fill a grid.\n\nThe one signature flourish is the neural-globe hero animation: a hand-rolled canvas node-sphere using the muted net-line gray (#737373) and a single warm orange core (#ffa500) as its only saturated color, reserved for that one component.",
+    "keyCharacteristics": [
+      "Near-white, low-chroma surfaces; color is spent on function (links, focus, eyebrows), not atmosphere.",
+      "Two deliberately distinct blues: pale nav-chrome blue vs. deep content-accent navy.",
+      "Cards carry soft ambient shadow at rest and lift further on hover, always specific in content, never generic filler.",
+      "One warm accent (orange) reserved exclusively for the neural-globe animation's core nodes."
+    ],
+    "rules": [
+      { "name": "The Function-Only Navy Rule", "body": "Governing Navy never fills a background larger than a focus ring or a small badge. If navy is being used to color a surface rather than a link, label, or outline, that's a violation.", "section": "colors" },
+      { "name": "The Two-Blues Rule", "body": "Chrome Blue (nav) and Governing Navy (accent) are never interchangeable. Chrome Blue always means \"you are in site chrome\"; Governing Navy always means \"this is an interactive/functional content element.\"", "section": "colors" },
+      { "name": "The One-Family Rule", "body": "Every weight and size on the site comes from Geist. A second family is never introduced for \"variety\"; hierarchy comes from size and weight steps only.", "section": "typography" },
+      { "name": "The Always-Lifted Rule", "body": "A .card-surface element is never shadowless. If a new elevated surface is added without a resting shadow, it isn't following this system.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do spend Governing Navy (#2b3a67) only on links, focus rings, and eyebrow labels — function, never fill.",
+      "Do keep every .card-surface element shadowed at rest (the Always-Lifted Rule); it is never a flat, borderless block.",
+      "Do lead every card or list item with specific, named content rather than a generic icon+heading+text template repeated as filler.",
+      "Do respect prefers-reduced-motion on every new animation, matching the existing pattern in Reveal and NeuralGlobe.",
+      "Do keep body copy within a max-w-3xl (~65-75ch) container for long-form prose pages (Mission, Charter)."
+    ],
+    "donts": [
+      "Don't introduce a second typeface. Geist carries the entire system; hierarchy comes from weight/size, not font-pairing.",
+      "Don't use gradient text (background-clip: text + gradient) anywhere; this system uses solid Ink or Governing Navy for emphasis.",
+      "Don't build hero-metric blocks (big number + small label + gradient accent) — this is an institutional consortium site, not a SaaS product pitch.",
+      "Don't add a tiny uppercase tracked eyebrow to every single section reflexively.",
+      "Don't use border-left/border-right as a colored accent stripe on cards or callouts.",
+      "Don't let Chrome Blue (nav) and Governing Navy (accent) bleed into each other's role."
+    ]
+  }
+}

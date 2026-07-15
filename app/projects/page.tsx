@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <section className="border-b border-line bg-bg-subtle">
-        <Container className="py-20 sm:py-28">
+      <section className="border-b border-line bg-page-header">
+        <Container className="pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
               eyebrow="Community"
@@ -43,7 +43,7 @@ export default function ProjectsPage() {
         title="Platform work happens in the workstreams"
         description="The digital asset catalog and AI signal processing framework are where these projects plug in."
         primary={{ href: "/workstreams", label: "See workstreams" }}
-        secondary={{ href: "/get-involved", label: "Get involved" }}
+        secondary={{ href: "/contact", label: "Get involved" }}
       />
     </>
   );
