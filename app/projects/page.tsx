@@ -16,13 +16,24 @@ export default function ProjectsPage() {
   return (
     <>
       <section className="border-b border-line bg-page-header">
-        <Container className="pb-10 pt-14 sm:pt-20">
+        <Container className="grid gap-8 pb-10 pt-14 sm:pt-20 md:grid-cols-2 md:gap-16">
           <Reveal>
             <SectionHeading
               eyebrow="Community"
               title="Projects"
-              description="We are technology builders with a singular focus: sensor networks, AI models and software applications, IT and communications infrastructure, and a higher-order AI cross-correlation engine in a single global architecture to help monitor and manage climate change events."
+              description="We anticipate deploying hundreds of non-intrusive sensor networks across a multitude of species in nature. This includes forests and fungi, ant colonies, beehives, mussels, birds, kelp, coral reefs, and various mammal and plant species that can be monitored for real-time climate impact and predictive analysis."
             />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="text-base leading-relaxed text-ink-muted sm:text-lg md:mt-11">
+              When integrated with sensors like satellites, atmospheric and
+              water quality indicators, underground monitoring and other
+              systems, a comprehensive multi-layered neurology for the
+              planet is formed. One that allows deeper analysis of climate
+              change patterns, leads to new discoveries and corrective
+              actions, and fosters a deeper understanding of
+              humanity&rsquo;s role in the preservation of our environment.
+            </p>
           </Reveal>
         </Container>
       </section>

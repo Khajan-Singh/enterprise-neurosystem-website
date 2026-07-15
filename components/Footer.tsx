@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Container } from "./Container";
 
@@ -35,9 +36,18 @@ export function Footer() {
     <footer className="border-t border-line bg-bg-subtle">
       <Container className="grid gap-10 py-16 sm:grid-cols-2 md:grid-cols-4">
         <div className="sm:col-span-2 md:col-span-1">
-          <p className="font-display text-sm font-semibold tracking-tight text-ink">
-            Enterprise Neurosystem
-          </p>
+          <div className="flex items-center gap-2">
+            <Image
+              src="/logo-icon.png"
+              alt=""
+              width={100}
+              height={82}
+              className="h-6 w-auto rounded-sm"
+            />
+            <p className="font-display text-sm font-semibold tracking-tight text-ink">
+              Enterprise Neurosystem
+            </p>
+          </div>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-muted">
             An open source AI research community treating the planet&apos;s
             species and ecosystems as a single system.
