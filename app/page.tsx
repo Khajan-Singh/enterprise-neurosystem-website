@@ -7,6 +7,7 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { CTASection } from "@/components/CTASection";
 import { Reveal } from "@/components/Reveal";
 import { NeuralGlobe } from "@/components/NeuralGlobe";
+import { AmbientShadow } from "@/components/AmbientShadow";
 import { projects } from "@/data/projects";
 
 const featuredProjects = projects.slice(0, 3);
@@ -15,8 +16,9 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="border-b border-nav-line bg-nav">
-        <Container className="grid gap-10 pt-12 pb-20 sm:pt-16 sm:pb-24 lg:grid-cols-2 lg:items-center lg:gap-8">
+      <section className="relative overflow-hidden border-b border-nav-line bg-nav">
+        <AmbientShadow />
+        <Container className="relative grid gap-10 pt-12 pb-20 sm:pt-16 sm:pb-24 lg:grid-cols-2 lg:items-center lg:gap-8">
           <div className="flex flex-col gap-8">
             <Reveal>
               <p className="text-xs font-medium uppercase tracking-widest text-accent">
@@ -72,8 +74,9 @@ export default function Home() {
       </section>
 
       {/* The AI Neurosystem */}
-      <section className="border-t border-nav-line bg-nav">
-        <Container className="grid gap-12 py-24 md:grid-cols-2 md:gap-16">
+      <section className="relative overflow-hidden border-t border-nav-line bg-nav">
+        <AmbientShadow />
+        <Container className="relative grid gap-12 py-24 md:grid-cols-2 md:gap-16">
           <Reveal>
             <SectionHeading
               eyebrow="Introduction"
@@ -118,8 +121,9 @@ export default function Home() {
       </section>
 
       {/* Featured projects */}
-      <section className="border-t border-nav-line bg-nav">
-        <Container className="py-24">
+      <section className="relative overflow-hidden border-t border-nav-line bg-nav">
+        <AmbientShadow />
+        <Container className="relative py-24">
           <Reveal>
             <SectionHeading
               eyebrow="Projects"
@@ -138,7 +142,7 @@ export default function Home() {
             <div className="mt-10">
               <Link
                 href="/projects"
-                className="text-sm font-medium text-accent hover:underline"
+                className="inline-block rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
               >
                 See all projects →
               </Link>
