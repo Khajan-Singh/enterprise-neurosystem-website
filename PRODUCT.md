@@ -16,13 +16,6 @@ Inform and recruit. The site explains the Enterprise Neurosystem's mission (a un
 
 Credible, technical, mission-driven. This is a serious research-consortium tone: precise, substantive, and purposeful rather than hype-driven. Confidence should come from specificity (named institutions, named board members, named projects) rather than marketing language.
 
-## Anti-references
-
-- https://uor.foundation/
-- https://askshepherd.ai/
-
-Avoid generic SaaS-landing-page scaffolding (hero-metric blocks, gradient text, uniform icon+heading+text card grids, tiny uppercase eyebrows on every section) — this is an institutional/consortium site, not a product pitch.
-
 ## Design Principles
 
 - Specificity over hype: named people, named projects, named institutions carry credibility more than adjectives.

@@ -56,7 +56,7 @@ export function Footer() {
 
         {columns.map((col) => (
           <div key={col.heading}>
-            <p className="text-xs font-medium uppercase tracking-wide text-ink-muted">
+            <p className="text-xs font-medium uppercase tracking-wide text-ink-muted underline underline-offset-5">
               {col.heading}
             </p>
             <ul className="mt-4 flex flex-col gap-2.5">

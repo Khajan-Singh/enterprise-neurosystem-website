@@ -12,6 +12,11 @@ in `content/enterprise-neurosystem-content.md`, which is the copy source of trut
 content (board members, projects, workstreams) lives in `data/*.ts` instead of being hardcoded
 in page components.
 
+`PRODUCT.md` and `DESIGN.md` at the repo root capture the strategic/visual design system
+(register, brand personality, anti-references, color/typography/elevation rules, named "Do"/
+"Don't" rules) — read them before making any visual or copy decision that isn't already covered
+by an existing pattern in this file.
+
 ## Commands
 
 ```bash
@@ -42,24 +47,47 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
 ## Architecture
 
 - **App Router, no `src/` dir.** Routes are folders under `app/`: `/mission`, `/charter`,
-  `/board`, `/projects`, `/workstreams`, `/press`, `/get-involved`, `/contact`, plus `/` in
-  `app/page.tsx`. Each route is a plain server component; the only client components are ones
-  that need interactivity/browser APIs (`Nav`, `Reveal`, `NeuralGlobe` — all marked
-  `"use client"`).
+  `/board`, `/projects`, `/workstreams`, `/press`, `/contact`, plus `/` in `app/page.tsx`. There
+  is no `/get-involved` route — that page was merged into `/contact` (its three contributor-path
+  cards now sit at the top of the Contact page). Each route is a plain server component; the
+  only client components are ones that need interactivity/browser APIs (`Nav`, `Reveal`,
+  `NeuralGlobe`, `SectionSidebar`, `etheral-shadow` — all marked `"use client"`).
 - **Content vs. presentation split.** `data/board.ts` and `data/projects.ts` export typed arrays
   consumed by `BoardCard`/`ProjectCard`/the workstreams page — edit data there, not in JSX.
-  Longer prose (mission, charter) is inline in the page files since it's not repeated/looped.
+  Longer prose (mission, charter) lives inline in each page file as a `sections` array (`id`,
+  `title`, `body`, optional `list`/`subsections`/`quote`/`after`/`cta`), rendered in a loop —
+  add a new section object rather than hand-writing new JSX for prose pages.
+- **`components/SectionSidebar.tsx`** is the shared scrollspy sidebar used by both the Mission
+  and Charter pages: it takes a flat `{ id, title }[]` derived from that page's `sections` array,
+  sticks below the nav bar, and uses an `IntersectionObserver` to bold whichever section is
+  currently in view. Reuse it for any future long-form prose page instead of hand-rolling another
+  sidebar; if you add a new section to Mission/Charter, the sidebar updates automatically since
+  it's generated from the same array.
+- **Board member photos** live in `public/people/*` and are referenced by an `image` field on
+  each entry in `data/board.ts`, rendered by `BoardCard` as a square (not circular) thumbnail.
 - **Design tokens live in `app/globals.css`**, using Tailwind v4's CSS-first config (no
   `tailwind.config.ts`): raw values are declared once in `:root`, then mirrored into
   `@theme inline` under the same custom-property names so Tailwind utility classes
   (`bg-nav`, `text-ink-muted`, etc.) pick them up. When adding a new token, declare it in both
   places following that existing pattern. The current palette is an explicitly-labeled
   **placeholder** system pending final visual direction from the user — check that comment
-  before assuming colors are final.
+  before assuming colors are final. Two blue tokens are intentionally distinct and not
+  interchangeable: `--color-nav` (the nav bar / homepage's blue sections) and
+  `--color-page-header` (the header band at the top of every non-homepage page) — see
+  `DESIGN.md`'s "Two-Blues Rule".
 - **`.card-surface` / `.card-surface-hover`** in `globals.css` are the shared elevation/shadow
   utilities used by every card-like surface across the site (project cards, board cards,
   workstream entries, forms) — reuse these instead of ad hoc `shadow-*` classes so elevation
   stays consistent.
+- **`components/AmbientShadow.tsx`** wraps `components/ui/etheral-shadow.tsx` (a Framer
+  Motion–animated SVG-filter background effect) with this site's navy color and motion settings
+  baked in — it's applied behind the homepage's blue (`bg-nav`) sections and every page's blue
+  header band. Use `<AmbientShadow opacity={n} />` rather than importing `EtherealShadow`
+  directly, so the effect's color/animation config stays in one place. The parent section needs
+  `relative overflow-hidden` and its `Container` needs `relative` so content stacks above it (see
+  any page-header section for the pattern) — but put `overflow-hidden` on the shadow's own
+  wrapper div (as done in `Nav.tsx`), not on an element that also contains an absolutely
+  positioned popover/dropdown, or the popover gets clipped too.
 - **`components/Reveal.tsx`** wraps Framer Motion's scroll-triggered fade/slide-in and
   auto-disables via `useReducedMotion()`; it's the standard way content enters on scroll
   throughout the site — reuse it rather than adding bespoke motion.
