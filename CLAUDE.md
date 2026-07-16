@@ -102,10 +102,13 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   section needs `relative overflow-hidden` and its `Container` needs `relative` so content stacks
   above it (see any page-header section for the pattern) — but put `overflow-hidden` on the
   shadow's own wrapper div (as done in `Nav.tsx`), not on an element that also contains an
-  absolutely positioned popover/dropdown, or the popover gets clipped too. Note this fetches its
-  noise/mask textures from Framer's CDN (a real external dependency); `.card-textured`'s grain is
-  a self-contained SVG data URI instead — prefer that pattern for anything that must never
-  silently fail to load.
+  absolutely positioned popover/dropdown, or the popover gets clipped too. Its noise/mask
+  textures are self-hosted at `public/ambient-shadow-mask.webp` and
+  `public/ambient-shadow-noise.webp` (originally fetched from Framer's CDN — a 1.24MB PNG
+  mask — which was a real external dependency and a meaningful chunk of homepage load time;
+  they were downsized and re-encoded as WebP with no visible difference since the mask is
+  blurred via CSS anyway). `.card-textured`'s grain is a self-contained SVG data URI instead —
+  prefer that pattern for anything new that must never silently fail to load.
 - **`components/Footer.tsx`** is now the site's single closing dark element (`bg-ink`, light text
   at 70%/60% opacity, `border-bg/10` hairlines). There is no more per-page dark CTA banner — the
   old `components/CTASection.tsx` was deleted once every page's CTA was removed; don't reintroduce
