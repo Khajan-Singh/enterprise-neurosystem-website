@@ -78,9 +78,9 @@ export default function Home() {
               <p className="max-w-2xl text-lg leading-relaxed text-ink-muted">
                 The Enterprise Neurosystem is a single global AI neurology,
                 with equal access for all nations. It analyzes natural
-                systems at planetary scale, integrating satellites and
-                atmospheric, oceanic, seismic and agricultural sensors. It
-                acts as an early warning architecture and an AI
+                systems at planetary scale — integrating satellites, and
+                atmospheric, oceanic, seismic and agricultural sensors — to
+                act as an early warning architecture and an AI
                 recommendation engine for course-correction.
               </p>
             </Reveal>
