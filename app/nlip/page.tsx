@@ -48,8 +48,8 @@ export default function NlipPage() {
                   <p>
                     Dr. Dinesh Verma (IBM Research and Enterprise Neurosystem
                     CTO) proposed a universal chatbot for all consumer mobile
-                    applications. Realizing that approach — and the
-                    Enterprise Neurosystem architecture in turn — would
+                    applications. Realizing that approach, and the
+                    Enterprise Neurosystem architecture in turn, would
                     require a GenAI-to-GenAI communications protocol as a
                     global standard, he initiated an Enterprise Neurosystem
                     community project: NLIP.
@@ -75,7 +75,7 @@ export default function NlipPage() {
                 <p className="mt-4 text-base leading-relaxed text-ink-muted sm:text-lg">
                   The Enterprise Neurosystem architecture depends on AI
                   instances in every country cross-correlating data in real
-                  time — sensor networks, satellites, and national AI models
+                  time: sensor networks, satellites, and national AI models
                   all speaking to one another. NLIP is the standard that lets
                   GenAI systems built by different vendors, in different
                   countries, understand each other, so the network effect

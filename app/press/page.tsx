@@ -14,7 +14,7 @@ const releases = [
   {
     title: "AI Grand Challenge 2024",
     summary:
-      "The UNFCCC Technical Executive Committee collaborates with Enterprise Neurosystem — an AI research community of academics and private sector technologists from leading technology companies — to host an innovation challenge aimed at driving innovation in AI climate change solutions.",
+      "The UNFCCC Technical Executive Committee collaborates with Enterprise Neurosystem (an AI research community of academics and private sector technologists from leading technology companies) to host an innovation challenge aimed at driving innovation in AI climate change solutions.",
   },
 ];
 

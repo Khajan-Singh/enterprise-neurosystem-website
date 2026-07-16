@@ -18,7 +18,7 @@ const photoSections = [
     eyebrow: "Origins",
     title: "A partnership born at COP 29",
     body: [
-      "Uganda's Chief Scientist contacted the Enterprise Neurosystem following a UNFCCC panel discussion at COP 29. Uganda's Ministry of Science, Technology and Innovation (STI) was formed by the Presidency to drive a stronger economic foundation through advanced technology — the country now has an electric bus factory and lithium battery production coming online, with materials largely sourced in-country and powered by 100 percent renewable energy.",
+      "Uganda's Chief Scientist contacted the Enterprise Neurosystem following a UNFCCC panel discussion at COP 29. Uganda's Ministry of Science, Technology and Innovation (STI) was formed by the Presidency to drive a stronger economic foundation through advanced technology. The country now has an electric bus factory and lithium battery production coming online, with materials largely sourced in-country and powered by 100 percent renewable energy.",
       "The STI's mandate spans four economic enablement projects: an AI LLM foundation model, cloud data centers, a climate change early warning system, and advanced IT training. A national network of environmental sensors, developed in partnership with the Enterprise Neurosystem and JPL/Caltech, has been approved for funding by the Minister of STI.",
     ],
     images: [
@@ -43,9 +43,9 @@ const photoSections = [
     id: "lake-victoria",
     title: "Lake Victoria",
     body: [
-      "Millions of Africans rely on Lake Victoria for fresh water, agriculture, and power — it is the heart of the Nile River, which in turn supports agriculture across Egypt and Sudan. Sewage, climate change, and agricultural runoff have led to algal blooms that create \"dead zones\" for marine life.",
+      "Millions of Africans rely on Lake Victoria for fresh water, agriculture, and power. It is the heart of the Nile River, which in turn supports agriculture across Egypt and Sudan. Sewage, climate change, and agricultural runoff have led to algal blooms that create \"dead zones\" for marine life.",
       "Uganda's Space and Aeronautics Ministry proposed a robotic sensor with AI capabilities to monitor the lake. The Enterprise Neurosystem has been engaged to develop this project: a full-stack architecture has been designed for the AI infrastructure, and sensor design and implementation are now underway. JPL/Caltech formally partners on sensor and network technology design and knowledge transfer, and Makerere University partners on environmental sensor and AI model design.",
-      "The economic benefits are immediate — water and agriculture security, and wide-scale species preservation. And because Uganda now has deep manufacturing capabilities, it will manufacture the advanced sensors required for a global environmental analysis network.",
+      "The economic benefits are immediate: water and agriculture security, and wide-scale species preservation. And because Uganda now has deep manufacturing capabilities, it will manufacture the advanced sensors required for a global environmental analysis network.",
     ],
     images: [
       { src: "/uganda/lake-victoria-aerial-1.jpg", alt: "Aerial view of Lake Victoria with visible algal bloom" },
@@ -184,7 +184,7 @@ export default function UgandaPage() {
           <Reveal delay={0.15}>
             <p className="mt-6 max-w-2xl text-sm leading-relaxed text-ink-muted">
               Larger LLMs present real issues in power consumption and raw
-              compute requirements — their climate impact and business model
+              compute requirements. Their climate impact and business model
               are unsustainable at global scale. The Atomic Model is a
               working alternative, already deployed in the field.
             </p>

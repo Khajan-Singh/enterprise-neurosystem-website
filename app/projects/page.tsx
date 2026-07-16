@@ -83,7 +83,7 @@ export default function ProjectsPage() {
                 <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted">
                   Proposed by Dr. Dinesh Verma (IBM Research and Enterprise
                   Neurosystem CTO) to let GenAI systems from different
-                  vendors and countries understand one another — now an
+                  vendors and countries understand one another. It is now an
                   ECMA global standard, backed by Cisco, Hewlett Packard,
                   Hitachi, IBM, Microsoft, and Red Hat.
                 </p>

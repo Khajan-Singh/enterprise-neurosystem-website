@@ -19,7 +19,7 @@ const paths = [
   {
     title: "Join a workstream",
     description:
-      "Work directly on the self-describing digital asset catalog or the AI signal processing framework — both open on GitHub and welcoming outside contribution.",
+      "Work directly on the self-describing digital asset catalog or the AI signal processing framework, both open on GitHub and welcoming outside contribution.",
   },
   {
     title: "Bring your organization",

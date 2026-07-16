@@ -34,7 +34,7 @@ const howItWorks = [
     step: "03",
     title: "Warn & advise",
     description:
-      "Deeper patterns emerge — deforestation, drought, wildfire risk, agricultural stress — driving accurate early warnings and course-correction recommendations.",
+      "Deeper patterns emerge (deforestation, drought, wildfire risk, agricultural stress), driving accurate early warnings and course-correction recommendations.",
   },
 ];
 
@@ -52,7 +52,7 @@ const themes = [
   {
     title: "A Rosetta Stone for nature",
     description:
-      "Over time, species communications — acoustic, behavioral — are analyzed across thousands of species, in search of patterns.",
+      "Over time, species communications (acoustic, behavioral) are analyzed across thousands of species, in search of patterns.",
   },
 ];
 
@@ -78,9 +78,9 @@ export default function Home() {
               <p className="max-w-2xl text-lg leading-relaxed text-ink-muted">
                 The Enterprise Neurosystem is a single global AI neurology,
                 with equal access for all nations. It analyzes natural
-                systems at planetary scale — integrating satellites, and
-                atmospheric, oceanic, seismic and agricultural sensors — to
-                act as an early warning architecture and an AI
+                systems at planetary scale, integrating satellites and
+                atmospheric, oceanic, seismic and agricultural sensors. It
+                acts as an early warning architecture and an AI
                 recommendation engine for course-correction.
               </p>
             </Reveal>

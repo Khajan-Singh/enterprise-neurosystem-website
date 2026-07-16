@@ -82,7 +82,7 @@ export default function PartnersPage() {
               <p className="mt-5 text-base leading-relaxed text-ink-muted sm:text-lg">
                 The Jack and Laura Dangermond Preserve will be the first
                 deployment of the EN architecture in the US, built with
-                JPL/Caltech and The Nature Conservancy — a global data fabric
+                JPL/Caltech and The Nature Conservancy: a global data fabric
                 integrating satellite data, atmospherics, ground sensors and
                 multi-species analysis.
               </p>
