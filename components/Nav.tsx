@@ -168,7 +168,7 @@ export function Nav() {
             alt="Enterprise Neurosystem"
             width={1164}
             height={243}
-            className="h-10 w-auto"
+            className="h-12 w-auto"
             priority
           />
         </Link>
