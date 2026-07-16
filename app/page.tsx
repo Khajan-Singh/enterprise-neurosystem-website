@@ -123,7 +123,7 @@ export default function Home() {
       {/* How it works */}
       <section className="relative overflow-hidden border-t border-nav-line bg-nav">
         <AmbientShadow />
-        <Container className="relative py-20">
+        <Container className="relative py-15">
           <Reveal>
             <SectionHeading
               eyebrow="How it works"
@@ -165,7 +165,7 @@ export default function Home() {
 
       {/* Themes: parity, bias, Rosetta Stone */}
       <section>
-        <Container className="py-20">
+        <Container className="py-15">
           <Reveal>
             <SectionHeading
               eyebrow="Why it matters"
@@ -193,7 +193,7 @@ export default function Home() {
       {/* Flagship deployments */}
       <section className="relative overflow-hidden border-t border-nav-line bg-nav">
         <AmbientShadow />
-        <Container className="relative py-20">
+        <Container className="relative py-15">
           <Reveal>
             <SectionHeading
               eyebrow="Flagship deployments"
@@ -223,7 +223,7 @@ export default function Home() {
 
       {/* Partners logo wall */}
       <section>
-        <Container className="py-12">
+        <Container className="py-15">
           <Reveal>
             <SectionHeading
               eyebrow="The Global AI Network"
