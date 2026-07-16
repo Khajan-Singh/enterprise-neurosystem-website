@@ -166,26 +166,40 @@ export default function Home() {
       {/* Themes: parity, bias, Rosetta Stone */}
       <section>
         <Container className="py-15">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Why it matters"
-              title="Parity, not privilege"
-              description="A single unified global AI architecture, enabled by satellites, sensors and mobile networks, provides the most accurate early warning capability possible — for every nation."
-            />
-          </Reveal>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
-            {themes.map((theme, i) => (
-              <Reveal key={theme.title} delay={0.06 * i}>
-                <div className="card-surface card-surface-hover card-textured flex h-full flex-col gap-3 rounded-2xl p-6">
-                  <h3 className="font-display text-lg font-semibold text-ink">
-                    {theme.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-ink-muted">
-                    {theme.description}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
+            <Reveal>
+              <p className="text-xs font-medium uppercase tracking-widest text-accent">
+                Why it matters
+              </p>
+              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                Parity, not privilege
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg">
+                A single unified global AI architecture, enabled by
+                satellites, sensors and mobile networks, provides the most
+                accurate early warning capability possible — for every
+                nation.
+              </p>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <div className="card-surface card-surface-hover card-textured rounded-2xl p-6">
+                {themes.map((theme, i) => (
+                  <div
+                    key={theme.title}
+                    className={`flex flex-col gap-2 ${
+                      i > 0 ? "mt-5 border-t border-line pt-5" : ""
+                    }`}
+                  >
+                    <h3 className="font-display text-lg font-semibold text-ink">
+                      {theme.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-ink-muted">
+                      {theme.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
           </div>
         </Container>
       </section>

@@ -41,7 +41,7 @@ export function FlowDiagram({
           style={{
             left: `${inset}%`,
             right: `${inset}%`,
-            background: "var(--color-line)",
+            background: "color-mix(in srgb, var(--color-ink) 30%, var(--color-line))",
           }}
         />
         {!reduceMotion && (
@@ -99,7 +99,7 @@ export function FlowDiagram({
           className="absolute left-7 top-7 w-px"
           style={{
             bottom: "1.75rem",
-            background: "var(--color-line)",
+            background: "color-mix(in srgb, var(--color-ink) 30%, var(--color-line))",
           }}
         />
         {!reduceMotion && (
