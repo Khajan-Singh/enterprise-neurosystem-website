@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -57,6 +58,48 @@ export default function ProjectsPage() {
               </Reveal>
             ))}
           </div>
+        </Container>
+      </section>
+
+      {/* NLIP */}
+      <section className="border-t border-line">
+        <Container className="py-20">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Standards"
+              title="NLIP"
+              description="A GenAI-to-GenAI communications protocol, born from the Enterprise Neurosystem community and now adopted by ECMA as a global standard."
+            />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <Link
+              href="/nlip"
+              className="card-surface card-surface-hover card-textured group mt-10 flex flex-col gap-6 rounded-2xl p-8 sm:flex-row sm:items-center sm:justify-between"
+            >
+              <div>
+                <h3 className="font-display text-xl font-semibold text-ink">
+                  Natural Language Interaction Protocol
+                </h3>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted">
+                  Proposed by Dr. Dinesh Verma (IBM Research and Enterprise
+                  Neurosystem CTO) to let GenAI systems from different
+                  vendors and countries understand one another — now an
+                  ECMA global standard, backed by Cisco, Hewlett Packard,
+                  Hitachi, IBM, Microsoft, and Red Hat.
+                </p>
+              </div>
+              <span className="flex shrink-0 items-center gap-2 text-sm font-medium text-accent transition-transform group-hover:translate-x-1">
+                Explore NLIP
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 16 16"
+                  className="h-4 w-4 fill-current"
+                >
+                  <path d="M9.5 2.5 15 8l-5.5 5.5-1.4-1.4L11.7 8.5H1v-1h10.7L8.1 3.9z" />
+                </svg>
+              </span>
+            </Link>
+          </Reveal>
         </Container>
       </section>
 

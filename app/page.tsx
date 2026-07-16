@@ -14,7 +14,7 @@ import { partnerOrgs } from "@/data/partners";
 const howItWorksFlow: FlowStep[] = [
   { number: "01", title: "Sense" },
   { number: "02", title: "Cross-correlate" },
-  { number: "03", title: "Warn & recommend" },
+  { number: "03", title: "Warn & advise" },
 ];
 
 const howItWorks = [
@@ -32,7 +32,7 @@ const howItWorks = [
   },
   {
     step: "03",
-    title: "Warn & recommend",
+    title: "Warn & advise",
     description:
       "Deeper patterns emerge — deforestation, drought, wildfire risk, agricultural stress — driving accurate early warnings and course-correction recommendations.",
   },

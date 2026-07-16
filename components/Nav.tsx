@@ -18,13 +18,13 @@ const aboutLinks = [
 const projectsLinks = [
   { href: "/projects/uganda", label: "Uganda" },
   { href: "/projects/dangermond", label: "Dangermond" },
+  { href: "/nlip", label: "NLIP" },
   { href: "/projects#research-workstreams", label: "Other" },
 ];
 
 const links = [
   { href: "/workstreams", label: "Workstreams" },
   { href: "/partners", label: "Partners" },
-  { href: "/nlip", label: "NLIP" },
   { href: "/press", label: "Press" },
 ];
 
@@ -148,7 +148,9 @@ export function Nav() {
 
   const aboutActive = aboutLinks.some((link) => link.href === pathname);
   const projectsActive =
-    pathname === "/projects" || pathname.startsWith("/projects/");
+    pathname === "/projects" ||
+    pathname.startsWith("/projects/") ||
+    pathname === "/nlip";
 
   return (
     <header className="sticky top-0 z-50 border-b border-nav-line/60 bg-nav/70 shadow-[0_8px_30px_-12px_rgba(22,23,26,0.1)] backdrop-blur-sm">
@@ -162,16 +164,13 @@ export function Nav() {
           onClick={() => setOpen(false)}
         >
           <Image
-            src="/logo-icon.png"
+            src="/logo-with-name.png"
             alt="Enterprise Neurosystem"
-            width={200}
-            height={164}
-            className="h-12 w-auto rounded-md"
+            width={1164}
+            height={243}
+            className="h-10 w-auto"
             priority
           />
-          <span className="font-display text-lg font-semibold tracking-tight text-ink">
-            Enterprise Neurosystem
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
