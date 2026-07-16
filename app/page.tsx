@@ -165,7 +165,7 @@ export default function Home() {
 
       {/* Themes: parity, bias, Rosetta Stone */}
       <section>
-        <Container className="py-15">
+        <Container className="py-12">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
             <Reveal>
               <p className="text-xs font-medium uppercase tracking-widest text-accent">
