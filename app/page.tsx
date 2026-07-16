@@ -45,11 +45,6 @@ const themes = [
       "Developing nations gain access to the same shared AI resources, historical data, and models as every other country.",
   },
   {
-    title: "Eliminates bias",
-    description:
-      "Today only a small group of wealthy nations has access to large data sets and deep environmental analysis. A single global network changes that.",
-  },
-  {
     title: "A Rosetta Stone for nature",
     description:
       "Over time, species communications (acoustic, behavioral) are analyzed across thousands of species, in search of patterns.",
