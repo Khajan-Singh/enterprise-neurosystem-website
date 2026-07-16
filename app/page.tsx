@@ -167,7 +167,7 @@ export default function Home() {
                 Why it matters
               </p>
               <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                Parity, not privilege
+                Parity at Planetary Scale
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg">
                 A single unified global AI architecture, enabled by
