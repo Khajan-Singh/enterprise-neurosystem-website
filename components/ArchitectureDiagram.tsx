@@ -7,30 +7,25 @@ type Edge = { from: Node; to: Node; delay: number };
 
 // Three clusters of sensor networks (SN), each feeding one mid-tier AI
 // node, all three converging on a single root AI node below. The card
-// this renders into is portrait (narrower than it is tall), so the SN
-// fan's horizontal spread and its vertical distance from the mid AI
-// node are deliberately decoupled: FAN_ARC_R controls how wide/arced
-// the fan looks (kept modest so three clusters fit side by side without
-// overlapping), while FAN_LIFT is a separate, large vertical offset that
-// pushes the whole fan up and away from its mid node. Coupling both to
-// a single trig radius (as a true polar fan would) forces the canvas
-// into a wide/landscape shape that gets badly letterboxed inside a
-// portrait card; decoupling them lets the diagram stretch tall — SN
-// fan up near the top, mid AI row centered lower, root AI near the
-// bottom — filling the card's full height instead of leaving a long
-// empty gap under a cluster of tiny nodes.
-const FAN_ARC_R = 380;
-const FAN_HALF_ANGLE = 36; // degrees
-const FAN_LIFT = 1183;
-const SN_R = 55;
-const MID_R = 100;
-const ROOT_R = 135;
-const MID_Y = 1658;
-const ROOT_GAP = 1128; // vertical distance from the mid AI row down to the root
+// this renders into is wide (full content width, modest height), so the
+// canvas is deliberately landscape: three clusters sit side by side with
+// generous horizontal room, and each cluster's SN fan is a true circular
+// fan (FAN_DIST from its mid AI node) rather than needing the width/height
+// decoupling a tall, narrow card would require. Cluster spacing is
+// derived from the fan's own trig so adjacent clusters' SN nodes never
+// overlap, and canvas bounds are set tight around the actual content so
+// the tree fills its box instead of floating in empty space.
+const FAN_DIST = 430;
+const FAN_HALF_ANGLE = 34; // degrees
+const SN_R = 60;
+const MID_R = 105;
+const ROOT_R = 130;
+const MID_Y = 540;
+const ROOT_GAP = 340; // vertical distance from the mid AI row down to the root
 const MARGIN = 40;
 
-const CLUSTER_SPACING = 580;
-const FAN_REACH = FAN_ARC_R * Math.sin((FAN_HALF_ANGLE * Math.PI) / 180);
+const CLUSTER_SPACING = 650;
+const FAN_REACH = FAN_DIST * Math.sin((FAN_HALF_ANGLE * Math.PI) / 180);
 const CENTER_X = CLUSTER_SPACING + FAN_REACH + SN_R + MARGIN;
 const CLUSTER_CENTERS = [CENTER_X - CLUSTER_SPACING, CENTER_X, CENTER_X + CLUSTER_SPACING];
 const CANVAS_W = CENTER_X * 2;
@@ -43,8 +38,8 @@ function buildCluster(cx: number): { mid: Node; sn: Node[] } {
     const angleDeg = -FAN_HALF_ANGLE + i * (FAN_HALF_ANGLE / 2);
     const angle = (angleDeg * Math.PI) / 180;
     return {
-      x: cx + FAN_ARC_R * Math.sin(angle),
-      y: MID_Y - FAN_LIFT - FAN_ARC_R * Math.cos(angle),
+      x: cx + FAN_DIST * Math.sin(angle),
+      y: MID_Y - FAN_DIST * Math.cos(angle),
       r: SN_R,
       label: "SN",
       kind: "sn" as const,
@@ -58,11 +53,11 @@ const clusters = CLUSTER_CENTERS.map(buildCluster);
 const edges: Edge[] = [];
 clusters.forEach((cluster, ci) => {
   cluster.sn.forEach((node, i) => {
-    edges.push({ from: node, to: cluster.mid, delay: ci * 0.15 + i * 0.05 });
+    edges.push({ from: node, to: cluster.mid, delay: ci * 0.35 + i * 0.12 });
   });
 });
 clusters.forEach((cluster, ci) => {
-  edges.push({ from: cluster.mid, to: ROOT, delay: 0.9 + ci * 0.1 });
+  edges.push({ from: cluster.mid, to: ROOT, delay: 2 + ci * 0.25 });
 });
 
 const allNodes: Node[] = [
@@ -105,11 +100,13 @@ function Pulse({ edge, reduceMotion }: { edge: Edge; reduceMotion: boolean }) {
         opacity: [0, 1, 1, 0],
       }}
       transition={{
-        duration: 0.7,
         delay: edge.delay,
         repeat: Infinity,
-        repeatDelay: 3.3,
+        repeatDelay: 3.2,
         ease: "easeInOut",
+        cx: { duration: 1.6 },
+        cy: { duration: 1.6 },
+        opacity: { duration: 1.6, times: [0, 0.18, 0.82, 1] },
       }}
     />
   );
@@ -119,9 +116,13 @@ function Pulse({ edge, reduceMotion }: { edge: Edge; reduceMotion: boolean }) {
  * An animated redraw of the sensor-network / AI hierarchy: three
  * clusters of "SN" sensor networks each feed a mid-tier "AI" node,
  * which converge on a single root AI node. Small pulses travel
- * bottom-up in a staggered, looping wave to narrate the data flow
- * described in the Architecture section's text. Respects
- * prefers-reduced-motion by rendering static nodes/edges with no pulses.
+ * top-down (SN → mid AI → root AI) in a staggered, looping wave to
+ * narrate the data flow described in the Architecture section's text.
+ * Each pulse's own delay is scaled by tier (SN edges first, root edges
+ * last) so the wave clearly cascades downward rather than firing all at
+ * once; duration/repeatDelay are kept slow so the motion reads as a
+ * smooth drift rather than a quick blip. Respects prefers-reduced-motion
+ * by rendering static nodes/edges with no pulses.
  */
 export function ArchitectureDiagram() {
   const reduceMotion = useReducedMotion() ?? false;

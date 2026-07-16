@@ -192,11 +192,11 @@ export default function VisionPage() {
                   )}
 
                   {section.id === "architecture" && (
-                    <div className="mt-6 grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-stretch lg:gap-10">
-                      <div className="card-surface card-surface-hover card-textured flex min-h-[420px] items-center justify-center rounded-2xl p-4 sm:p-6 lg:min-h-0">
+                    <div className="mt-6 flex flex-col gap-8">
+                      <div className="card-surface card-surface-hover card-textured flex min-h-[420px] items-center justify-center rounded-2xl p-4 sm:p-6">
                         <ArchitectureDiagram />
                       </div>
-                      <div className="flex flex-col gap-4 pt-2 text-base leading-relaxed text-ink-muted sm:text-lg">
+                      <div className="flex flex-col gap-4 text-base leading-relaxed text-ink-muted sm:text-lg">
                         {section.body?.map((p, i) => <p key={i}>{p}</p>)}
                       </div>
                     </div>
