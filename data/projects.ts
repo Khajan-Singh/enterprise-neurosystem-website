@@ -19,7 +19,7 @@ export const deployments: Deployment[] = [
     name: "Uganda National AI Sensor Network",
     location: "Bwindi Impenetrable Forest & Lake Victoria, Uganda",
     summary:
-      "A national network of environmental sensors, approved for funding by Uganda's Minister of Science, Technology and Innovation — starting at Bwindi's mountain gorilla habitat and a robotic AI sensor monitoring Lake Victoria's algal blooms. Data stays in Uganda, on Uganda's terms.",
+      "A national network of environmental sensors, approved for funding by Uganda's Minister of Science, Technology and Innovation. It starts at Bwindi's mountain gorilla habitat and a robotic AI sensor monitoring Lake Victoria's algal blooms. Data stays in Uganda, on Uganda's terms.",
     image: "/uganda/bwindi-gorilla.jpg",
     partners: ["Uganda STI Ministry", "JPL / Caltech", "Makerere University"],
     href: "/projects/uganda",
@@ -29,7 +29,7 @@ export const deployments: Deployment[] = [
     name: "Dangermond Preserve",
     location: "Santa Barbara County, California, USA",
     summary:
-      "The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, developed with JPL/Caltech and The Nature Conservancy.",
+      "The first US deployment of the Enterprise Neurosystem architecture, a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, developed with JPL/Caltech and The Nature Conservancy.",
     image: "/jpl/dangermond-coastline.jpg",
     partners: ["JPL / Caltech", "The Nature Conservancy", "NCEAS"],
     href: "/projects/dangermond",
@@ -94,13 +94,13 @@ export const workstreams: Workstream[] = [
   {
     name: "Self-Describing Digital Asset Catalog",
     description:
-      "The core framework where AI models reside and operate — a foundation eventually supporting a cross-correlation AI engine for deeper pattern analysis.",
+      "The core framework where AI models reside and operate. It will eventually support a cross-correlation AI engine for deeper pattern analysis.",
     repoUrl: "https://github.com/Enterprise-Neurosystem/sd-catalog",
   },
   {
     name: "AI Signal Processing",
     description:
-      "Tools and solutions that process high-rate signal data for acoustics, vibrations, and other areas of analysis — including work to study global bee populations. Originated as an open source contribution from IBM Research.",
+      "Tools and solutions that process high-rate signal data for acoustics, vibrations, and other areas of analysis, including work to study global bee populations. Originated as an open source contribution from IBM Research.",
     repoUrl: "https://github.com/Enterprise-Neurosystem/ai-signal-processing",
   },
 ];

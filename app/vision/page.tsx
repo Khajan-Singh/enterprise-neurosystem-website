@@ -53,8 +53,8 @@ const sections = [
     title: "The Vision",
     lead: "One AI neurology for the planet.",
     list: [
-      "Analyzes natural systems on a global scale to understand environmental impacts on the plant and animal species of the world — the Internet of Nature.",
-      "Integrates existing projects — satellite networks, and atmospheric, oceanic, seismic and agricultural sensors — for deeper AI cross-correlation.",
+      "Analyzes natural systems on a global scale to understand environmental impacts on the plant and animal species of the world: the Internet of Nature.",
+      "Integrates existing projects such as satellite networks and atmospheric, oceanic, seismic and agricultural sensors, for deeper AI cross-correlation.",
       "Enables access for developing nations to current AI models, historical data, and the sharing of indigenous knowledge of local habitats and species.",
       "Acts as an early warning architecture, and an AI recommendation engine for course-correction.",
     ],
@@ -64,9 +64,9 @@ const sections = [
     title: "How It Works",
     list: [
       "Satellites and other atmospheric and oceanic observation methods are already in place, alongside mobile and satellite communications networks.",
-      "Sensors are placed among key species, forests, crops and natural resources — monitoring waterways, soil, atmospheric pollution, and other areas of human impact.",
+      "Sensors are placed among key species, forests, crops and natural resources, monitoring waterways, soil, atmospheric pollution, and other areas of human impact.",
       "Sensor data passes onto the primary network, then to AI instances in each country for real-time pattern analysis, cross-correlated with historical data by area.",
-      "Deeper early warning patterns emerge — population density levels for multiple species, deforestation, soil moisture, agricultural monitoring, flood and drought conditions, atmospheric pollution, wildfire risk, irrigation levels, and more.",
+      "Deeper early warning patterns emerge: population density levels for multiple species, deforestation, soil moisture, agricultural monitoring, flood and drought conditions, atmospheric pollution, wildfire risk, irrigation levels, and more.",
       "With all this data, highly accurate AI early warning predictions and new course-correction recommendations become possible.",
     ],
   },
@@ -75,14 +75,14 @@ const sections = [
     title: "Architecture",
     body: [
       "Every yellow circle is a sensor network of its own. They sit wherever there's something to watch: rivers, jungles, fish farms, ant colonies, plant species, and the networks described above. A first tier of AI, wired directly to each network, reads the real-time data and picks out the patterns.",
-      "Those patterns and anomalies climb to a second tier — regional AI — which folds them into a larger analysis. From there it's countrywide: every sensor, one architecture, one holistic view of how climate change is moving through species, resources, and farmland. And it doesn't stop at any border — the same architecture scales up again to measure pollution and climate impact across the whole planet.",
+      "Those patterns and anomalies climb to a second tier, regional AI, which folds them into a larger analysis. From there it's countrywide: every sensor, one architecture, one holistic view of how climate change is moving through species, resources, and farmland. And it doesn't stop at any border: the same architecture scales up again to measure pollution and climate impact across the whole planet.",
     ],
   },
   {
     id: "one-picture",
     title: "One Complete Picture",
     body: [
-      "A single AI network — with global-scale data and pattern identification — provides the first complete picture of our planetary environment, based on a single unified global AI architecture, enabled by satellites, sensors and mobile networks.",
+      "A single AI network, with global-scale data and pattern identification, provides the first complete picture of our planetary environment, based on a single unified global AI architecture, enabled by satellites, sensors and mobile networks.",
       "Given all the available data sources and cross-correlation, this AI network provides the most accurate early warning capability possible, and course-correction recommendations for species preservation, agriculture resilience, and water resource optimization.",
     ],
   },
@@ -98,7 +98,7 @@ const sections = [
     id: "rosetta-stone",
     title: "A Rosetta Stone for Nature",
     body: [
-      "An ancillary benefit: over time, species communications will be analyzed for patterns — acoustics, behavioral, and more — and a Rosetta Stone for animal and insect communications will emerge across thousands of species.",
+      "An ancillary benefit: over time, species communications will be analyzed for patterns (acoustics, behavioral, and more), and a Rosetta Stone for animal and insect communications will emerge across thousands of species.",
     ],
   },
   {

@@ -49,7 +49,7 @@ export default function DangermondPage() {
                 <p>
                   The Jack and Laura Dangermond Preserve, on the California
                   coast in Santa Barbara County, will be the first deployment
-                  of the EN architecture in the US — incorporating integrated
+                  of the EN architecture in the US, incorporating integrated
                   satellite data, atmospherics, ground sensors and
                   multi-species analysis into a global data fabric and API
                   integration framework, imbued with AI cross-correlation.
@@ -90,7 +90,7 @@ export default function DangermondPage() {
                 Dangermond already lets researchers step through the
                 preserve&rsquo;s land cover from 1850 to today. The
                 Enterprise Neurosystem architecture builds on top of
-                infrastructure like this — layering in live satellite,
+                infrastructure like this, layering in live satellite,
                 atmospheric and ground-sensor data so historical context and
                 real-time conditions can be cross-correlated by the same AI
                 instance, the same way the Uganda deployment ties Bwindi and
