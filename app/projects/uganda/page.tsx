@@ -28,7 +28,6 @@ const photoSections = [
   },
   {
     id: "bwindi",
-    eyebrow: "First site",
     title: "Bwindi Impenetrable Forest",
     body: [
       "The Enterprise Neurosystem team visited Uganda for government meetings with the STI Ministry, and toured the Bwindi Impenetrable Forest and its mountain gorillas. It quickly became evident this area would be an ideal site for a sensor monitoring project.",
@@ -42,7 +41,6 @@ const photoSections = [
   },
   {
     id: "lake-victoria",
-    eyebrow: "Water security",
     title: "Lake Victoria",
     body: [
       "Millions of Africans rely on Lake Victoria for fresh water, agriculture, and power — it is the heart of the Nile River, which in turn supports agriculture across Egypt and Sudan. Sewage, climate change, and agricultural runoff have led to algal blooms that create \"dead zones\" for marine life.",
@@ -67,7 +65,7 @@ export default function UgandaPage() {
             <SectionHeading
               eyebrow="Flagship deployment"
               title="Uganda"
-              description="A national AI sensor network — from the mountain gorillas of Bwindi to the shores of Lake Victoria — built with Uganda's Ministry of Science, Technology and Innovation, JPL/Caltech, and Makerere University."
+              description="A national AI sensor network, from the mountain gorillas of Bwindi to the shores of Lake Victoria."
             />
           </Reveal>
         </Container>
@@ -151,19 +149,19 @@ export default function UgandaPage() {
             <SectionHeading
               eyebrow="Crane National AI Model"
               title="The Atomic Language Model"
-              description="Developed with the Uganda Crane AI team and the Enterprise Neurosystem — a sustainable alternative to power-hungry, compute-heavy large language models."
+              description="Developed with the Uganda Crane AI team and the Enterprise Neurosystem, it's a sustainable alternative to power-hungry, compute-heavy large language models."
             />
           </Reveal>
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
             {[
               {
                 stat: "50KB",
-                label: "Model size — built on Ugandan (Bantu) languages",
+                label: "Model size. Built on Ugandan (Bantu) languages",
               },
               {
                 stat: "Non-GPU",
                 label:
-                  "Runs on standard chipsets and small IoT devices — sensors, Raspberry Pi, 2G phones",
+                  "Runs on standard chipsets and small IoT devices such as sensors, Raspberry Pi, 2G phones",
               },
               {
                 stat: "UOR",

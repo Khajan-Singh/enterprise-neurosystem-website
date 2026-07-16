@@ -51,13 +51,13 @@ function buildCluster(cx: number): { mid: Node; sn: Node[] } {
 const clusters = CLUSTER_CENTERS.map(buildCluster);
 
 const edges: Edge[] = [];
-clusters.forEach((cluster, ci) => {
-  cluster.sn.forEach((node, i) => {
-    edges.push({ from: node, to: cluster.mid, delay: ci * 0.35 + i * 0.12 });
+clusters.forEach((cluster) => {
+  cluster.sn.forEach((node) => {
+    edges.push({ from: node, to: cluster.mid, delay: 0 });
   });
 });
-clusters.forEach((cluster, ci) => {
-  edges.push({ from: cluster.mid, to: ROOT, delay: 2 + ci * 0.25 });
+clusters.forEach((cluster) => {
+  edges.push({ from: cluster.mid, to: ROOT, delay: 2 });
 });
 
 const allNodes: Node[] = [
@@ -100,13 +100,28 @@ function Pulse({ edge, reduceMotion }: { edge: Edge; reduceMotion: boolean }) {
         opacity: [0, 1, 1, 0],
       }}
       transition={{
-        delay: edge.delay,
-        repeat: Infinity,
-        repeatDelay: 3.2,
-        ease: "easeInOut",
-        cx: { duration: 1.6 },
-        cy: { duration: 1.6 },
-        opacity: { duration: 1.6, times: [0, 0.18, 0.82, 1] },
+        cx: {
+          delay: edge.delay,
+          duration: 1.6,
+          repeat: Infinity,
+          repeatDelay: 3.2,
+          ease: "easeInOut",
+        },
+        cy: {
+          delay: edge.delay,
+          duration: 1.6,
+          repeat: Infinity,
+          repeatDelay: 3.2,
+          ease: "easeInOut",
+        },
+        opacity: {
+          delay: edge.delay,
+          duration: 1.6,
+          repeat: Infinity,
+          repeatDelay: 3.2,
+          ease: "easeInOut",
+          times: [0, 0.18, 0.82, 1],
+        },
       }}
     />
   );
@@ -116,13 +131,14 @@ function Pulse({ edge, reduceMotion }: { edge: Edge; reduceMotion: boolean }) {
  * An animated redraw of the sensor-network / AI hierarchy: three
  * clusters of "SN" sensor networks each feed a mid-tier "AI" node,
  * which converge on a single root AI node. Small pulses travel
- * top-down (SN → mid AI → root AI) in a staggered, looping wave to
- * narrate the data flow described in the Architecture section's text.
- * Each pulse's own delay is scaled by tier (SN edges first, root edges
- * last) so the wave clearly cascades downward rather than firing all at
- * once; duration/repeatDelay are kept slow so the motion reads as a
- * smooth drift rather than a quick blip. Respects prefers-reduced-motion
- * by rendering static nodes/edges with no pulses.
+ * top-down (SN → mid AI → root AI) in a looping wave to narrate the
+ * data flow described in the Architecture section's text. All SN→mid
+ * pulses fire in unison, then all mid→root pulses fire in unison after
+ * a fixed delay, so the wave reads as two synchronized tiers cascading
+ * downward rather than a per-node trickle; duration/repeatDelay are kept
+ * slow so the motion reads as a smooth drift rather than a quick blip.
+ * Respects prefers-reduced-motion by rendering static nodes/edges with
+ * no pulses.
  */
 export function ArchitectureDiagram() {
   const reduceMotion = useReducedMotion() ?? false;

@@ -35,7 +35,7 @@ const flowSteps: FlowStep[] = [
   },
   {
     number: "05",
-    title: "Warn & recommend",
+    title: "Warn & advise",
     description:
       "Accurate early warnings and course-correction recommendations become possible.",
   },
@@ -51,7 +51,7 @@ const sections = [
   {
     id: "the-vision",
     title: "The Vision",
-    lead: "One AI neurology for the planet — equal access for every nation.",
+    lead: "One AI neurology for the planet.",
     list: [
       "Analyzes natural systems on a global scale to understand environmental impacts on the plant and animal species of the world — the Internet of Nature.",
       "Integrates existing projects — satellite networks, and atmospheric, oceanic, seismic and agricultural sensors — for deeper AI cross-correlation.",
