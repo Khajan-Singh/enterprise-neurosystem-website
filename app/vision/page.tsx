@@ -89,7 +89,6 @@ const sections = [
   {
     id: "parity-and-bias",
     title: "Parity for Developing Nations",
-    emphasis: true,
     body: [
       "This provides parity for developing nations, as they gain access to the same shared AI resources as all other countries. This also eliminates bias, as currently only a small group of wealthy nations has access to large data sets and deep environmental analysis.",
     ],

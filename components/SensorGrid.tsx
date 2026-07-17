@@ -56,7 +56,7 @@ export function SensorGrid() {
       <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
         <motion.div
           className="flex h-14 w-14 items-center justify-center rounded-full shadow-[0_8px_20px_-4px_rgba(43,58,103,0.5)]"
-          style={{ background: "var(--color-accent)" }}
+          style={{ background: "#2f6fed" }}
           animate={
             reduceMotion
               ? undefined
