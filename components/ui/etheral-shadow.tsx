@@ -59,6 +59,7 @@ export function EtherealShadow({
   const id = useInstanceId();
   const reduceMotion = useReducedMotion();
   const animationEnabled = !reduceMotion && !!animation && animation.scale > 0;
+  const containerRef = useRef<HTMLDivElement>(null);
   const feColorMatrixRef = useRef<SVGFEColorMatrixElement>(null);
   const hueRotateMotionValue = useMotionValue(180);
   const hueRotateAnimation = useRef<AnimationPlaybackControls | null>(null);
@@ -70,11 +71,20 @@ export function EtherealShadow({
     ? mapRange(animation.speed, 1, 100, 1000, 50)
     : 1;
 
+  // Only run the animated SVG filter (feTurbulence/feDisplacementMap, which
+  // is expensive to keep recomputing) while this instance is actually
+  // visible — many pages mount several of these, most below the fold.
   useEffect(() => {
-    if (feColorMatrixRef.current && animationEnabled) {
-      if (hueRotateAnimation.current) {
-        hueRotateAnimation.current.stop();
-      }
+    if (!animationEnabled) return;
+    const container = containerRef.current;
+    if (!container) return;
+
+    let running = false;
+    let inView = true;
+
+    function start() {
+      if (running || !feColorMatrixRef.current) return;
+      running = true;
       hueRotateMotionValue.set(0);
       hueRotateAnimation.current = animate(hueRotateMotionValue, 360, {
         duration: animationDuration / 25,
@@ -89,17 +99,48 @@ export function EtherealShadow({
           }
         },
       });
-
-      return () => {
-        if (hueRotateAnimation.current) {
-          hueRotateAnimation.current.stop();
-        }
-      };
     }
+
+    function stop() {
+      running = false;
+      if (hueRotateAnimation.current) {
+        hueRotateAnimation.current.stop();
+        hueRotateAnimation.current = null;
+      }
+    }
+
+    function syncRunning() {
+      if (inView && !document.hidden) {
+        start();
+      } else {
+        stop();
+      }
+    }
+
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        syncRunning();
+      },
+      { threshold: 0.01 },
+    );
+    intersectionObserver.observe(container);
+
+    const onVisibilityChange = () => syncRunning();
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    syncRunning();
+
+    return () => {
+      stop();
+      intersectionObserver.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
   }, [animationEnabled, animationDuration, hueRotateMotionValue]);
 
   return (
     <div
+      ref={containerRef}
       className={className}
       style={{
         overflow: "hidden",
