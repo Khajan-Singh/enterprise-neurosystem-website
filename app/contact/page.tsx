@@ -14,7 +14,7 @@ const paths = [
   {
     title: "Contribute code",
     description:
-      "Submit code, documentation, models, or artifacts as a Contributor. Sustained, accepted contributions can lead to becoming a Committer with approval authority, by majority vote of existing Committers.",
+      "Submit code, documentation, models, or artifacts. Sensor integrations, AI cross-correlation models, data pipelines, and additions to the digital asset catalog are all in scope.",
   },
   {
     title: "Join a workstream",
