@@ -1,7 +1,32 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode, useEffect, useRef } from "react";
+
+/**
+ * Scroll-triggered fade/slide-in. The animation itself lives in
+ * `.reveal` / `.reveal-in` in globals.css — this component only decides
+ * *when* to add the class, using a single module-level IntersectionObserver
+ * shared by every instance on the page (the homepage mounts ~23 of them).
+ * `prefers-reduced-motion` is handled in CSS, not here.
+ */
+let sharedObserver: IntersectionObserver | null = null;
+
+function getObserver(): IntersectionObserver | null {
+  if (typeof IntersectionObserver === "undefined") return null;
+  if (!sharedObserver) {
+    sharedObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("reveal-in");
+          sharedObserver?.unobserve(entry.target);
+        }
+      },
+      { rootMargin: "-80px" },
+    );
+  }
+  return sharedObserver;
+}
 
 export function Reveal({
   children,
@@ -12,21 +37,32 @@ export function Reveal({
   delay?: number;
   className?: string;
 }) {
-  const reduceMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
 
-  if (reduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = getObserver();
+    if (!observer) {
+      // no IntersectionObserver — show the content rather than hiding it
+      el.classList.add("reveal-in");
+      return;
+    }
+
+    observer.observe(el);
+    return () => observer.unobserve(el);
+  }, []);
 
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
+    <div
+      ref={ref}
+      className={`reveal ${className}`}
+      style={
+        delay ? ({ "--reveal-delay": `${delay}s` } as CSSProperties) : undefined
+      }
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

@@ -1,6 +1,4 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
+import type { CSSProperties } from "react";
 
 type Node = { x: number; y: number; r: number; label: string; kind: "sn" | "ai" | "root" };
 type Edge = { from: Node; to: Node; delay: number };
@@ -86,43 +84,22 @@ function trimmedEdge(edge: Edge) {
   };
 }
 
-function Pulse({ edge, reduceMotion }: { edge: Edge; reduceMotion: boolean }) {
-  if (reduceMotion) return null;
+function Pulse({ edge }: { edge: Edge }) {
   return (
-    <motion.circle
+    <circle
+      className="arch-pulse"
+      cx={edge.from.x}
+      cy={edge.from.y}
       r={7}
-      style={{ fill: "var(--color-net-core)" }}
+      style={
+        {
+          fill: "var(--color-net-core)",
+          "--dx": `${edge.to.x - edge.from.x}px`,
+          "--dy": `${edge.to.y - edge.from.y}px`,
+          animationDelay: `${edge.delay}s`,
+        } as CSSProperties
+      }
       filter="url(#archGlow)"
-      initial={{ cx: edge.from.x, cy: edge.from.y, opacity: 0 }}
-      animate={{
-        cx: [edge.from.x, edge.to.x],
-        cy: [edge.from.y, edge.to.y],
-        opacity: [0, 1, 1, 0],
-      }}
-      transition={{
-        cx: {
-          delay: edge.delay,
-          duration: 1.6,
-          repeat: Infinity,
-          repeatDelay: 3.2,
-          ease: "easeInOut",
-        },
-        cy: {
-          delay: edge.delay,
-          duration: 1.6,
-          repeat: Infinity,
-          repeatDelay: 3.2,
-          ease: "easeInOut",
-        },
-        opacity: {
-          delay: edge.delay,
-          duration: 1.6,
-          repeat: Infinity,
-          repeatDelay: 3.2,
-          ease: "easeInOut",
-          times: [0, 0.18, 0.82, 1],
-        },
-      }}
     />
   );
 }
@@ -141,8 +118,6 @@ function Pulse({ edge, reduceMotion }: { edge: Edge; reduceMotion: boolean }) {
  * no pulses.
  */
 export function ArchitectureDiagram() {
-  const reduceMotion = useReducedMotion() ?? false;
-
   return (
     <svg
       viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`}
@@ -178,7 +153,7 @@ export function ArchitectureDiagram() {
 
       {/* traveling pulses */}
       {edges.map((edge, i) => (
-        <Pulse key={i} edge={edge} reduceMotion={reduceMotion} />
+        <Pulse key={i} edge={edge} />
       ))}
 
       {/* nodes */}

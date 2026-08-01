@@ -1,16 +1,9 @@
 "use client";
 
-import React, { useRef, useId, useEffect, CSSProperties } from "react";
-import {
-  animate,
-  useMotionValue,
-  useReducedMotion,
-  AnimationPlaybackControls,
-} from "framer-motion";
+import React, { useId, CSSProperties } from "react";
 
-interface AnimationConfig {
+interface ShapeConfig {
   scale: number;
-  speed: number;
 }
 
 interface NoiseConfig {
@@ -21,7 +14,7 @@ interface NoiseConfig {
 interface ShadowOverlayProps {
   sizing?: "fill" | "stretch";
   color?: string;
-  animation?: AnimationConfig;
+  shape?: ShapeConfig;
   noise?: NoiseConfig;
   style?: CSSProperties;
   className?: string;
@@ -48,99 +41,37 @@ const useInstanceId = (): string => {
   return instanceId;
 };
 
+// The turbulence/displacement filter below used to have its feColorMatrix
+// `values` attribute rewritten every animation frame. Mutating an input to a
+// filter graph invalidates the whole chain, so the browser re-rasterized
+// turbulence + two displacement maps + a 4px blur at 60fps — across up to four
+// instances per page, one of them inside the sticky nav where it could never
+// scroll out of view. The filter is now evaluated once and cached by the
+// browser; the shape it produces is identical to a single frame of the old
+// animation.
+const HUE_ROTATE = 180;
+
+// Fine grain overlay. Previously a 75KB `/ambient-shadow-noise.webp` fetched via
+// CSS `url()` on every page — self-contained SVG instead, following the same
+// pattern as `.card-textured` in globals.css, so it can never fail to load.
+const NOISE_TILE =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E";
+
 export function EtherealShadow({
   sizing = "fill",
   color = "rgba(128, 128, 128, 1)",
-  animation,
+  shape,
   noise,
   style,
   className,
 }: ShadowOverlayProps) {
   const id = useInstanceId();
-  const reduceMotion = useReducedMotion();
-  const animationEnabled = !reduceMotion && !!animation && animation.scale > 0;
-  const containerRef = useRef<HTMLDivElement>(null);
-  const feColorMatrixRef = useRef<SVGFEColorMatrixElement>(null);
-  const hueRotateMotionValue = useMotionValue(180);
-  const hueRotateAnimation = useRef<AnimationPlaybackControls | null>(null);
+  const filterEnabled = !!shape && shape.scale > 0;
 
-  const displacementScale = animation
-    ? mapRange(animation.scale, 1, 100, 20, 100)
-    : 0;
-  const animationDuration = animation
-    ? mapRange(animation.speed, 1, 100, 1000, 50)
-    : 1;
-
-  // Only run the animated SVG filter (feTurbulence/feDisplacementMap, which
-  // is expensive to keep recomputing) while this instance is actually
-  // visible — many pages mount several of these, most below the fold.
-  useEffect(() => {
-    if (!animationEnabled) return;
-    const container = containerRef.current;
-    if (!container) return;
-
-    let running = false;
-    let inView = true;
-
-    function start() {
-      if (running || !feColorMatrixRef.current) return;
-      running = true;
-      hueRotateMotionValue.set(0);
-      hueRotateAnimation.current = animate(hueRotateMotionValue, 360, {
-        duration: animationDuration / 25,
-        repeat: Infinity,
-        repeatType: "loop",
-        repeatDelay: 0,
-        ease: "linear",
-        delay: 0,
-        onUpdate: (value: number) => {
-          if (feColorMatrixRef.current) {
-            feColorMatrixRef.current.setAttribute("values", String(value));
-          }
-        },
-      });
-    }
-
-    function stop() {
-      running = false;
-      if (hueRotateAnimation.current) {
-        hueRotateAnimation.current.stop();
-        hueRotateAnimation.current = null;
-      }
-    }
-
-    function syncRunning() {
-      if (inView && !document.hidden) {
-        start();
-      } else {
-        stop();
-      }
-    }
-
-    const intersectionObserver = new IntersectionObserver(
-      ([entry]) => {
-        inView = entry.isIntersecting;
-        syncRunning();
-      },
-      { threshold: 0.01 },
-    );
-    intersectionObserver.observe(container);
-
-    const onVisibilityChange = () => syncRunning();
-    document.addEventListener("visibilitychange", onVisibilityChange);
-
-    syncRunning();
-
-    return () => {
-      stop();
-      intersectionObserver.disconnect();
-      document.removeEventListener("visibilitychange", onVisibilityChange);
-    };
-  }, [animationEnabled, animationDuration, hueRotateMotionValue]);
+  const displacementScale = shape ? mapRange(shape.scale, 1, 100, 20, 100) : 0;
 
   return (
     <div
-      ref={containerRef}
       className={className}
       style={{
         overflow: "hidden",
@@ -154,25 +85,24 @@ export function EtherealShadow({
         style={{
           position: "absolute",
           inset: -displacementScale,
-          filter: animationEnabled ? `url(#${id}) blur(4px)` : "none",
+          filter: filterEnabled ? `url(#${id}) blur(4px)` : "none",
         }}
       >
-        {animationEnabled && (
+        {filterEnabled && (
           <svg style={{ position: "absolute" }}>
             <defs>
               <filter id={id}>
                 <feTurbulence
                   result="undulation"
                   numOctaves={2}
-                  baseFrequency={`${mapRange(animation.scale, 0, 100, 0.001, 0.0005)},${mapRange(animation.scale, 0, 100, 0.004, 0.002)}`}
+                  baseFrequency={`${mapRange(shape.scale, 0, 100, 0.001, 0.0005)},${mapRange(shape.scale, 0, 100, 0.004, 0.002)}`}
                   seed="0"
                   type="turbulence"
                 />
                 <feColorMatrix
-                  ref={feColorMatrixRef}
                   in="undulation"
                   type="hueRotate"
-                  values="180"
+                  values={String(HUE_ROTATE)}
                 />
                 <feColorMatrix
                   in="dist"
@@ -214,7 +144,7 @@ export function EtherealShadow({
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url("/ambient-shadow-noise.webp")`,
+            backgroundImage: `url("${NOISE_TILE}")`,
             backgroundSize: noise.scale * 200,
             backgroundRepeat: "repeat",
             opacity: noise.opacity / 2,
