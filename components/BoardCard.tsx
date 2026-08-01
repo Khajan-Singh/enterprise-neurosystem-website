@@ -10,6 +10,7 @@ export function BoardCard({ member }: { member: BoardMember }) {
           alt={member.name}
           width={64}
           height={64}
+          sizes="64px"
           className="h-16 w-16 shrink-0 rounded-md object-cover"
         />
         <div>

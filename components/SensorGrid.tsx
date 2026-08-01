@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
 
 const tiles = [
   { src: "/vision/sensor-satellite.jpg", label: "Satellites", alt: "Satellite in orbit above Earth" },
@@ -18,8 +15,6 @@ const tiles = [
  * read as "the AI box that connects them all."
  */
 export function SensorGrid() {
-  const reduceMotion = useReducedMotion() ?? false;
-
   return (
     <div className="relative mx-auto aspect-square w-full max-w-sm">
       <svg
@@ -54,23 +49,26 @@ export function SensorGrid() {
       </div>
 
       <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
-        <motion.div
-          className="flex h-14 w-14 items-center justify-center rounded-full shadow-[0_8px_20px_-4px_rgba(43,58,103,0.5)]"
-          style={{ background: "#2f6fed" }}
-          animate={
-            reduceMotion
-              ? undefined
-              : { boxShadow: [
-                  "0 0 0 0 rgba(43,58,103,0.45)",
-                  "0 0 0 12px rgba(43,58,103,0)",
-                ] }
-          }
-          transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-        >
-          <span className="font-display text-sm font-semibold text-white">
-            AI
-          </span>
-        </motion.div>
+        <div className="relative h-14 w-14">
+          {/*
+            Radiating ring. Was an animated `boxShadow`, which repaints the
+            node every frame; a scaled/faded sibling behind it stays on the
+            compositor.
+          */}
+          <span
+            aria-hidden="true"
+            className="node-pulse-ring pointer-events-none absolute inset-0 rounded-full"
+            style={{ background: "rgba(43,58,103,0.45)" }}
+          />
+          <div
+            className="relative flex h-full w-full items-center justify-center rounded-full shadow-[0_8px_20px_-4px_rgba(43,58,103,0.5)]"
+            style={{ background: "#2f6fed" }}
+          >
+            <span className="font-display text-sm font-semibold text-white">
+              AI
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

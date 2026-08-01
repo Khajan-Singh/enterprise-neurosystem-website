@@ -80,6 +80,147 @@ body {
 }
 
 /*
+  Scroll reveal
+  --------------------------------------------------------------
+  Drives components/Reveal.tsx. This used to be a Framer Motion
+  `motion.div` per instance (~23 of them on the homepage, each with its
+  own IntersectionObserver); it is now a plain class toggled by one
+  shared observer, which is what keeps framer-motion out of the shared
+  bundle. `--reveal-delay` carries the stagger.
+*/
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0s),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0s);
+}
+
+.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/*
+  Traveling pulse (FlowDiagram) and radiating ring (SensorGrid)
+  --------------------------------------------------------------
+  Both were infinite Framer Motion loops; the FlowDiagram one animated
+  `left`/`top`, which forces layout every frame. These animate `transform`
+  and `opacity` only, so they stay on the compositor — and because a
+  `display: none` element runs no CSS animations, the breakpoint-hidden
+  variant of FlowDiagram now costs nothing (the JS version kept ticking).
+*/
+@keyframes flow-pulse-x {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes flow-pulse-y {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15%,
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.flow-pulse-x,
+.flow-pulse-y {
+  animation-duration: 5.2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.flow-pulse-x {
+  animation-name: flow-pulse-x;
+}
+
+.flow-pulse-y {
+  animation-name: flow-pulse-y;
+}
+
+/*
+  ArchitectureDiagram pulses (/vision). Previously 18 Framer Motion circles
+  each animating the `cx`/`cy` SVG *attributes* through a 500%-region glow
+  filter — attribute animation can't be composited, so every frame re-ran the
+  blur for all 18. Moving them with a CSS `transform` lets the browser
+  rasterize each glowing dot once and just translate the layer. `--dx`/`--dy`
+  carry each edge's travel vector in user units.
+*/
+@keyframes arch-pulse {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  27% {
+    opacity: 1;
+  }
+  33% {
+    transform: translate(var(--dx), var(--dy));
+    opacity: 0;
+  }
+  100% {
+    transform: translate(var(--dx), var(--dy));
+    opacity: 0;
+  }
+}
+
+.arch-pulse {
+  animation: arch-pulse 4.8s linear infinite;
+}
+
+@keyframes node-pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.85);
+    opacity: 0;
+  }
+}
+
+.node-pulse-ring {
+  animation: node-pulse-ring 2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-pulse-x,
+  .flow-pulse-y,
+  .node-pulse-ring,
+  .arch-pulse {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/*
   Card elevation
   --------------------------------------------------------------
   A soft, layered shadow (tight contact shadow + a longer ambient

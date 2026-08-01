@@ -74,6 +74,16 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   it's generated from the same array.
 - **Board member photos** live in `public/people/*` and are referenced by an `image` field on
   each entry in `data/board.ts`, rendered by `BoardCard` as a square (not circular) thumbnail.
+- **Images: size the source to how it's rendered before committing it.** Every image goes through
+  `next/image`, but Next resizes *on demand* from whatever you commit — an 850KB source doesn't
+  cost the visitor 850KB, it costs the origin a sharp resize of 850KB on every cache miss. The
+  established caps: photos at **1600px** on the long edge (≈1440px is the widest any of them
+  renders at 2× DPR), the `/vision` sensor tiles at **600px** (they render in a 200px box), and
+  `public/people/*` at **256×256**, centre-cropped to match `BoardCard`'s `object-cover` so the
+  crop isn't decided twice. `next.config.ts` sets `formats: ["image/avif", "image/webp"]`, a
+  1-year `minimumCacheTTL` (the 60s default re-derives every variant constantly on a low-traffic
+  site), and an `imageSizes` list including 64 and 200 for the two fixed-size cases above. Always
+  pass `sizes` for fixed-size images or Next generates variants for every device width.
 - **Design tokens live in `app/globals.css`**, using Tailwind v4's CSS-first config (no
   `tailwind.config.ts`): raw values are declared once in `:root`, then mirrored into
   `@theme inline` under the same custom-property names so Tailwind utility classes
@@ -94,28 +104,46 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   the Workstreams/Press/Contact page cards, the homepage's intro quote card, and the organization
   pills in `LogoWall`. There are no remaining plain (non-textured) cards; don't add a new one
   without a specific reason (e.g. a card nested inside another card).
-- **`components/AmbientShadow.tsx`** wraps `components/ui/etheral-shadow.tsx` (a Framer
-  Motion–animated SVG-filter background effect) with this site's navy color and motion settings
-  baked in — it's applied behind the homepage's blue (`bg-nav`) sections, every page's blue
-  header band, and the nav bar itself. Use `<AmbientShadow opacity={n} />` rather than importing
-  `EtherealShadow` directly, so the effect's color/animation config stays in one place. The parent
-  section needs `relative overflow-hidden` and its `Container` needs `relative` so content stacks
-  above it (see any page-header section for the pattern) — but put `overflow-hidden` on the
-  shadow's own wrapper div (as done in `Nav.tsx`), not on an element that also contains an
-  absolutely positioned popover/dropdown, or the popover gets clipped too. Its noise/mask
-  textures are self-hosted at `public/ambient-shadow-mask.webp` and
-  `public/ambient-shadow-noise.webp` (originally fetched from Framer's CDN — a 1.24MB PNG
-  mask — which was a real external dependency and a meaningful chunk of homepage load time;
-  they were downsized and re-encoded as WebP with no visible difference since the mask is
-  blurred via CSS anyway). `.card-textured`'s grain is a self-contained SVG data URI instead —
-  prefer that pattern for anything new that must never silently fail to load.
+- **`components/AmbientShadow.tsx`** wraps `components/ui/etheral-shadow.tsx` (an SVG-filter
+  background effect) with this site's navy color and shape settings baked in — it's applied
+  behind the homepage's blue (`bg-nav`) sections and every page's blue header band. Use
+  `<AmbientShadow opacity={n} />` rather than importing `EtherealShadow` directly, so the
+  effect's config stays in one place. The parent section needs `relative overflow-hidden` and its
+  `Container` needs `relative` so content stacks above it (see any page-header section for the
+  pattern) — but put `overflow-hidden` on the shadow's own wrapper div, not on an element that
+  also contains an absolutely positioned popover/dropdown, or the popover gets clipped too.
+  **The filter is deliberately static.** It used to rewrite its `feColorMatrix` `values`
+  attribute every frame via Framer Motion; mutating a filter input invalidates the whole graph,
+  so the browser re-rasterized `feTurbulence` + two `feDisplacementMap`s + a 4px blur at 60fps,
+  across up to four instances per page. That was the site's dominant CPU cost and the cause of
+  scroll jank. Don't re-animate it. For the same reason it is **no longer mounted in `Nav.tsx`**:
+  the nav is `sticky`, so that instance could never scroll out of view, and its `backdrop-blur-sm`
+  had to re-blur a region that was being invalidated every frame. Its mask is self-hosted at
+  `public/ambient-shadow-mask.webp` (kept small — it's `mask-size: cover` and blurred in CSS, so
+  512px wide is plenty) and preloaded from `app/layout.tsx`, since it's referenced from an inline
+  style and so isn't discoverable until the CSSOM exists. The grain overlay is a self-contained
+  SVG data URI, matching `.card-textured` — prefer that pattern for anything new that must never
+  silently fail to load.
 - **`components/Footer.tsx`** is now the site's single closing dark element (`bg-ink`, light text
   at 70%/60% opacity, `border-bg/10` hairlines). There is no more per-page dark CTA banner — the
   old `components/CTASection.tsx` was deleted once every page's CTA was removed; don't reintroduce
   one without discussing it first.
-- **`components/Reveal.tsx`** wraps Framer Motion's scroll-triggered fade/slide-in and
-  auto-disables via `useReducedMotion()`; it's the standard way content enters on scroll
-  throughout the site — reuse it rather than adding bespoke motion.
+- **`components/Reveal.tsx`** is the standard scroll-triggered fade/slide-in — reuse it rather
+  than adding bespoke motion. It is CSS-only: the animation lives in `.reveal`/`.reveal-in` in
+  `globals.css` (with the `prefers-reduced-motion` opt-out there too), and the component just
+  toggles the class using a **single module-level `IntersectionObserver` shared by every
+  instance** — the homepage mounts ~23 of them, so one observer per instance mattered.
+- **There is no animation library in this project, on purpose.** framer-motion was removed once
+  every effect was moved to CSS; if you're about to add `motion.*`, write keyframes in
+  `globals.css` instead. Animate `transform`/`opacity` only — never `left`/`top` (relayouts every
+  frame), `box-shadow` (repaints), or SVG geometry attributes like `cx`/`cy` (can't be
+  composited). `.flow-pulse-x`/`.flow-pulse-y`, `.node-pulse-ring`, and `.arch-pulse` in
+  `globals.css` are the existing examples. A bonus of CSS keyframes: a `display: none` element
+  runs no animations, so the breakpoint-hidden half of a responsive diagram costs nothing, where
+  the JS version kept ticking. One gotcha, already hit: `.flow-pulse-x` sizes its runner to the
+  pulse's travel distance and moves it `translateX(100%)`, so the box sticks out past the
+  diagram — its wrapper needs `overflow-x-clip` (x only, so node shadows survive) or the page
+  gets a horizontal scrollbar.
 - **`components/NeuralGlobe.tsx`** is a dependency-free `<canvas>` animation (rotating
   node-sphere on the homepage hero) with no library involvement — everything (projection,
   edges, pulses) is hand-rolled in that one file. Notable landmine already hit once: canvas
@@ -126,6 +154,12 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   rather than hand-parsing — extend that helper for new color tokens rather than re-adding a
   hex-only parser. The component also respects `prefers-reduced-motion` and pauses via
   `IntersectionObserver`/`visibilitychange` when off-screen or the tab is hidden — preserve both
-  when touching it.
+  when touching it. Its draw loop is deliberately allocation-free: the sphere geometry is built
+  once at module scope (not per mount), the rotated/projected point arrays and the depth-sort
+  order are reused across frames, node colors come from a precomputed bucketed `rgba()` ramp, and
+  the node glow is one radial gradient baked into an offscreen sprite and blitted with
+  `globalAlpha`. It previously allocated ~127 gradients and ~700 strings *per frame*. Keep new
+  work out of the per-frame path. Render **one** instance and size it responsively — mounting a
+  second copy per breakpoint doubles the cost for a canvas only one of which is ever visible.
 - **`components/Container.tsx`** is the single max-width/padding wrapper (`max-w-6xl`) used on
   every section — use it instead of ad hoc width/padding classes.

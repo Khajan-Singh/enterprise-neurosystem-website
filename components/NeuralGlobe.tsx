@@ -70,7 +70,14 @@ function buildEdges(points: Point3[], k: number): Edge[] {
   return edges;
 }
 
-function rotatePoint(p: Point3, angleY: number, tiltX: number): Point3 {
+// Writes into `out` rather than returning a fresh object — this runs once per
+// node per frame, so the allocations added up.
+function rotatePointInto(
+  p: Point3,
+  angleY: number,
+  tiltX: number,
+  out: Point3,
+): void {
   // Rotate around Y (spin), then apply a fixed tilt around X.
   const cosY = Math.cos(angleY);
   const sinY = Math.sin(angleY);
@@ -79,10 +86,10 @@ function rotatePoint(p: Point3, angleY: number, tiltX: number): Point3 {
 
   const cosX = Math.cos(tiltX);
   const sinX = Math.sin(tiltX);
-  const y2 = p.y * cosX - z1 * sinX;
-  const z2 = p.y * sinX + z1 * cosX;
 
-  return { x: x1, y: y2, z: z2 };
+  out.x = x1;
+  out.y = p.y * cosX - z1 * sinX;
+  out.z = p.y * sinX + z1 * cosX;
 }
 
 function readColor(varName: string, fallback: string): string {
@@ -118,6 +125,57 @@ function cssColorToRgb(value: string, fallbackHex: string): [number, number, num
   return [0, 0, 0];
 }
 
+// The geometry is deterministic, so build it once for the module rather than
+// re-running the O(n²) neighbour search in every mount's effect.
+const points = fibonacciSphere(NODE_COUNT);
+const edges = buildEdges(points, NEIGHBORS_PER_NODE);
+
+// Per-frame the drawing colours only vary in alpha. Building the rgba()
+// strings up front (bucketed) avoids ~700 string allocations per frame.
+const ALPHA_BUCKETS = 32;
+
+function buildAlphaRamp(
+  [r, g, b]: [number, number, number],
+  maxAlpha: number,
+): string[] {
+  const ramp: string[] = [];
+  for (let i = 0; i < ALPHA_BUCKETS; i++) {
+    ramp.push(`rgba(${r}, ${g}, ${b}, ${(maxAlpha * (i + 1)) / ALPHA_BUCKETS})`);
+  }
+  return ramp;
+}
+
+function rampLookup(ramp: string[], alpha: number, maxAlpha: number): string {
+  const i = Math.min(
+    ALPHA_BUCKETS - 1,
+    Math.max(0, Math.round((alpha / maxAlpha) * ALPHA_BUCKETS) - 1),
+  );
+  return ramp[i];
+}
+
+/**
+ * A radial-gradient glow baked into a small offscreen canvas once, then
+ * blitted per node with `globalAlpha`. The previous code called
+ * `createRadialGradient` for every node and pulse on every frame (~127
+ * gradient objects per frame, all garbage).
+ */
+function makeGlowSprite([r, g, b]: [number, number, number]): HTMLCanvasElement {
+  const size = 64;
+  const sprite = document.createElement("canvas");
+  sprite.width = size;
+  sprite.height = size;
+  const sctx = sprite.getContext("2d");
+  if (sctx) {
+    const half = size / 2;
+    const gradient = sctx.createRadialGradient(half, half, 0, half, half, half);
+    gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, 1)`);
+    gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+    sctx.fillStyle = gradient;
+    sctx.fillRect(0, 0, size, size);
+  }
+  return sprite;
+}
+
 export function NeuralGlobe({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -131,8 +189,6 @@ export function NeuralGlobe({ className = "" }: { className?: string }) {
     const container = canvas.parentElement;
     if (!container) return;
 
-    const points = fibonacciSphere(NODE_COUNT);
-    const edges = buildEdges(points, NEIGHBORS_PER_NODE);
     const pulses: Pulse[] = [];
 
     const lineColor = cssColorToRgb(
@@ -142,6 +198,23 @@ export function NeuralGlobe({ className = "" }: { className?: string }) {
     const coreColor = cssColorToRgb(
       readColor("--color-net-core", "#ffa500"),
       "#ffa500",
+    );
+
+    const lineRamp = buildAlphaRamp(lineColor, 0.75);
+    const nodeRamp = buildAlphaRamp(coreColor, 1);
+    const glowSprite = makeGlowSprite(coreColor);
+
+    // Reused every frame instead of reallocating three arrays of ~570 objects.
+    const rotated: Point3[] = points.map(() => ({ x: 0, y: 0, z: 0 }));
+    const projected = points.map(() => ({ x: 0, y: 0, z: 0, depthScale: 1 }));
+    // Painter's-algorithm draw order. Indices < edges.length are edges, the
+    // rest are nodes; `drawZ` holds each entry's depth for the sort. The order
+    // array is sorted in place and reused — the sphere turns slowly, so it is
+    // already nearly sorted from the previous frame.
+    const drawZ = new Float32Array(edges.length + points.length);
+    const drawOrder: number[] = Array.from(
+      { length: edges.length + points.length },
+      (_, i) => i,
     );
 
     const reduceMotionQuery = window.matchMedia(
@@ -175,75 +248,73 @@ export function NeuralGlobe({ className = "" }: { className?: string }) {
     let running = false;
     let inView = true;
 
-    function project(p: Point3) {
+    const pulseScratch = { x: 0, y: 0, z: 0 };
+    const projectedScratch = { x: 0, y: 0, z: 0, depthScale: 1 };
+
+    function project(p: Point3, out: typeof projectedScratch) {
       const scale = Math.min(width, height) * 0.42;
       const perspective = 2.6;
       const depthScale = perspective / (perspective + p.z);
-      return {
-        x: width / 2 + p.x * scale * depthScale,
-        y: height / 2 + p.y * scale * depthScale,
-        z: p.z,
-        depthScale,
-      };
+      out.x = width / 2 + p.x * scale * depthScale;
+      out.y = height / 2 + p.y * scale * depthScale;
+      out.z = p.z;
+      out.depthScale = depthScale;
+      return out;
+    }
+
+    // z is roughly in [-1, 1]; map to [0.4, 1] so far-side edges stay
+    // visible instead of fading to near-nothing.
+    function depthAlpha(z: number) {
+      return 0.4 + ((z + 1) / 2) * 0.6;
+    }
+
+    function drawGlow(x: number, y: number, radius: number, alpha: number) {
+      ctx.globalAlpha = alpha;
+      ctx.drawImage(glowSprite, x - radius, y - radius, radius * 2, radius * 2);
+      ctx.globalAlpha = 1;
     }
 
     function drawFrame(rotationAngle: number, withPulses: boolean) {
       ctx.clearRect(0, 0, width, height);
 
-      const rotated = points.map((p) => rotatePoint(p, rotationAngle, TILT));
-      const projected = rotated.map(project);
+      for (let i = 0; i < points.length; i++) {
+        rotatePointInto(points[i], rotationAngle, TILT, rotated[i]);
+        project(rotated[i], projected[i]);
+      }
 
-      type Drawable =
-        | { kind: "edge"; edge: Edge; z: number }
-        | { kind: "node"; index: number; z: number };
+      for (let e = 0; e < edges.length; e++) {
+        drawZ[e] = (rotated[edges[e][0]].z + rotated[edges[e][1]].z) / 2;
+      }
+      for (let i = 0; i < points.length; i++) {
+        drawZ[edges.length + i] = rotated[i].z;
+      }
+      drawOrder.sort((a, b) => drawZ[a] - drawZ[b]);
 
-      const drawables: Drawable[] = [];
-      edges.forEach((edge) => {
-        const z = (rotated[edge[0]].z + rotated[edge[1]].z) / 2;
-        drawables.push({ kind: "edge", edge, z });
-      });
-      rotated.forEach((p, i) => {
-        drawables.push({ kind: "node", index: i, z: p.z });
-      });
-      drawables.sort((a, b) => a.z - b.z);
+      ctx.lineWidth = 1.1;
+      for (let n = 0; n < drawOrder.length; n++) {
+        const d = drawOrder[n];
 
-      const depthAlpha = (z: number) => {
-        // z is roughly in [-1, 1]; map to [0.4, 1] so far-side edges
-        // stay visible instead of fading to near-nothing.
-        return 0.4 + ((z + 1) / 2) * 0.6;
-      };
-
-      for (const d of drawables) {
-        if (d.kind === "edge") {
-          const [i, j] = d.edge;
-          const a = projected[i];
-          const b = projected[j];
-          const alpha = depthAlpha(d.z) * 0.75;
-          ctx.strokeStyle = `rgba(${lineColor[0]}, ${lineColor[1]}, ${lineColor[2]}, ${alpha})`;
-          ctx.lineWidth = 1.1;
+        if (d < edges.length) {
+          const a = projected[edges[d][0]];
+          const b = projected[edges[d][1]];
+          ctx.strokeStyle = rampLookup(
+            lineRamp,
+            depthAlpha(drawZ[d]) * 0.75,
+            0.75,
+          );
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
           ctx.stroke();
         } else {
-          const p = projected[d.index];
-          const alpha = depthAlpha(d.z);
+          const p = projected[d - edges.length];
+          const alpha = depthAlpha(drawZ[d]);
           const r = 1.6 + p.depthScale * 1.4;
 
-          // soft glow
-          const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 3);
-          glow.addColorStop(
-            0,
-            `rgba(${coreColor[0]}, ${coreColor[1]}, ${coreColor[2]}, ${alpha * 0.35})`,
-          );
-          glow.addColorStop(1, "rgba(0,0,0,0)");
-          ctx.fillStyle = glow;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, r * 3, 0, Math.PI * 2);
-          ctx.fill();
+          drawGlow(p.x, p.y, r * 3, alpha * 0.35);
 
           // node ball — solid orange, matching the logo mark
-          ctx.fillStyle = `rgba(${coreColor[0]}, ${coreColor[1]}, ${coreColor[2]}, ${alpha})`;
+          ctx.fillStyle = rampLookup(nodeRamp, alpha, 1);
           ctx.beginPath();
           ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
           ctx.fill();
@@ -252,31 +323,19 @@ export function NeuralGlobe({ className = "" }: { className?: string }) {
 
       if (withPulses) {
         for (const pulse of pulses) {
-          const [i, j] = pulse.edge;
-          const a = rotated[i];
-          const b = rotated[j];
-          const lerp = {
-            x: a.x + (b.x - a.x) * pulse.t,
-            y: a.y + (b.y - a.y) * pulse.t,
-            z: a.z + (b.z - a.z) * pulse.t,
-          };
-          const p = project(lerp);
+          const a = rotated[pulse.edge[0]];
+          const b = rotated[pulse.edge[1]];
+          pulseScratch.x = a.x + (b.x - a.x) * pulse.t;
+          pulseScratch.y = a.y + (b.y - a.y) * pulse.t;
+          pulseScratch.z = a.z + (b.z - a.z) * pulse.t;
+          const p = project(pulseScratch, projectedScratch);
           const fade = Math.sin(Math.PI * pulse.t); // ease in/out over the trip
           const alpha = depthAlpha(p.z) * fade;
           const r = 2.2 + p.depthScale * 1.6;
 
-          const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 4);
-          glow.addColorStop(
-            0,
-            `rgba(${coreColor[0]}, ${coreColor[1]}, ${coreColor[2]}, ${alpha * 0.9})`,
-          );
-          glow.addColorStop(1, "rgba(0,0,0,0)");
-          ctx.fillStyle = glow;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, r * 4, 0, Math.PI * 2);
-          ctx.fill();
+          drawGlow(p.x, p.y, r * 4, alpha * 0.9);
 
-          ctx.fillStyle = `rgba(${coreColor[0]}, ${coreColor[1]}, ${coreColor[2]}, ${alpha})`;
+          ctx.fillStyle = rampLookup(nodeRamp, alpha, 1);
           ctx.beginPath();
           ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
           ctx.fill();

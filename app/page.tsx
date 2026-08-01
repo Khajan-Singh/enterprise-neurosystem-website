@@ -97,11 +97,13 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <Reveal delay={0.2} className="hidden lg:block">
-            <NeuralGlobe className="aspect-square w-full" />
-          </Reveal>
-          <Reveal delay={0.2} className="lg:hidden">
-            <NeuralGlobe className="h-64 w-full sm:h-80" />
+          {/*
+            One instance, sized responsively — this used to be two mounted
+            canvases (one hidden per breakpoint), each building the sphere's
+            edge graph and allocating its own backing store.
+          */}
+          <Reveal delay={0.2}>
+            <NeuralGlobe className="h-64 w-full sm:h-80 lg:aspect-square lg:h-auto" />
           </Reveal>
         </Container>
       </section>

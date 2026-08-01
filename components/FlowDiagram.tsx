@@ -1,7 +1,3 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-
 export type FlowStep = {
   number: string;
   title: string;
@@ -28,14 +24,18 @@ export function FlowDiagram({
   detailed?: boolean;
   showTitles?: boolean;
 }) {
-  const reduceMotion = useReducedMotion() ?? false;
   const n = steps.length;
   const inset = 50 / n; // % — half a column width, so the line spans first-to-last node center
 
   return (
     <div>
-      {/* Desktop: even columns, continuous line + single traveling pulse */}
-      <div className="relative hidden lg:block">
+      {/*
+        Desktop: even columns, continuous line + single traveling pulse.
+        `overflow-x-clip` contains the pulse runner, whose box is as wide as the
+        pulse's travel distance and so sticks out past the diagram at the end of
+        each loop. Clipping only the x axis leaves the nodes' drop shadows intact.
+      */}
+      <div className="relative hidden overflow-x-clip lg:block">
         <div
           className="absolute top-7 h-px"
           style={{
@@ -44,26 +44,27 @@ export function FlowDiagram({
             background: "color-mix(in srgb, var(--color-ink) 30%, var(--color-line))",
           }}
         />
-        {!reduceMotion && (
-          <motion.div
-            className="absolute top-7 h-2.5 w-2.5 -translate-y-1/2 rounded-full"
-            style={{
-              background: "var(--color-net-core)",
-              boxShadow: "0 0 10px 2px rgba(255,165,0,0.55)",
-            }}
-            initial={{ left: `${inset}%`, opacity: 0 }}
-            animate={{
-              left: [`${inset}%`, `${100 - inset}%`],
-              opacity: [0, 1, 1, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              repeatDelay: 1.2,
-              ease: "easeInOut",
-            }}
-          />
-        )}
+        {/*
+          The pulse travels the length of the line. `translateX: 100%` is
+          relative to the element's own width, so the runner is sized to the
+          exact travel distance and the dot rides pinned to its left edge —
+          that keeps this a compositor-only transform instead of an animated
+          `left`, which relayouts every frame.
+        */}
+        <div
+          className="pointer-events-none absolute top-7"
+          style={{ left: `${inset}%`, right: `${inset}%` }}
+        >
+          <div className="flow-pulse-x relative h-0 w-full">
+            <div
+              className="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              style={{
+                background: "var(--color-net-core)",
+                boxShadow: "0 0 10px 2px rgba(255,165,0,0.55)",
+              }}
+            />
+          </div>
+        </div>
         <div
           className="relative grid"
           style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}
@@ -102,26 +103,20 @@ export function FlowDiagram({
             background: "color-mix(in srgb, var(--color-ink) 30%, var(--color-line))",
           }}
         />
-        {!reduceMotion && (
-          <motion.div
-            className="absolute left-7 h-2.5 w-2.5 -translate-x-1/2 rounded-full"
-            style={{
-              background: "var(--color-net-core)",
-              boxShadow: "0 0 10px 2px rgba(255,165,0,0.55)",
-            }}
-            initial={{ top: "1.75rem", opacity: 0 }}
-            animate={{
-              top: ["1.75rem", "calc(100% - 1.75rem)"],
-              opacity: [0, 1, 1, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              repeatDelay: 1.2,
-              ease: "easeInOut",
-            }}
-          />
-        )}
+        <div
+          className="pointer-events-none absolute left-7 top-7"
+          style={{ bottom: "1.75rem" }}
+        >
+          <div className="flow-pulse-y relative h-full w-0">
+            <div
+              className="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              style={{
+                background: "var(--color-net-core)",
+                boxShadow: "0 0 10px 2px rgba(255,165,0,0.55)",
+              }}
+            />
+          </div>
+        </div>
         {steps.map((step, i) => (
           <div
             key={step.number}

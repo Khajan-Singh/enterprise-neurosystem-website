@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Container } from "./Container";
-import { AmbientShadow } from "./AmbientShadow";
 import { useDropdown } from "./useDropdown";
 
 const aboutLinks = [
@@ -154,9 +153,6 @@ export function Nav() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-nav-line/60 bg-nav/70 shadow-[0_8px_30px_-12px_rgba(22,23,26,0.1)] backdrop-blur-sm">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <AmbientShadow opacity={0.1} />
-      </div>
       <Container className="relative flex h-24 items-center justify-between">
         <Link
           href="/"
@@ -166,8 +162,8 @@ export function Nav() {
           <Image
             src="/logo-with-name.png"
             alt="Enterprise Neurosystem"
-            width={1164}
-            height={243}
+            width={400}
+            height={84}
             className="h-12 w-auto"
             priority
           />

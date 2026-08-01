@@ -25,6 +25,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} h-full antialiased`}>
+      <head>
+        {/*
+          The ambient shadow's mask is referenced from an inline style, so the
+          browser can't discover it until the CSSOM is built — and it sits in the
+          above-the-fold header band on every page. Preload it.
+        */}
+        <link
+          rel="preload"
+          as="image"
+          href="/ambient-shadow-mask.webp"
+          type="image/webp"
+        />
+      </head>
       <body
         className="flex min-h-full flex-col bg-bg text-ink"
         suppressHydrationWarning

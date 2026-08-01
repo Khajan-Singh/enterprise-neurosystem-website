@@ -12,7 +12,7 @@ export const boardMembers: BoardMember[] = [
     title: "Chair",
     affiliation: "Chief Architect, Red Hat CTO Office",
     bio: "Enterprise Neurosystem is the brainchild of Bill Wright, arising out of his work with R&D leaders at major telcos in the Americas. Bill is a Chief Architect in the CTO organization at Red Hat, with previous work in the field at Affirmed Networks (later acquired by Microsoft) and VMware. He is a frequent speaker on AI and open source innovation.",
-    image: "/people/bill.jpeg",
+    image: "/people/bill.jpg",
   },
   {
     name: "Dr. John Overton",
@@ -53,6 +53,6 @@ export const boardMembers: BoardMember[] = [
     title: "Board Member",
     affiliation: "Sr. Director, Yahoo Performance Engineering Team",
     bio: "Dennis O'Connell has been leading technology vendor relations and Yahoo server hardware strategy for the last 15 years. He is the Sr. Director of Yahoo's Performance Engineering Team, which is in charge of exploring and on-boarding new technologies and server vendors, sponsoring proof of concepts around new tech, and finding new areas of collaboration with current and future vendors. Dennis' team runs Yahoo's benchmarking & certification lab and assists Yahoo's business units to improve their applications' latency, throughput and cost. Dennis grew up in Massachusetts and graduated at Northeastern University with a major in International Affairs.",
-    image: "/people/dennis.png",
+    image: "/people/dennis.jpg",
   },
 ];
