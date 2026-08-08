@@ -19,7 +19,6 @@ export default function WorkstreamsPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Community"
               title="Workstreams"
               description="We're targeting several platform development areas, with initial focus on a self-describing digital asset catalog and an AI signal processing framework and tools."
             />

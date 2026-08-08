@@ -1,0 +1,21 @@
+{
+  "_comment": "Typo corrections applied to post titles and body text on import. These are genuine errors in the published Medium copy; everything else is left verbatim. Kept here rather than hand-edited into content/blog/*.md so a rerun of the importer can't silently reintroduce them. `find` is matched literally, not as a regex.",
+
+  "fixes": [
+    {
+      "find": "all ofthe",
+      "replace": "all of the",
+      "why": "missing space — 'Prizes Announced for AI Innovation Grand Challenge'"
+    },
+    {
+      "find": "the submssion that she led",
+      "replace": "the submission that she led",
+      "why": "misspelling — Q&A with Dr. Letetia Addison"
+    },
+    {
+      "find": "Alisa luangrath",
+      "replace": "Alisa Luangrath",
+      "why": "surname not capitalised; appears in two posts and in one title"
+    }
+  ]
+}

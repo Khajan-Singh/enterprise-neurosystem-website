@@ -4,6 +4,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 @AGENTS.md
 
+## Open decisions
+
+- **How new blog posts get authored is UNRESOLVED — do not assume an answer.** The 13 existing
+  posts were a one-time import from Medium (see the blog notes under Architecture), and the user
+  deliberately deferred choosing a long-term workflow until the import shipped. The four live
+  options, none of them ruled out: (1) keep publishing on Medium and rerun
+  `scripts/import-medium.mjs` to pull each new post in; (2) author markdown directly in
+  `content/blog/`; (3) adopt a headless CMS (Sanity/Payload/Contentful — all of which import and
+  export markdown + frontmatter); (4) some mix. Nothing in the current implementation forecloses
+  any of them, and that is on purpose: markdown-plus-frontmatter was chosen as the storage format
+  precisely because it's the format every option shares. If a change would lock one of these in —
+  adding a CMS client, moving content into a database, making the schema CMS-specific — raise it
+  with the user first rather than deciding by implementation. Related: the Medium publication is
+  still live and still the canonical target for these posts.
+
 ## What this is
 
 A redesign of the Enterprise Neurosystem (enterpriseneurosystem.org) marketing/informational
@@ -183,3 +198,53 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   second copy per breakpoint doubles the cost for a canvas only one of which is ever visible.
 - **`components/Container.tsx`** is the single max-width/padding wrapper (`max-w-6xl`) used on
   every section — use it instead of ad hoc width/padding classes.
+- **The blog is file-backed markdown, imported once from Medium.** `content/blog/*.md` (13 posts,
+  May 2024 – Jan 2026, all by Pete Harris) is the source of truth; `lib/blog.ts` reads it with
+  `gray-matter` + `remark-parse` and `components/PostBody.tsx` walks the resulting mdast, emitting
+  **the exact markup `/mission` and `/charter` use** (the `gap-4` wrapper with unclassed `<p>`s, the
+  navy-dot bullet list, the `border-l-2 border-accent` pull-quote). There is deliberately no
+  `.prose` layer and no `@tailwindcss/typography` — don't add one. All parsing is build-time only:
+  every post is prerendered via `generateStaticParams` + `dynamicParams = false`, so none of it
+  ships to the client. Use **sync** `fs.readFileSync` in `lib/blog.ts`; async fs counts as uncached
+  data and would need a `'use cache'` wrapper if `cacheComponents` is ever enabled.
+- **`scripts/import-medium.mjs` is rerunnable, and posts are keyed on `mediumId`, never the slug.**
+  Medium slugs mutate (post `d06acc551f6c` moved from `...climate-change-award...` to
+  `...climate-action-award...` when its title was edited), so the importer matches an existing file
+  by its `mediumId` frontmatter and reuses that file's slug — renaming a `.md` file is therefore how
+  you rename a post's URL, and a rerun will respect it. Two hard constraints on the source: the RSS
+  feed carries **full** post bodies but is capped at **10 items with no pagination**, and Medium
+  sits behind Cloudflare so plain `fetch()` of a post page 403s. The three pre-Aug-2024 posts the
+  feed cannot reach were therefore captured with a browser and committed as
+  `scripts/medium-cache/medium-*.json`; that cache is what keeps the import reproducible offline.
+  `title-overrides.json` holds full titles for the two the feed truncates with an ellipsis, and
+  `text-fixes.json` holds literal find/replace typo corrections for genuine errors in the published
+  Medium copy (missing space, misspelling, an uncapitalised surname), applied to both titles and
+  body text — put corrections there, never hand-edit `content/blog/*.md`, or the next rerun
+  reintroduces them. `alt-text.json` holds alt text for the 8 images that have no caption (captioned images keep
+  `alt=""` on purpose — the `<figcaption>` is their description, and duplicating it makes screen
+  readers announce it twice). The importer also strips Medium's 1×1 tracking pixel and its
+  "originally published in" footer, promotes bold-only paragraphs to `h3` (the authors used bold
+  text as section headings), converts hand-typed `* item<br>` lists into real `<ul>`s, and
+  normalises Medium's U+200A/U+00A0 spacing to ordinary spaces so em dashes don't render as
+  `BeeSenz—Using`.
+- **`max-w-3xl` is a prose rule, not a card rule.** A post's *body* is capped at `max-w-3xl` for
+  line length, like `/mission` and `/charter`. Card lists are not: the card spans the full
+  `Container` width and only the text inside it is capped (`max-w-2xl`). `/workstreams` is the
+  reference implementation — `Container className="flex flex-col gap-8 py-20"` with each card
+  `card-surface card-surface-hover card-textured flex flex-col gap-4 rounded-2xl p-8 sm:p-10` — and
+  `/blog` and `/press` both follow it. `/press` used to cap its whole list at `max-w-3xl`, which
+  went unnoticed only because it has a single item; that has been fixed, so there is no longer a
+  narrow-card-list precedent anywhere to copy by mistake.
+- **Blog images are committed locally, not hotlinked** (`public/blog/<slug>/`, 26 images, 3.3MB).
+  Medium's CDN is hotlinkable, but that would mean the optimizer resizing a full-size Medium
+  original on every cache miss — exactly what the "size the source to how it's rendered" rule
+  exists to avoid — so `next.config.ts` deliberately has **no `remotePatterns`**. The importer
+  caps images at 1600px and drops the alpha channel when it's fully opaque (4 of Medium's PNGs
+  carried an unused alpha channel and cost ~8× what they should).
+- **Blog posts canonicalise to Medium, on purpose.** `generateMetadata` sets
+  `alternates: { canonical: post.mediumUrl }` because Medium published first and canonicalises to
+  itself, so this copy defers rather than competing as a duplicate. The posts still appear in
+  `app/sitemap.ts` — that is not a contradiction (the sitemap declares what exists on this domain;
+  search engines consolidate to the canonical), so don't "fix" it by removing them. If the org ever
+  wants the SEO back, the author can flip each Medium post's "originally published elsewhere"
+  setting; only then should the canonical here change.

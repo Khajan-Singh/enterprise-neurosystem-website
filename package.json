@@ -9,9 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
     "next": "16.2.10",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -20,7 +23,11 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "fast-xml-parser": "^5.10.1",
+    "jsdom": "^30.0.1",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4",
+    "turndown": "^7.2.4",
     "typescript": "^5"
   }
 }

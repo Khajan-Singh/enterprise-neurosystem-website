@@ -285,3 +285,45 @@ body {
 .card-textured.card-surface-hover:hover {
   border-color: color-mix(in srgb, var(--color-ink) 45%, var(--color-line));
 }
+
+/*
+  Nav dropdown panel (Vision, Projects)
+  --------------------------------------------------------------
+  The panels used to mount on open, so they appeared at full opacity in a
+  single frame. They now stay mounted and fade/lift instead, which also lets
+  them animate *out* — a conditional mount can only ever animate the enter.
+
+  This has to live here rather than as Tailwind `transition` utilities on the
+  element. The panel is a `.card-surface`, and that rule sets the `transition`
+  *shorthand*; because globals.css rules are unlayered they beat Tailwind's
+  layered utilities, so a `transition-opacity` class on the panel is silently
+  discarded and nothing animates. Declaring the full list here, after
+  `.card-surface`, is what actually wins. (Verified in the browser: the
+  computed `transition-property` was `box-shadow, transform, border-color`
+  before this existed.)
+
+  `translate`/`scale` are the individual CSS properties Tailwind v4 uses, not
+  the `transform` shorthand — transitioning `transform` here would do nothing.
+  Both stay on the compositor. `prefers-reduced-motion` is handled by the
+  global rule near the top of this file, which zeroes every transition.
+*/
+.nav-panel {
+  transition:
+    opacity 0.16s ease-out,
+    translate 0.16s ease-out,
+    scale 0.16s ease-out,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.nav-panel[data-open="false"] {
+  opacity: 0;
+  translate: 0 -4px;
+  scale: 0.98;
+}
+
+.nav-panel[data-open="true"] {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+}

@@ -20,7 +20,6 @@ export default function DangermondPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Flagship deployment"
               title="Dangermond Preserve"
               description="The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, built with JPL/Caltech and The Nature Conservancy."
             />

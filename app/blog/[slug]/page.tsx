@@ -1,0 +1,118 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Container } from "@/components/Container";
+import { AmbientShadow } from "@/components/AmbientShadow";
+import { Reveal } from "@/components/Reveal";
+import { PostBody } from "@/components/PostBody";
+import { SectionSidebar } from "@/components/SectionSidebar";
+import { formatPostDate, getAllPosts, getPostBySlug, getPostHeadings } from "@/lib/blog";
+import { getAuthor } from "@/data/authors";
+
+/** Every post is known at build time, so 404 anything else. */
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getAllPosts().map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata(props: PageProps<"/blog/[slug]">): Promise<Metadata> {
+  const { slug } = await props.params;
+  const post = getPostBySlug(slug);
+  if (!post) return {};
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    // These posts were published on Medium first and Medium canonicalises to
+    // itself, so this copy defers to it rather than competing as a duplicate.
+    alternates: { canonical: post.mediumUrl },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.excerpt,
+      publishedTime: post.date,
+      authors: post.author ? [post.author] : undefined,
+      images: post.hero ? [post.hero] : undefined,
+    },
+  };
+}
+
+export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
+  const { slug } = await props.params;
+  const post = getPostBySlug(slug);
+  if (!post) notFound();
+
+  const headings = getPostHeadings(post.content);
+  // Only worth a sidebar when there's something to navigate between.
+  const showSidebar = headings.length >= 3;
+  const author = getAuthor(post.author);
+
+  return (
+    <>
+      <section className="relative overflow-hidden border-b border-line bg-page-header">
+        <AmbientShadow opacity={0.07} />
+        <Container className="relative pb-10 pt-14 sm:pt-20">
+          <Reveal>
+            <div className="max-w-3xl">
+              {/* SectionHeading renders an h2; a post's own title is the h1. */}
+              <h1 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                {post.title}
+              </h1>
+              <p className="mt-4 text-sm text-ink-muted">
+                <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+                {post.author && (
+                  <>
+                    <span aria-hidden="true"> · </span>
+                    {post.author}
+                    {author?.role && <span className="text-ink-muted">, {author.role}</span>}
+                  </>
+                )}
+                <span aria-hidden="true"> · </span>
+                {post.readingMinutes} min read
+              </p>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
+
+      <section>
+        <Container
+          className={
+            showSidebar
+              ? "grid gap-16 py-20 lg:grid-cols-[220px_1fr] lg:gap-20"
+              : "py-20"
+          }
+        >
+          {showSidebar && <SectionSidebar sections={headings} />}
+
+          <div className="flex max-w-3xl flex-col gap-10">
+            <Reveal>
+              <PostBody post={post} />
+            </Reveal>
+
+            <div className="border-t border-line pt-8 text-sm text-ink-muted">
+              <p>
+                Originally published on{" "}
+                <a
+                  href={post.mediumUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline"
+                >
+                  Medium
+                </a>
+                .
+              </p>
+              <p className="mt-2">
+                <Link href="/blog" className="text-accent hover:underline">
+                  ← All posts
+                </Link>
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+    </>
+  );
+}

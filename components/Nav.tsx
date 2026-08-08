@@ -7,8 +7,7 @@ import { useState } from "react";
 import { Container } from "./Container";
 import { useDropdown } from "./useDropdown";
 
-const aboutLinks = [
-  { href: "/vision", label: "Vision" },
+const visionLinks = [
   { href: "/mission", label: "Mission" },
   { href: "/charter", label: "Charter" },
   { href: "/board", label: "Board" },
@@ -24,8 +23,16 @@ const projectsLinks = [
 const links = [
   { href: "/workstreams", label: "Workstreams" },
   { href: "/partners", label: "Partners" },
+  { href: "/blog", label: "Blog" },
   { href: "/press", label: "Press" },
 ];
+
+/**
+ * Exact match, except for sections that have detail pages beneath them —
+ * /blog/<slug> should still light up "Blog".
+ */
+const isActive = (pathname: string, href: string) =>
+  pathname === href || pathname.startsWith(`${href}/`);
 
 /**
  * Scrolls to an in-page anchor when already on its target route (Next's
@@ -118,22 +125,58 @@ function NavDropdown({
         </button>
       )}
 
-      {open && (
-        <div className="absolute left-1/2 top-full z-10 w-48 -translate-x-1/2 pt-3">
-          <div className="card-surface card-textured rounded-xl py-2">
-            {items.map((link) => (
+      {/*
+        The panel stays mounted so it can transition in *and* out — mounting on
+        `open` can only ever animate the enter, and popping straight to full
+        opacity is what made these feel abrupt. `inert` keeps the closed panel
+        out of the tab order and the accessibility tree, and
+        `pointer-events-none` keeps it from catching the mouse.
+
+        The gap between trigger and panel is the wrapper's `pt-3` padding, not
+        a margin — a margin leaves a dead zone the pointer falls through on its
+        way to the panel, which closes the menu.
+      */}
+      <div
+        inert={!open}
+        className={`absolute left-1/2 top-full z-10 w-48 -translate-x-1/2 pt-3 ${
+          open ? "" : "pointer-events-none"
+        }`}
+      >
+        {/*
+          Animated on the inner panel, not the wrapper: the wrapper's
+          `-translate-x-1/2` centering is a transform, and animating there
+          would fight it. The open/closed states themselves live in
+          `.nav-panel` in globals.css — see the comment there for why they
+          can't be Tailwind utilities.
+        */}
+        <div
+          data-open={open}
+          className="nav-panel card-surface card-textured origin-top rounded-xl py-2"
+        >
+          {href && (
+            <>
               <Link
-                key={link.href}
-                href={link.href}
-                onClick={handleItemClick(link.href)}
-                className="block px-4 py-2 text-sm text-ink-muted transition-colors hover:text-ink"
+                href={href}
+                onClick={close}
+                className="block px-4 py-2 text-sm font-medium text-ink"
               >
-                {link.label}
+                {label}
               </Link>
-            ))}
-          </div>
+              <div className="my-2 border-t border-nav-line" />
+            </>
+          )}
+          {items.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={handleItemClick(link.href)}
+              className="block px-4 py-2 text-sm text-ink-muted transition-colors hover:text-ink"
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -145,7 +188,8 @@ export function Nav() {
   const closeMobile = () => setOpen(false);
   const handleMobileHashClick = useHashLinkClick(pathname, closeMobile);
 
-  const aboutActive = aboutLinks.some((link) => link.href === pathname);
+  const visionActive =
+    pathname === "/vision" || visionLinks.some((link) => link.href === pathname);
   const projectsActive =
     pathname === "/projects" ||
     pathname.startsWith("/projects/") ||
@@ -170,7 +214,12 @@ export function Nav() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          <NavDropdown label="About" items={aboutLinks} active={aboutActive} />
+          <NavDropdown
+            label="Vision"
+            href="/vision"
+            items={visionLinks}
+            active={visionActive}
+          />
           <NavDropdown
             label="Projects"
             href="/projects"
@@ -179,7 +228,7 @@ export function Nav() {
           />
 
           {links.map((link) => {
-            const active = pathname === link.href;
+            const active = isActive(pathname, link.href);
             return (
               <Link
                 key={link.href}
@@ -227,14 +276,20 @@ export function Nav() {
       {open && (
         <nav className="border-t border-nav-line bg-nav md:hidden">
           <Container className="flex flex-col gap-1 py-4">
-            <p className="border-b border-nav-line px-2 pb-2 pt-2 text-xs font-medium uppercase tracking-widest text-ink-muted">
-              About
-            </p>
-            {aboutLinks.map((link) => (
+            <Link
+              href="/vision"
+              onClick={closeMobile}
+              className={`border-b border-nav-line px-2 pb-2 pt-2 text-xs font-medium uppercase tracking-widest ${
+                visionActive ? "text-ink" : "text-ink-muted"
+              }`}
+            >
+              Vision
+            </Link>
+            {visionLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setOpen(false)}
+                onClick={closeMobile}
                 className={`rounded-md px-2 py-2.5 text-base ${
                   pathname === link.href
                     ? "font-semibold text-ink"
@@ -277,7 +332,7 @@ export function Nav() {
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className={`rounded-md px-2 py-2.5 text-base ${
-                  pathname === link.href
+                  isActive(pathname, link.href)
                     ? "font-semibold text-ink"
                     : "text-ink/70"
                 }`}

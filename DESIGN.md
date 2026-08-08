@@ -123,7 +123,7 @@ The **page-header band** (used at the top of every non-homepage page: Mission, C
 - **Display** (600 weight, clamp(1.875rem, 3vw, 2.25rem)/sm:2.25rem, 1.15 line-height, -0.02em tracking): page section headings (`SectionHeading`'s `h2`), also used at larger sizes (text-2xl–4xl) for hero and CTA headlines.
 - **Title** (600 weight, 1.125rem–1.25rem): card titles (board member names, project titles).
 - **Body** (400 weight, 1rem–1.125rem, 1.6 line-height): running prose (mission/charter copy), capped implicitly by `max-w-3xl` containers (~65-75ch).
-- **Label** (500 weight, 0.75rem, 0.1em tracking, uppercase): the section "eyebrow" above each page title (e.g. "About", "Community") and form field labels.
+- **Label** (500 weight, 0.75rem, 0.1em tracking, uppercase): the "eyebrow" above a *mid-page* section heading (e.g. "In the field", "Working together") and form field labels. Page header bands carry no eyebrow — see Do's and Don'ts.
 
 ### Named Rules
 **The One-Family Rule.** Every weight and size on the site comes from Geist. A second family is never introduced for "variety"; hierarchy comes from size and weight steps only.
@@ -197,7 +197,7 @@ The site's single closing element (there is no longer a separate per-page dark C
 - **Don't** introduce a second typeface. Geist carries the entire system; hierarchy comes from weight/size, not font-pairing.
 - **Don't** use gradient text (`background-clip: text` + gradient) anywhere; this system uses solid Ink or Governing Navy for emphasis.
 - **Don't** add a *new* hero-metric block (big number + small label + gradient accent) without asking — this is an institutional consortium site, not a SaaS product pitch (per PRODUCT.md's anti-references, uor.foundation and askshepherd.ai). Note: the homepage's `StatRow` (190+ Participants / 30+ Companies & institutions / 9+ Active climate/AI projects / Open Source · AI Research Community) is exactly this pattern — it was flagged in a design critique, removed, and then explicitly restored by the user, so treat it as a deliberate, standing exception rather than a precedent for adding more.
-- **Don't** add a tiny uppercase tracked eyebrow to every single section reflexively. The current `SectionHeading` eyebrow is a deliberate, load-bearing label (About / Community) used once per page header; it should not multiply into a per-section kicker pattern site-wide.
+- **Don't** put an eyebrow in a page header band. Page headers are now just title + description — the "About" / "Community" / "Flagship deployment" kickers were removed from every page, because a label restating the nav section the reader just clicked earns nothing. The `SectionHeading` `eyebrow` prop still exists and is still used **mid-page**, where it genuinely names a section the reader hasn't been told about ("In the field", "Working together", "Crane National AI Model"). Don't reintroduce one at the top of a page, and don't multiply the mid-page ones into a reflexive per-section kicker either.
 - **Don't** use `border-left`/`border-right` as a colored accent stripe on cards or callouts.
 - **Don't** let Chrome Blue (nav) and Governing Navy (accent) bleed into each other's role; see the Two-Blues Rule.
 - **Don't** reintroduce a per-page dark CTA banner (the old `CTASection` component, deleted). The Footer is now the site's one closing dark element; a new page shouldn't get its own bottom CTA block.

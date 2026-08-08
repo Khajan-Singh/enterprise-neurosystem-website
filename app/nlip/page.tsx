@@ -28,7 +28,6 @@ export default function NlipPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Standards"
               title="NLIP"
               description="The Natural Language Interaction Protocol — a GenAI-to-GenAI communications standard, born from the Enterprise Neurosystem community, now adopted by ECMA as a global standard."
             />

@@ -22,7 +22,6 @@ export default function ProjectsPage() {
         <Container className="relative grid gap-8 pb-10 pt-14 sm:pt-20 md:grid-cols-2 md:gap-16">
           <Reveal>
             <SectionHeading
-              eyebrow="Community"
               title="Projects"
               description="From national sensor networks in Uganda to research on beehives and mussel beds, the community builds the sensors, AI models, and infrastructure needed to monitor and manage climate change events."
             />

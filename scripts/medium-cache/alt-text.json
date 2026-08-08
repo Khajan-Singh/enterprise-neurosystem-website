@@ -1,0 +1,19 @@
+{
+  "_comment": "Medium ships every image with an empty alt attribute. Images that have a caption are fine with alt=\"\" — the rendered <figcaption> is their accessible description, and duplicating it in alt makes screen readers announce it twice. These are the images that have NO caption, and so would otherwise reach the page with no description at all. Keyed by public path; applied by scripts/import-medium.mjs so a rerun can't lose them.",
+
+  "/blog/hello-precious-world/01.jpg": "The Earth seen from orbit, with the sun rising over the horizon and city lights spread across the night side of the planet.",
+
+  "/blog/enterprise-neurosystem-announces-high-performance-atomic/01.jpg": "An abstract isometric illustration of data nodes arranged in a ring around a central cylinder, on a dark purple background.",
+
+  "/blog/exciting-news-for-the-natural-language-interaction-protocol/01.jpg": "The Ecma International web page for technical committee TC56, titled \"Natural language interaction protocol for communication with Artificial Intelligence (AI) agents\".",
+
+  "/blog/finalists-chosen-for-ai-for-climate-change-award-2025/01.jpg": "Finalists for the AI for Climate Action Award 2025: Alisa Luangrath of Lao PDR, Careen Joel of Tanzania, Hannah Rhodah of Uganda, and Tehila Mwenda of Zambia.",
+
+  "/blog/prizes-announced-for-ai-grand-challenge/01.jpg": "A banner from competition sponsor Kove reading \"Achieve More\", with the tagline \"Kove Software-Defined Memory (Kove:SDM) enables enterprises and their leaders to do things they could not have done before\".",
+
+  "/blog/team-alisa-luangrath-wins-ai-climate-action-award-for-2025/01.jpg": "An AI for Climate Action Award winner announcement card for Team Alisa Luangrath of Lao PDR.",
+
+  "/blog/the-ai-innovation-grand-challenge-wants-your-proposals/01.jpg": "A promotional card for the AI Innovation Grand Challenge, a global open-source AI competition seeking ideas for climate action, with a proposal deadline of 12 August 2024.",
+
+  "/blog/the-enterprise-neurosystem-is-supporting-the-2025-ai-for/01.jpg": "The AI for Climate Action Award logo, shown with the logos of the UNFCCC Technology Executive Committee, the Climate Technology Centre and Network, and KOICA."
+}

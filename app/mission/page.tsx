@@ -79,7 +79,7 @@ export default function MissionPage() {
         <AmbientShadow opacity={0.07} />
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
-            <SectionHeading eyebrow="About" title="Mission" />
+            <SectionHeading title="Mission" />
           </Reveal>
         </Container>
       </section>
