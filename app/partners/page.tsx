@@ -22,7 +22,6 @@ export default function PartnersPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Community"
               title="Partners & Engagement"
               description="From UNFCCC panels at COP to JPL/Caltech laboratories, the Enterprise Neurosystem works alongside the UN system, national governments, research institutions, and industry to bring the Internet of Nature to life."
             />

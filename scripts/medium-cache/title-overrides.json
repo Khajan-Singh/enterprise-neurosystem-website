@@ -1,0 +1,7 @@
+{
+  "_comment": "Title corrections, keyed by mediumId. Two kinds live here: full titles for the posts whose <title> Medium's RSS feed truncates with an ellipsis (read from the rendered post pages), and titles corrected by hand. Body-level typo fixes go in text-fixes.json instead.",
+
+  "59ec12787f19": "Grand Prize Winner, Runners Up Named for AI Innovation Grand Challenge",
+  "b7e673ac4713": "Exciting News for the Natural Language Interaction Protocol (NLIP) and its Impact on Implementing AI Agent Ecosystems",
+  "9ccc79b9e87c": "Enterprise Neurosystem Announces High Performance Atomic Language Model Developed in Collaboration with Uganda’s Crane AI Labs"
+}

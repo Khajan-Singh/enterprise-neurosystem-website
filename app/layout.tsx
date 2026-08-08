@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,12 +11,18 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
+  // Required before any relative URL may appear in a metadata field — without
+  // it, a relative canonical or OG image is a build error.
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Enterprise Neurosystem",
     template: "%s · Enterprise Neurosystem",
   },
   description:
     "Enterprise Neurosystem is an open source AI research community treating the planet's species and ecosystems as a single system — building a global-scale AI network to understand and respond to climate change.",
+  alternates: {
+    types: { "application/rss+xml": "/blog/rss.xml" },
+  },
 };
 
 export default function RootLayout({

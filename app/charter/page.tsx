@@ -122,7 +122,6 @@ export default function CharterPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
-              eyebrow="About"
               title="Charter"
               description="How the Enterprise Neurosystem community is scoped, governed, and held accountable — from technical contribution to board oversight."
             />

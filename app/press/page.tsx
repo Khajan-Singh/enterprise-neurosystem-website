@@ -26,7 +26,6 @@ export default function PressPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Community"
               title="Press Releases"
               description="News and announcements from the Enterprise Neurosystem community."
             />
@@ -35,21 +34,19 @@ export default function PressPage() {
       </section>
 
       <section>
-        <Container className="py-20">
-          <div className="flex max-w-3xl flex-col gap-6">
-            {releases.map((release, i) => (
-              <Reveal key={release.title} delay={0.05 * i}>
-                <article className="card-surface card-surface-hover card-textured rounded-2xl p-8">
-                  <h2 className="font-display text-xl font-semibold text-ink">
-                    {release.title}
-                  </h2>
-                  <p className="mt-3 text-base leading-relaxed text-ink-muted">
-                    {release.summary}
-                  </p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+        <Container className="flex flex-col gap-8 py-20">
+          {releases.map((release, i) => (
+            <Reveal key={release.title} delay={0.06 * i}>
+              <article className="card-surface card-surface-hover card-textured flex flex-col gap-4 rounded-2xl p-8 sm:p-10">
+                <h2 className="font-display text-xl font-semibold text-ink sm:text-2xl">
+                  {release.title}
+                </h2>
+                <p className="max-w-2xl text-base leading-relaxed text-ink-muted">
+                  {release.summary}
+                </p>
+              </article>
+            </Reveal>
+          ))}
         </Container>
       </section>
     </>

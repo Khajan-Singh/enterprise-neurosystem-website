@@ -36,7 +36,6 @@ export default function ContactPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Join us. Change the planet."
               title="Contact"
               description="We're looking for philanthropic partners, volunteer scientists, AI engineers, and network architects. Here's what organizations and individuals can expect when they reach out to join the community."
             />

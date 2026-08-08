@@ -63,7 +63,6 @@ export default function UgandaPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Flagship deployment"
               title="Uganda"
               description="A national AI sensor network, from the mountain gorillas of Bwindi to the shores of Lake Victoria."
             />

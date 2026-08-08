@@ -20,7 +20,6 @@ export default function BoardPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
-              eyebrow="About"
               title="Board"
               description="The Governing Board sets strategic direction for the Enterprise Neurosystem and oversees budget, policy, and community growth."
             />

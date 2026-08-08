@@ -118,7 +118,6 @@ export default function VisionPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
-              eyebrow="About"
               title="Vision"
               description="Internet of Nature · Planetary AI · Equal Access for All."
             />
