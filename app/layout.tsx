@@ -31,7 +31,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} h-full antialiased`}>
+    // `data-scroll-behavior="smooth"` is required because globals.css sets
+    // `scroll-behavior: smooth` on <html> for in-page anchor links. Next 15 and
+    // earlier silently forced that to `auto` for the duration of a route
+    // transition; Next 16 stopped doing so, which left the scroll-to-top being
+    // *animated* — and because the page height changes as the new route paints,
+    // the animation settles short and drops you ~100px down the new page
+    // instead of at the top. This attribute opts back into the old override.
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${geistSans.variable} h-full antialiased`}
+    >
       <head>
         {/*
           The ambient shadow's mask is referenced from an inline style, so the
