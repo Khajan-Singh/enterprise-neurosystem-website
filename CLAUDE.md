@@ -51,7 +51,7 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   is no `/get-involved` route — that page was merged into `/contact` (its three contributor-path
   cards now sit at the top of the Contact page). Each route is a plain server component; the
   only client components are ones that need interactivity/browser APIs (`Nav`, `Reveal`,
-  `NeuralGlobe`, `SectionSidebar`, `etheral-shadow` — all marked `"use client"`).
+  `NeuralGlobe`, `SectionSidebar` — all marked `"use client"`).
 - **`components/Nav.tsx`** is permanently translucent/blurred (`bg-nav/70`, `backdrop-blur-sm`) —
   there is no scroll-triggered solid-to-transparent toggle (removed on purpose; it caused a
   visible lag/jump). "Mission", "Charter", and "Board" are grouped under an "About" dropdown
@@ -80,7 +80,12 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   established caps: photos at **1600px** on the long edge (≈1440px is the widest any of them
   renders at 2× DPR), the `/vision` sensor tiles at **600px** (they render in a 200px box), and
   `public/people/*` at **256×256**, centre-cropped to match `BoardCard`'s `object-cover` so the
-  crop isn't decided twice. `next.config.ts` sets `formats: ["image/avif", "image/webp"]`, a
+  crop isn't decided twice. `public/uganda/bwindi-gorilla.jpg` is deliberately **landscape**
+  (1200×750) even though the original was 1200×1600 portrait: it is only ever rendered into a
+  16/10 box (homepage `DeploymentCard`) and a 16/9 one (`/projects/uganda` gallery), both
+  `object-cover`, both of which keep the full width and crop height symmetrically — so a centred
+  16:10 crop reproduces both framings exactly while halving the bytes and the decode. Don't
+  restore the portrait original. `next.config.ts` sets `formats: ["image/avif", "image/webp"]`, a
   1-year `minimumCacheTTL` (the 60s default re-derives every variant constantly on a low-traffic
   site), and an `imageSizes` list including 64 and 200 for the two fixed-size cases above. Always
   pass `sizes` for fixed-size images or Next generates variants for every device width.
@@ -97,33 +102,48 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
 - **`.card-surface` / `.card-surface-hover` / `.card-textured`** in `globals.css` are the shared
   elevation utilities used by every card-like surface across the site — reuse these instead of ad
   hoc `shadow-*`/`border-*` classes so elevation stays consistent. `.card-surface` is the base
-  shadow (resting + hover-intensified); `.card-textured` layers a gradient sheen, a self-contained
-  SVG grain overlay, and a darker two-tone border (`color-mix` 30% ink at rest → 45% on hover) on
+  shadow (resting + hover-intensified); `.card-textured` layers a gradient sheen and a darker
+  two-tone border (`color-mix` 30% ink at rest → 45% on hover) on
   top of it, and is now the *default* — every card and pill on the site uses all three classes
   together (`card-surface card-surface-hover card-textured`), including `BoardCard`, `ProjectCard`,
   the Workstreams/Press/Contact page cards, the homepage's intro quote card, and the organization
   pills in `LogoWall`. There are no remaining plain (non-textured) cards; don't add a new one
-  without a specific reason (e.g. a card nested inside another card).
-- **`components/AmbientShadow.tsx`** wraps `components/ui/etheral-shadow.tsx` (an SVG-filter
-  background effect) with this site's navy color and shape settings baked in — it's applied
+  without a specific reason (e.g. a card nested inside another card). `.card-textured` used to
+  carry a third background layer — an feTurbulence SVG data URI blended `overlay` — for grain. It
+  never rendered: background layers paint bottom-up with the first-listed on top, and the opaque
+  `linear-gradient` above it occluded the grain entirely (proved by amplifying that layer's alpha
+  20×, which changed the output by ≤2/255). It was removed. If you want grain here, it has to go
+  *above* the opaque gradient.
+- **`components/AmbientShadow.tsx`** wraps `components/ui/etheral-shadow.tsx` (a soft navy
+  background blob) with this site's navy color and shape settings baked in — it's applied
   behind the homepage's blue (`bg-nav`) sections and every page's blue header band. Use
   `<AmbientShadow opacity={n} />` rather than importing `EtherealShadow` directly, so the
   effect's config stays in one place. The parent section needs `relative overflow-hidden` and its
   `Container` needs `relative` so content stacks above it (see any page-header section for the
   pattern) — but put `overflow-hidden` on the shadow's own wrapper div, not on an element that
   also contains an absolutely positioned popover/dropdown, or the popover gets clipped too.
-  **The filter is deliberately static.** It used to rewrite its `feColorMatrix` `values`
-  attribute every frame via Framer Motion; mutating a filter input invalidates the whole graph,
-  so the browser re-rasterized `feTurbulence` + two `feDisplacementMap`s + a 4px blur at 60fps,
-  across up to four instances per page. That was the site's dominant CPU cost and the cause of
-  scroll jank. Don't re-animate it. For the same reason it is **no longer mounted in `Nav.tsx`**:
-  the nav is `sticky`, so that instance could never scroll out of view, and its `backdrop-blur-sm`
-  had to re-blur a region that was being invalidated every frame. Its mask is self-hosted at
-  `public/ambient-shadow-mask.webp` (kept small — it's `mask-size: cover` and blurred in CSS, so
-  512px wide is plenty) and preloaded from `app/layout.tsx`, since it's referenced from an inline
-  style and so isn't discoverable until the CSSOM exists. The grain overlay is a self-contained
-  SVG data URI, matching `.card-textured` — prefer that pattern for anything new that must never
-  silently fail to load.
+  **There is no SVG filter here any more, and you must not reintroduce one.** The shape used to
+  be built at runtime: `feTurbulence` → two `feColorMatrix` → two chained `feDisplacementMap`
+  (scale ≈68) → a 4px blur, over a box inset −68px on every side of a full-width section. It was
+  already frozen (it once rewrote its `feColorMatrix` `values` every frame via Framer Motion,
+  which invalidated the whole graph at 60fps), but even static it had to rasterize once per
+  instance — and with 3 on the homepage, 2 of them below the fold, two full-section
+  turbulence+displacement rasterizations landed in the same frames as the visitor's *first*
+  scroll. Measured on a production build, that first scroll ran p90 33ms / p99 150ms / worst
+  350ms with 10 frames over 50ms; with the filter gone it is a flat 16.7ms with zero dropped
+  frames. Notably there were **no long tasks in either case** — this was never JS, it was raster.
+  The filter's output is now baked into `public/ambient-shadow-shape.webp` (512×288; the shape's
+  shortest turbulence wavelength is ~350px, so that is lossless in practice) and used exactly as
+  the old hand-drawn mask was: as the alpha mask on a flat colour plate, so `color`/`sizing` still
+  behave the same. It's preloaded from `app/layout.tsx`, since it's referenced from an inline
+  style and so isn't discoverable until the CSSOM exists. To regenerate it, render the old filter
+  DOM at a fixed size, composite it over black and over white, and solve for alpha per pixel
+  (`a = 1 − (C_white − C_black)`) — capturing at the real 10% alpha instead quantizes to ~20
+  levels and bands. The component is also no longer `"use client"` (the filter's `useId` was its
+  only hook), which drops 18 client-component instances site-wide. It is likewise **not mounted in
+  `Nav.tsx`**: the nav is `sticky`, so that instance could never scroll out of view, and its
+  `backdrop-blur-sm` had to re-blur it constantly. The grain overlay is a self-contained SVG data
+  URI — prefer that pattern for anything new that must never silently fail to load.
 - **`components/Footer.tsx`** is now the site's single closing dark element (`bg-ink`, light text
   at 70%/60% opacity, `border-bg/10` hairlines). There is no more per-page dark CTA banner — the
   old `components/CTASection.tsx` was deleted once every page's CTA was removed; don't reintroduce
