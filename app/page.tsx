@@ -201,13 +201,13 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Flagship deployments */}
+      {/* Deployments */}
       <section className="relative overflow-hidden border-t border-nav-line bg-nav">
         <AmbientShadow />
         <Container className="relative py-15">
           <Reveal>
             <SectionHeading
-              eyebrow="Flagship deployments"
+              eyebrow="Deployments"
               title="Global deployments with partners"
               description="From the mountain gorillas of Bwindi to the coastline of the Dangermond Preserve, the Enterprise Neurosystem architecture is already live in the field."
             />
@@ -237,7 +237,6 @@ export default function Home() {
         <Container className="py-15">
           <Reveal>
             <SectionHeading
-              eyebrow="The Global AI Network"
               title="A consortium, not a company"
               description="Governments, research institutions, and industry collaborate in the open — sharing sensor networks, AI models, and infrastructure in a single global architecture."
               align="center"
