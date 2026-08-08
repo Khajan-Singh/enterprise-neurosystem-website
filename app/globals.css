@@ -16,6 +16,24 @@
   --color-ink: #16171a;
   --color-ink-muted: #55585f;
   --color-line: #e4e4e0;
+
+  /*
+    Bottom stop of the `.card-textured` gradient; the top stop is always pure
+    white. This is the single knob for how deep the card sheen reads against
+    the page, and the ramp's shape never changes — only this end point.
+
+    It was #f1f1ee, which sat too dark against the white page background.
+    #f8f8f6 (half the original depth) went too far the other way and flattened
+    the gradient out. #f5f5f2 sits between them: 10/10/13 below white against
+    the original 14/14/17, so the sheen is still clearly readable while the
+    card no longer looks heavy on white.
+
+    Lighter: #f8f8f6, then #fafaf8. Darker: #f3f3f0, then the original #f1f1ee.
+
+    Not mirrored into `@theme inline` — it isn't a Tailwind color utility, only
+    a gradient stop consumed by .card-textured below.
+  */
+  --card-gradient-end: #f5f5f2;
   --color-accent: #2b3a67;
   --color-accent-soft: #eef1f8;
 
@@ -277,7 +295,7 @@ body {
       rgba(255, 255, 255, 0.9),
       rgba(255, 255, 255, 0) 55%
     ),
-    linear-gradient(180deg, #ffffff 0%, #f1f1ee 100%);
+    linear-gradient(180deg, #ffffff 0%, var(--card-gradient-end) 100%);
   border-width: 1.25px;
   border-color: color-mix(in srgb, var(--color-ink) 30%, var(--color-line));
 }
