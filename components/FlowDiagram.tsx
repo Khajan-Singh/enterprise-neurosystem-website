@@ -57,10 +57,11 @@ export function FlowDiagram({
         >
           <div className="flow-pulse-x relative h-0 w-full">
             <div
-              className="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              className="absolute h-[11px] w-[11px] -translate-x-1/2 -translate-y-1/2 rounded-full"
               style={{
                 background: "var(--color-net-core)",
-                boxShadow: "0 0 10px 2px rgba(255,165,0,0.55)",
+                boxShadow:
+                  "0 0 5px color-mix(in srgb, var(--color-net-core) 25%, transparent)",
               }}
             />
           </div>
@@ -109,10 +110,11 @@ export function FlowDiagram({
         >
           <div className="flow-pulse-y relative h-full w-0">
             <div
-              className="absolute h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              className="absolute h-[11px] w-[11px] -translate-x-1/2 -translate-y-1/2 rounded-full"
               style={{
                 background: "var(--color-net-core)",
-                boxShadow: "0 0 10px 2px rgba(255,165,0,0.55)",
+                boxShadow:
+                  "0 0 5px color-mix(in srgb, var(--color-net-core) 25%, transparent)",
               }}
             />
           </div>
