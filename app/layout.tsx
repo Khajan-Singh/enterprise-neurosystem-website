@@ -34,7 +34,7 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/ambient-shadow-mask.webp"
+          href="/ambient-shadow-shape.webp"
           type="image/webp"
         />
       </head>

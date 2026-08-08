@@ -256,9 +256,18 @@ body {
 /*
   Textured card surface
   --------------------------------------------------------------
-  A soft top-lit gradient plus a fine grain overlay (self-contained SVG
-  data URI, no network dependency) so cards read as a tactile raised
-  surface rather than flat white — used on the Projects page grid.
+  A soft top-lit gradient over a flat base so cards read as a tactile raised
+  surface rather than flat white.
+
+  This used to carry a third background layer — a 140x140 feTurbulence SVG data
+  URI, blended `overlay` — for fine grain. It never rendered: CSS paints
+  background layers bottom-up with the first-listed on top, so the fully opaque
+  `linear-gradient(#ffffff -> #f1f1ee)` above it occluded the grain completely.
+  Verified by amplifying that layer's alpha 20x (0.05 -> 1.0) and diffing the
+  result: max difference 2/255, i.e. unchanged. So it cost a turbulence
+  rasterization plus an `overlay` blend on all 25 textured elements of the
+  homepage, and every card site-wide, to produce nothing. Don't re-add a grain
+  layer here without putting it *above* the opaque gradient.
 */
 .card-textured {
   background-color: var(--color-bg);
@@ -268,9 +277,7 @@ body {
       rgba(255, 255, 255, 0.9),
       rgba(255, 255, 255, 0) 55%
     ),
-    linear-gradient(180deg, #ffffff 0%, #f1f1ee 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-blend-mode: normal, normal, overlay;
+    linear-gradient(180deg, #ffffff 0%, #f1f1ee 100%);
   border-width: 1.25px;
   border-color: color-mix(in srgb, var(--color-ink) 30%, var(--color-line));
 }
