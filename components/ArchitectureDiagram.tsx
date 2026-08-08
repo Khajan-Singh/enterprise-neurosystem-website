@@ -90,7 +90,7 @@ function Pulse({ edge }: { edge: Edge }) {
       className="arch-pulse"
       cx={edge.from.x}
       cy={edge.from.y}
-      r={7}
+      r={8}
       style={
         {
           fill: "var(--color-net-core)",
@@ -126,10 +126,20 @@ export function ArchitectureDiagram() {
       className="h-full w-full"
     >
       <defs>
-        <filter id="archGlow" x="-200%" y="-200%" width="500%" height="500%">
-          <feGaussianBlur stdDeviation="2.2" result="blur" />
+        {/*
+          A faint warmth around the dot, not a bloom: the blurred copy is
+          merged *under* the source, so leaving it at full alpha (as it was)
+          doubles the dot's apparent size. `feComponentTransfer` damps it to
+          40% so the halo falls off close to the edge. The region only needs
+          to cover ~3x stdDeviation past the 10px circle box.
+        */}
+        <filter id="archGlow" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur stdDeviation="1.4" result="blur" />
+          <feComponentTransfer in="blur" result="softGlow">
+            <feFuncA type="linear" slope="0.4" />
+          </feComponentTransfer>
           <feMerge>
-            <feMergeNode in="blur" />
+            <feMergeNode in="softGlow" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
