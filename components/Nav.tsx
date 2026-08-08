@@ -35,6 +35,23 @@ const isActive = (pathname: string, href: string) =>
   pathname === href || pathname.startsWith(`${href}/`);
 
 /**
+ * Active state for a link inside a dropdown group.
+ *
+ * A link to an anchor within a page ("Other" -> /projects#research-workstreams)
+ * never counts as active. It used to be matched on its path alone, which meant
+ * it lit up on every visit to /projects and stayed lit even when the reader had
+ * arrived via "Projects" — pointing at a section they weren't in.
+ *
+ * Matching the hash instead wouldn't be reliable: `usePathname()` excludes it,
+ * and `useHashLinkClick` scrolls without changing the URL when you're already
+ * on the page, so `location.hash` would be set on some routes into the section
+ * and empty on others. The page-level link ("Projects") carries the highlight
+ * for the whole page, which is what the desktop dropdown does too.
+ */
+const isSubLinkActive = (pathname: string, href: string) =>
+  !href.includes("#") && pathname === href;
+
+/**
  * Scrolls to an in-page anchor when already on its target route (Next's
  * client-side router doesn't reliably re-scroll on a same-route hash
  * change), and otherwise lets a normal Link navigation handle it.
@@ -315,7 +332,7 @@ export function Nav() {
                 href={link.href}
                 onClick={handleMobileHashClick(link.href)}
                 className={`rounded-md px-2 py-2.5 text-base ${
-                  pathname === link.href.split("#")[0]
+                  isSubLinkActive(pathname, link.href)
                     ? "font-semibold text-ink"
                     : "text-ink/70"
                 }`}
