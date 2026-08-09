@@ -35,8 +35,16 @@ const columns = [
 export function Footer() {
   return (
     <footer className="border-t border-bg/10 bg-ink">
-      <Container className="grid gap-10 py-16 sm:grid-cols-2 md:grid-cols-4">
-        <div className="sm:col-span-2 md:col-span-1">
+      {/*
+        Four equal grid tracks looked uneven: the brand blurb fills its track
+        while "Board" or "GitHub" use a third of theirs, so the visible gap ran
+        ~40px, ~190px, ~150px. Flex with `justify-between` sizes each column to
+        its content and splits the leftover space equally, so the gaps between
+        what you can actually see come out the same. Still a grid below md,
+        where the columns stack two-up.
+      */}
+      <Container className="grid gap-10 py-16 sm:grid-cols-2 md:flex md:justify-between md:gap-12">
+        <div className="sm:col-span-2 md:max-w-xs">
           <div className="flex items-center gap-2">
             <Image
               src="/logo-icon.png"
