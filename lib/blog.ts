@@ -36,7 +36,6 @@ export type Post = {
   images: { src: string; width: number; height: number }[];
   /** Raw markdown body, frontmatter stripped. */
   content: string;
-  readingMinutes: number;
 };
 
 /**
@@ -49,8 +48,6 @@ function readPost(fileName: string): Post {
   const slug = fileName.replace(/\.md$/, "");
   const raw = fs.readFileSync(path.join(CONTENT_DIR, fileName), "utf8");
   const { data, content } = matter(raw);
-
-  const words = content.trim().split(/\s+/).length;
 
   return {
     slug,
@@ -78,7 +75,6 @@ function readPost(fileName: string): Post {
         }))
       : [],
     content,
-    readingMinutes: Math.max(1, Math.round(words / 200)),
   };
 }
 

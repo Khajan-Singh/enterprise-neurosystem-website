@@ -34,8 +34,6 @@ export function BlogCard({ post, eager = false }: { post: Post; eager?: boolean 
       <div className="flex flex-col">
         <p className="text-sm text-ink-muted">
           <time dateTime={post.date}>{formatPostDate(post.date)}</time>
-          <span aria-hidden="true"> · </span>
-          {post.readingMinutes} min read
         </p>
 
         <h2 className="mt-2 max-w-2xl font-display text-xl font-semibold tracking-tight text-ink">
