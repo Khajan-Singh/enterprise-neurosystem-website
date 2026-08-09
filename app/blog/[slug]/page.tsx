@@ -68,8 +68,6 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
                     {author?.role && <span className="text-ink-muted">, {author.role}</span>}
                   </>
                 )}
-                <span aria-hidden="true"> · </span>
-                {post.readingMinutes} min read
               </p>
             </div>
           </Reveal>
