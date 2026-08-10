@@ -108,10 +108,10 @@ export default function ContactPage() {
                 <p className="font-display text-lg font-medium text-ink">
                   Please contact Bill Wright, Chair, Enterprise Neurosystem (
                   <a
-                    href="mailto:bwright@redhat.com"
+                    href="mailto:billwright@enterpriseneurosystem.ai"
                     className="text-accent hover:underline"
                   >
-                    bwright@redhat.com
+                    billwright@enterpriseneurosystem.ai
                   </a>{" "}
                   ·{" "}
                   <a
