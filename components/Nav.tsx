@@ -21,7 +21,6 @@ const projectsLinks = [
 ];
 
 const links = [
-  { href: "/workstreams", label: "Workstreams" },
   { href: "/partners", label: "Partners" },
   { href: "/blog", label: "Blog" },
   { href: "/press", label: "Press" },

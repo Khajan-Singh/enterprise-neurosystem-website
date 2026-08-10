@@ -18,7 +18,6 @@ const staticRoutes: { path: string; changeFrequency: MetadataRoute.Sitemap[numbe
   { path: "/projects/uganda", changeFrequency: "monthly", priority: 0.7 },
   { path: "/projects/dangermond", changeFrequency: "monthly", priority: 0.7 },
   { path: "/nlip", changeFrequency: "monthly", priority: 0.7 },
-  { path: "/workstreams", changeFrequency: "monthly", priority: 0.6 },
   { path: "/partners", changeFrequency: "monthly", priority: 0.6 },
   { path: "/press", changeFrequency: "monthly", priority: 0.5 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.8 },

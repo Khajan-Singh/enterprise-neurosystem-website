@@ -33,7 +33,7 @@ export default function BlogPage() {
       </section>
 
       <section>
-        {/* full-width card list, matching /workstreams */}
+        {/* full-width card list, matching /press */}
         <Container className="flex flex-col gap-8 py-20">
           {posts.map((post, i) => (
             <Reveal key={post.slug} delay={0.05 * Math.min(i, 4)}>

@@ -83,24 +83,3 @@ export const projects: Project[] = [
       "The community explores leveraging MEG research patterns for field architecture applications in both AI and network communications.",
   },
 ];
-
-export type Workstream = {
-  name: string;
-  description: string;
-  repoUrl: string;
-};
-
-export const workstreams: Workstream[] = [
-  {
-    name: "Self-Describing Digital Asset Catalog",
-    description:
-      "The core framework where AI models reside and operate. It will eventually support a cross-correlation AI engine for deeper pattern analysis.",
-    repoUrl: "https://github.com/Enterprise-Neurosystem/sd-catalog",
-  },
-  {
-    name: "AI Signal Processing",
-    description:
-      "Tools and solutions that process high-rate signal data for acoustics, vibrations, and other areas of analysis, including work to study global bee populations. Originated as an open source contribution from IBM Research.",
-    repoUrl: "https://github.com/Enterprise-Neurosystem/ai-signal-processing",
-  },
-];
