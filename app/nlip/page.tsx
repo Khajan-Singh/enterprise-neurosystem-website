@@ -37,7 +37,7 @@ export default function NlipPage() {
 
       <section>
         <Container className="py-20">
-          <div className="mx-auto flex max-w-3xl flex-col gap-12">
+          <div className="flex flex-col gap-12">
             <Reveal>
               <div>
                 <h2 className="font-display text-2xl font-semibold tracking-tight text-ink">
