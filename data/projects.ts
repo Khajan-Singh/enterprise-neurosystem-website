@@ -63,7 +63,7 @@ export const projects: Project[] = [
       "Led by Reliance Jio's VP with engineers from Verizon and other telecom firms, this project develops AI-enhanced 5G/6G frameworks for remote data transmission.",
   },
   {
-    name: "Human Brain Communication Networks",
+    name: "Neurological Framework",
     description:
       "The community explores leveraging MEG research patterns for field architecture applications in both AI and network communications.",
   },
