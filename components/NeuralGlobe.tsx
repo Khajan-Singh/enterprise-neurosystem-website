@@ -24,6 +24,14 @@ const NEIGHBORS_PER_NODE = 5;
 const ROTATION_SPEED = (2 * Math.PI) / 90; // radians/sec — full turn every ~90s
 const TILT = 0.35; // fixed X-axis tilt, radians
 const MAX_PULSES = 7;
+// The sphere turns 4°/sec, so a 60fps frame advances an equatorial node by
+// ~0.4px — full refresh rate buys nothing visible here and doubles the raster
+// cost (~570 canvas draw ops per frame). The threshold is 90% of the interval
+// so a display whose frames don't divide evenly into 33.3ms still lands on 30
+// rather than slipping to the next multiple.
+const TARGET_FPS = 30;
+const FRAME_INTERVAL = 1 / TARGET_FPS;
+const FRAME_THRESHOLD = FRAME_INTERVAL * 0.9;
 const PULSE_SPAWN_INTERVAL = 0.5; // seconds
 const PULSE_SPEED_MIN = 0.35; // fraction of edge per second
 const PULSE_SPEED_MAX = 0.6;
@@ -344,7 +352,16 @@ export function NeuralGlobe({ className = "" }: { className?: string }) {
     }
 
     function tick(now: number) {
-      const dt = Math.min((now - lastTime) / 1000, 0.05);
+      // Queue the next callback first so an early return still keeps the loop
+      // alive; rAF stays at display rate and we simply skip the work.
+      if (running) rafId = requestAnimationFrame(tick);
+
+      const elapsed = (now - lastTime) / 1000;
+      if (elapsed < FRAME_THRESHOLD) return;
+
+      // Real elapsed time drives the motion, so rotation and pulse speeds are
+      // unchanged by the cap — only how often they're sampled.
+      const dt = Math.min(elapsed, 0.05);
       lastTime = now;
 
       angle += ROTATION_SPEED * dt;
@@ -366,8 +383,6 @@ export function NeuralGlobe({ className = "" }: { className?: string }) {
       }
 
       drawFrame(angle, true);
-
-      if (running) rafId = requestAnimationFrame(tick);
     }
 
     function start() {
