@@ -24,7 +24,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 A redesign of the Enterprise Neurosystem (enterpriseneurosystem.org) marketing/informational
 site — an open-source AI research consortium. Original site content was scraped and preserved
 in `content/enterprise-neurosystem-content.md`, which is the copy source of truth; structured
-content (board members, projects, workstreams) lives in `data/*.ts` instead of being hardcoded
+content (board members, projects) lives in `data/*.ts` instead of being hardcoded
 in page components.
 
 `PRODUCT.md` and `DESIGN.md` at the repo root capture the strategic/visual design system
@@ -62,7 +62,7 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
 ## Architecture
 
 - **App Router, no `src/` dir.** Routes are folders under `app/`: `/mission`, `/charter`,
-  `/board`, `/projects`, `/workstreams`, `/press`, `/contact`, plus `/` in `app/page.tsx`. There
+  `/board`, `/projects`, `/press`, `/contact`, plus `/` in `app/page.tsx`. There
   is no `/get-involved` route — that page was merged into `/contact` (its three contributor-path
   cards now sit at the top of the Contact page). Each route is a plain server component; the
   only client components are ones that need interactivity/browser APIs (`Nav`, `Reveal`,
@@ -77,7 +77,7 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   wrapper), not `margin` — a margin-based gap creates a dead zone the mouse can "fall through,"
   closing the menu before the pointer reaches the panel.
 - **Content vs. presentation split.** `data/board.ts` and `data/projects.ts` export typed arrays
-  consumed by `BoardCard`/`ProjectCard`/the workstreams page — edit data there, not in JSX.
+  consumed by `BoardCard`/`ProjectCard` — edit data there, not in JSX.
   Longer prose (mission, charter) lives inline in each page file as a `sections` array (`id`,
   `title`, `body`, optional `list`/`subsections`/`quote`/`after`/`cta`), rendered in a loop —
   add a new section object rather than hand-writing new JSX for prose pages.
@@ -121,7 +121,7 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   two-tone border (`color-mix` 30% ink at rest → 45% on hover) on
   top of it, and is now the *default* — every card and pill on the site uses all three classes
   together (`card-surface card-surface-hover card-textured`), including `BoardCard`, `ProjectCard`,
-  the Workstreams/Press/Contact page cards, the homepage's intro quote card, and the organization
+  the Press/Contact page cards, the homepage's intro quote card, and the organization
   pills in `LogoWall`. There are no remaining plain (non-textured) cards; don't add a new one
   without a specific reason (e.g. a card nested inside another card). `.card-textured` used to
   carry a third background layer — an feTurbulence SVG data URI blended `overlay` — for grain. It
@@ -229,10 +229,10 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   `BeeSenz—Using`.
 - **`max-w-3xl` is a prose rule, not a card rule.** A post's *body* is capped at `max-w-3xl` for
   line length, like `/mission` and `/charter`. Card lists are not: the card spans the full
-  `Container` width and only the text inside it is capped (`max-w-2xl`). `/workstreams` is the
+  `Container` width and only the text inside it is capped (`max-w-2xl`). `/press` is the
   reference implementation — `Container className="flex flex-col gap-8 py-20"` with each card
   `card-surface card-surface-hover card-textured flex flex-col gap-4 rounded-2xl p-8 sm:p-10` — and
-  `/blog` and `/press` both follow it. `/press` used to cap its whole list at `max-w-3xl`, which
+  `/blog` follows it. `/press` used to cap its whole list at `max-w-3xl`, which
   went unnoticed only because it has a single item; that has been fixed, so there is no longer a
   narrow-card-list precedent anywhere to copy by mistake.
 - **Blog images are committed locally, not hotlinked** (`public/blog/<slug>/`, 26 images, 3.3MB).

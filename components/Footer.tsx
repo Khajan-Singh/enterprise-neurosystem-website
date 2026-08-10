@@ -17,7 +17,6 @@ const columns = [
       { href: "/blog", label: "Blog" },
       { href: "/press", label: "Press Releases" },
       { href: "/projects", label: "Projects" },
-      { href: "/workstreams", label: "Workstreams" },
     ],
   },
   {

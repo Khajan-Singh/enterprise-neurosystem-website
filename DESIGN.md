@@ -105,7 +105,7 @@ A restrained, near-monochrome base (white / off-white / near-black ink) carries 
 - **Ink Muted** (#55585f): secondary/body-muted text.
 - **Line** (#e4e4e0): borders and dividers.
 
-The **page-header band** (used at the top of every non-homepage page: Mission, Charter, Board, Projects, Workstreams, Press, Contact) is currently set to the exact same value as Chrome Blue (#ddeeff) — the two tokens (`--color-page-header` and `--color-nav`) remain separate CSS variables so they can diverge again later, but today there is no visible distinction between "site chrome" and "page header" by design choice.
+The **page-header band** (used at the top of every non-homepage page: Mission, Charter, Board, Projects, Press, Contact) is currently set to the exact same value as Chrome Blue (#ddeeff) — the two tokens (`--color-page-header` and `--color-nav`) remain separate CSS variables so they can diverge again later, but today there is no visible distinction between "site chrome" and "page header" by design choice.
 
 ### Named Rules
 **The Function-Only Navy Rule.** Governing Navy never fills a background larger than a focus ring or a small badge. If navy is being used to color a surface rather than a link, label, or outline, that's a violation.
@@ -160,7 +160,7 @@ The standard elevation treatment for every card on the site (Board, Projects, Wo
 
 ### Cards
 - **Corner Style:** 16px radius (`rounded-2xl`).
-- **Background:** the `.card-textured` surface (see Elevation) is the default everywhere a card or pill appears (Board, Projects, Workstreams, Press, Contact, the homepage). Plain Paper White (no texture) is reserved only for a card nested inside another card, so nesting never stacks two textured surfaces.
+- **Background:** the `.card-textured` surface (see Elevation) is the default everywhere a card or pill appears (Board, Projects, Press, Contact, the homepage). Plain Paper White (no texture) is reserved only for a card nested inside another card, so nesting never stacks two textured surfaces.
 - **Shadow Strategy:** see Elevation — always-on ambient shadow, intensified on hover via `.card-surface-hover`.
 - **Border:** `.card-textured`'s two-tone Ink/Line mix (30% → 45% on hover) is the default; plain `.card-surface` (`Line` alone, → 18% mix) is only for the rare non-textured nested card.
 - **Internal Padding:** 24px (`p-6`), up to 40px (`p-10`) for larger CTA-style cards.
