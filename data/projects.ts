@@ -53,29 +53,14 @@ export const projects: Project[] = [
       "Underground fungal networks that support plant ecosystems display electrical patterns that may be akin to morse code, and could potentially represent a form of communication.",
   },
   {
-    name: "Mussel Farms and Beds",
-    description:
-      "Robotic mussels detect pollutants, oxygen levels, chemical markers, and bacteria, developed for deployment in global riverways.",
-  },
-  {
     name: "Satellite Data Networking",
     description:
-      "Academic and industry researchers analyze ocean pollutants, beach plastics, methane plumes, and mass changes with coverage ranging from 9×9 meter to 200×200 mile spans.",
-  },
-  {
-    name: "Catfish and Tilapia Farming",
-    description:
-      "Working directly with Ghanaian fish farmers, the community builds sensors and AI software addressing climate impacts on aquaculture populations.",
+      "In collaboration with JPL, academic and industry researchers analyze ocean pollutants, beach plastics, methane plumes, and mass changes with coverage ranging from 9×9 meter to 200×200 mile spans.",
   },
   {
     name: "Telecommunications Research",
     description:
       "Led by Reliance Jio's VP with engineers from Verizon and other telecom firms, this project develops AI-enhanced 5G/6G frameworks for remote data transmission.",
-  },
-  {
-    name: "Federated AI",
-    description:
-      "IBM Research leads development of frameworks that maintain data security while enabling decentralized AI training across multiple sensor layers.",
   },
   {
     name: "Human Brain Communication Networks",
