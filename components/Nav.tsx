@@ -17,7 +17,7 @@ const projectsLinks = [
   { href: "/projects/uganda", label: "Uganda" },
   { href: "/projects/dangermond", label: "Dangermond" },
   { href: "/nlip", label: "NLIP" },
-  { href: "/projects#research-workstreams", label: "Other" },
+  { href: "/projects#research-workstreams", label: "Others" },
 ];
 
 const links = [
@@ -36,7 +36,7 @@ const isActive = (pathname: string, href: string) =>
 /**
  * Active state for a link inside a dropdown group.
  *
- * A link to an anchor within a page ("Other" -> /projects#research-workstreams)
+ * A link to an anchor within a page ("Others" -> /projects#research-workstreams)
  * never counts as active. It used to be matched on its path alone, which meant
  * it lit up on every visit to /projects and stayed lit even when the reader had
  * arrived via "Projects" — pointing at a section they weren't in.

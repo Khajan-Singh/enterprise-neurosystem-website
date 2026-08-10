@@ -60,7 +60,7 @@ export default function ContactPage() {
             ))}
           </div>
 
-          <div className="mx-auto mt-20 max-w-3xl">
+          <div className="mt-20">
             <Reveal>
               <div className="flex flex-col gap-10">
                 <div className="flex flex-col gap-4">
