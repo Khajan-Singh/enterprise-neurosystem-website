@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
+import { ArrowRight } from "@/components/ArrowRight";
+import { SectionLink } from "@/components/SectionLink";
 import { SectionHeading } from "@/components/SectionHeading";
 import { StatRow } from "@/components/StatRow";
 import { LogoWall } from "@/components/LogoWall";
@@ -57,20 +59,33 @@ export default function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-nav-line bg-nav">
         <AmbientShadow />
-        <Container className="relative grid gap-10 pt-12 pb-20 sm:pt-16 sm:pb-24 lg:grid-cols-2 lg:items-center lg:gap-8">
-          <div className="flex flex-col gap-8">
+        <Container className="relative grid gap-10 pt-10 pb-14 sm:pt-12 sm:pb-16 lg:grid-cols-2 lg:items-center lg:gap-8">
+          {/*
+            Spacing here is grouped, not uniform: the kicker hugs the headline it
+            labels (20px), the standfirst sits a step further out (24px), and the
+            buttons get the widest gap (36px) so they read as a separate act.
+            A single `gap-8` on the column gave all three the same 32px and
+            flattened that relationship.
+          */}
+          <div className="flex flex-col">
             <Reveal>
               <p className="text-xs font-medium uppercase tracking-widest text-accent">
                 Internet of Nature · Planetary AI · Equal Access for All
               </p>
             </Reveal>
-            <Reveal delay={0.08}>
-              <h1 className="max-w-3xl font-display text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
+            <Reveal delay={0.08} className="mt-5">
+              {/*
+                No `max-w-*` here: on lg the grid column is already narrower than
+                max-w-3xl, and below lg the container is narrower still, so the
+                cap never once applied. `text-balance` does the real work,
+                evening out the four-line wrap at the 6xl size.
+              */}
+              <h1 className="font-display text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl">
                 A global AI architecture for environmental intelligence.
               </h1>
             </Reveal>
-            <Reveal delay={0.16}>
-              <p className="max-w-2xl text-lg leading-relaxed text-ink-muted">
+            <Reveal delay={0.16} className="mt-6">
+              <p className="max-w-2xl text-lg leading-relaxed text-pretty text-ink-muted">
                 The Enterprise Neurosystem is a single global AI neurology,
                 with equal access for all nations. It analyzes natural
                 systems at planetary scale — integrating satellites, and
@@ -79,17 +94,18 @@ export default function Home() {
                 recommendation engine for course-correction.
               </p>
             </Reveal>
-            <Reveal delay={0.24}>
-              <div className="flex flex-wrap gap-4">
+            <Reveal delay={0.24} className="mt-9">
+              <div className="flex flex-wrap gap-3">
                 <Link
                   href="/vision"
-                  className="rounded-full bg-ink px-6 py-3 text-sm font-medium text-bg transition-opacity hover:opacity-85"
+                  className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-bg transition-opacity hover:opacity-85"
                 >
                   Explore the Vision
+                  <ArrowRight className="transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
                 </Link>
                 <Link
                   href="/projects"
-                  className="rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
+                  className="inline-flex items-center rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
                 >
                   See our projects
                 </Link>
@@ -108,9 +124,12 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Stats */}
+      {/*
+        Stats. All of this strip's vertical space is set here rather than inside
+        StatRow, so it stays on the same scale as every other section.
+      */}
       <section>
-        <Container>
+        <Container className="py-12 sm:py-14">
           <Reveal>
             <StatRow />
           </Reveal>
@@ -120,7 +139,7 @@ export default function Home() {
       {/* How it works */}
       <section className="relative overflow-hidden border-t border-nav-line bg-nav">
         <AmbientShadow />
-        <Container className="relative py-15">
+        <Container className="relative py-12 sm:py-16">
           <Reveal>
             <SectionHeading
               eyebrow="How it works"
@@ -128,19 +147,40 @@ export default function Home() {
               description="One architecture, from the ground to orbit: sensors and satellites feed national AI instances, which cross-correlate in real time to surface patterns no single dataset could reveal alone."
             />
           </Reveal>
+          {/*
+            `columnGap={24}` matches the `gap-6` of the card grid below, so each
+            numbered node sits on its card's centre. Without it the diagram's
+            columns were sized from the full width while the cards' were sized
+            from the width minus two gutters, putting the outer nodes ~8px off
+            the cards they label.
+          */}
           <Reveal delay={0.1}>
             <div className="mt-10 hidden lg:block">
-              <FlowDiagram steps={howItWorksFlow} showTitles={false} />
+              <FlowDiagram
+                steps={howItWorksFlow}
+                showTitles={false}
+                columnGap={24}
+              />
             </div>
           </Reveal>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3 lg:mt-4">
+          <div className="mt-10 grid gap-6 sm:grid-cols-3 lg:mt-6">
             {howItWorks.map((item, i) => (
               <Reveal key={item.step} delay={0.06 * i}>
-                <div className="card-surface card-surface-hover card-textured flex h-full flex-col gap-3 rounded-2xl p-6">
-                  <h3 className="font-display text-lg font-semibold text-ink">
+                <div className="card-surface card-surface-hover card-textured flex h-full flex-col rounded-2xl p-6">
+                  {/*
+                    The step number was only ever on the diagram, leaving the
+                    cards to be matched to their node by column position alone —
+                    and on mobile, where the diagram is hidden, not at all. The
+                    sequence is the point of this section, so each card carries
+                    its own number.
+                  */}
+                  <p className="font-display text-xs font-semibold tracking-widest text-accent">
+                    {item.step}
+                  </p>
+                  <h3 className="mt-2 font-display text-lg font-semibold text-balance text-ink">
                     {item.title}
                   </h3>
-                  <p className="text-sm leading-relaxed text-ink-muted">
+                  <p className="mt-3 text-sm leading-relaxed text-pretty text-ink-muted">
                     {item.description}
                   </p>
                 </div>
@@ -149,12 +189,7 @@ export default function Home() {
           </div>
           <Reveal delay={0.2}>
             <div className="mt-10">
-              <Link
-                href="/vision"
-                className="inline-block rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
-              >
-                Read the full vision →
-              </Link>
+              <SectionLink href="/vision">Read the full vision</SectionLink>
             </div>
           </Reveal>
         </Container>
@@ -162,35 +197,33 @@ export default function Home() {
 
       {/* Themes: parity, bias, Rosetta Stone */}
       <section>
-        <Container className="py-12">
+        <Container className="py-12 sm:py-16">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
+            {/*
+              This heading block was a character-for-character copy of
+              SectionHeading's markup. Using the component means the four
+              homepage headings can never drift apart again.
+            */}
             <Reveal>
-              <p className="text-xs font-medium uppercase tracking-widest text-accent">
-                Why it matters
-              </p>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                Parity at planetary scale
-              </h2>
-              <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg">
-                A single unified global AI architecture, enabled by
-                satellites, sensors and mobile networks, provides the most
-                accurate early warning capability possible — for every
-                nation.
-              </p>
+              <SectionHeading
+                eyebrow="Why it matters"
+                title="Parity at planetary scale"
+                description="A single unified global AI architecture, enabled by satellites, sensors and mobile networks, provides the most accurate early warning capability possible — for every nation."
+              />
             </Reveal>
             <Reveal delay={0.06}>
-              <div className="card-surface card-surface-hover card-textured rounded-2xl p-6">
+              <div className="card-surface card-surface-hover card-textured rounded-2xl p-8">
                 {themes.map((theme, i) => (
                   <div
                     key={theme.title}
-                    className={`flex flex-col gap-2 ${
-                      i > 0 ? "mt-5 border-t border-line pt-5" : ""
-                    }`}
+                    className={
+                      i > 0 ? "mt-6 border-t border-line pt-6" : undefined
+                    }
                   >
-                    <h3 className="font-display text-lg font-semibold text-ink">
+                    <h3 className="font-display text-lg font-semibold text-balance text-ink">
                       {theme.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-ink-muted">
+                    <p className="mt-2 text-sm leading-relaxed text-pretty text-ink-muted">
                       {theme.description}
                     </p>
                   </div>
@@ -204,7 +237,7 @@ export default function Home() {
       {/* Deployments */}
       <section className="relative overflow-hidden border-t border-nav-line bg-nav">
         <AmbientShadow />
-        <Container className="relative py-15">
+        <Container className="relative py-12 sm:py-16">
           <Reveal>
             <SectionHeading
               eyebrow="Deployments"
@@ -221,12 +254,7 @@ export default function Home() {
           </div>
           <Reveal delay={0.2}>
             <div className="mt-10">
-              <Link
-                href="/projects"
-                className="inline-block rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
-              >
-                See all projects →
-              </Link>
+              <SectionLink href="/projects">See all projects</SectionLink>
             </div>
           </Reveal>
         </Container>
@@ -234,7 +262,7 @@ export default function Home() {
 
       {/* Partners logo wall */}
       <section>
-        <Container className="py-15">
+        <Container className="py-12 sm:py-16">
           <Reveal>
             <SectionHeading
               title="A consortium, not a company"
@@ -242,7 +270,7 @@ export default function Home() {
               align="center"
             />
           </Reveal>
-          <div className="mt-14">
+          <div className="mt-12">
             <Reveal delay={0.1}>
               <LogoWall
                 label="Working with organizations including"
@@ -252,12 +280,9 @@ export default function Home() {
           </div>
           <Reveal delay={0.16}>
             <div className="mt-10 flex justify-center">
-              <Link
-                href="/partners"
-                className="inline-block rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
-              >
-                See our partners & engagement →
-              </Link>
+              <SectionLink href="/partners">
+                See our partners &amp; engagement
+              </SectionLink>
             </div>
           </Reveal>
         </Container>
