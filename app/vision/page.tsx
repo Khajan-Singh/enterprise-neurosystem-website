@@ -7,6 +7,7 @@ import { Reveal } from "@/components/Reveal";
 import { FlowDiagram, type FlowStep } from "@/components/FlowDiagram";
 import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
 import { SensorGrid } from "@/components/SensorGrid";
+import { VideoEmbed } from "@/components/VideoEmbed";
 
 const flowSteps: FlowStep[] = [
   {
@@ -141,6 +142,14 @@ export default function VisionPage() {
 
                   {section.id === "the-vision" && (
                     <>
+                      <div className="mt-8">
+                        <VideoEmbed
+                          id="qO8-n6vuYBA"
+                          title="The Enterprise Neurosystem — AIM4C Grand Challenge Announcement, COP 27"
+                          poster="/video/aim4c-cop27.jpg"
+                          caption="Bill Wright introduces the Enterprise Neurosystem at COP 27, November 2022."
+                        />
+                      </div>
                       <div className="card-surface card-surface-hover card-textured my-8 rounded-2xl p-6 sm:p-8">
                         <FlowDiagram steps={flowSteps} />
                       </div>

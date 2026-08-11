@@ -10,6 +10,7 @@ import { FlowDiagram, type FlowStep } from "@/components/FlowDiagram";
 import { Reveal } from "@/components/Reveal";
 import { NeuralGlobe } from "@/components/NeuralGlobe";
 import { AmbientShadow } from "@/components/AmbientShadow";
+import { VideoEmbed } from "@/components/VideoEmbed";
 import { deployments } from "@/data/projects";
 import { partnerOrgs } from "@/data/partners";
 
@@ -199,36 +200,52 @@ export default function Home() {
       <section>
         <Container className="py-12 sm:py-16">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
+            <div className="flex flex-col gap-8">
+              {/*
+                This heading block was a character-for-character copy of
+                SectionHeading's markup. Using the component means the four
+                homepage headings can never drift apart again.
+              */}
+              <Reveal>
+                <SectionHeading
+                  eyebrow="Why it matters"
+                  title="Parity at planetary scale"
+                  description="A single unified global AI architecture, enabled by satellites, sensors and mobile networks, provides the most accurate early warning capability possible — for every nation."
+                />
+              </Reveal>
+              <Reveal delay={0.06}>
+                <div className="card-surface card-surface-hover card-textured rounded-2xl p-6">
+                  {themes.map((theme, i) => (
+                    <div
+                      key={theme.title}
+                      className={
+                        i > 0 ? "mt-6 border-t border-line pt-6" : undefined
+                      }
+                    >
+                      <h3 className="font-display text-lg font-semibold text-balance text-ink">
+                        {theme.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-pretty text-ink-muted">
+                        {theme.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
+            </div>
             {/*
-              This heading block was a character-for-character copy of
-              SectionHeading's markup. Using the component means the four
-              homepage headings can never drift apart again.
+              `lg:self-center` only — not `items-center` on the grid — so the
+              video centres against the taller left column while the heading
+              stays top-aligned.
             */}
-            <Reveal>
-              <SectionHeading
-                eyebrow="Why it matters"
-                title="Parity at planetary scale"
-                description="A single unified global AI architecture, enabled by satellites, sensors and mobile networks, provides the most accurate early warning capability possible — for every nation."
+            <Reveal delay={0.12} className="lg:self-center">
+              <VideoEmbed
+                id="qO8-n6vuYBA"
+                title="The Enterprise Neurosystem — AIM4C Grand Challenge Announcement, COP 27"
+                poster="/video/aim4c-cop27.jpg"
+                caption="Bill Wright introduces the Enterprise Neurosystem at COP 27, November 2022."
+                sizes="(min-width: 1024px) 576px, 100vw"
               />
-            </Reveal>
-            <Reveal delay={0.06}>
-              <div className="card-surface card-surface-hover card-textured rounded-2xl p-8">
-                {themes.map((theme, i) => (
-                  <div
-                    key={theme.title}
-                    className={
-                      i > 0 ? "mt-6 border-t border-line pt-6" : undefined
-                    }
-                  >
-                    <h3 className="font-display text-lg font-semibold text-balance text-ink">
-                      {theme.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-pretty text-ink-muted">
-                      {theme.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
             </Reveal>
           </div>
         </Container>
