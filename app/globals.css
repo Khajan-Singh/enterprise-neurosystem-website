@@ -37,6 +37,13 @@
   --color-accent: #2b3a67;
   --color-accent-soft: #eef1f8;
 
+  /*
+    Inline text links. The navy --color-accent reads as body text at small
+    sizes, so links get their own brighter blue — still in the same family as
+    --color-nav/--color-nav-line, and 5.9:1 on the white page background.
+  */
+  --color-link: #1263c7;
+
   /* Nav bar blue, per user direction. */
   --color-nav: #ddeeff;
   --color-nav-line: #bcd9f2;
@@ -58,6 +65,7 @@
   --color-line: var(--color-line);
   --color-accent: var(--color-accent);
   --color-accent-soft: var(--color-accent-soft);
+  --color-link: var(--color-link);
   --color-nav: var(--color-nav);
   --color-nav-line: var(--color-nav-line);
   --color-net-line: var(--color-net-line);
