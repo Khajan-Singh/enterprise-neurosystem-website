@@ -8,7 +8,7 @@ import { Reveal } from "@/components/Reveal";
 export const metadata: Metadata = {
   title: "NLIP",
   description:
-    "The Natural Language Interaction Protocol — an Enterprise Neurosystem community project for GenAI-to-GenAI communication, now adopted by ECMA as a global standard.",
+    "The Natural Language Interaction Protocol — an Enterprise Neurosystem community project for GenAI-to-GenAI communication, now adopted by the ECMA as a global standard.",
 };
 
 const nlipBackers = [
@@ -29,7 +29,7 @@ export default function NlipPage() {
           <Reveal>
             <SectionHeading
               title="NLIP"
-              description="The Natural Language Interaction Protocol — a GenAI-to-GenAI communications standard, born from the Enterprise Neurosystem community, now adopted by ECMA as a global standard."
+              description="The Natural Language Interaction Protocol — a GenAI-to-GenAI communications standard, born from the Enterprise Neurosystem community, now adopted by the ECMA as a global standard."
             />
           </Reveal>
         </Container>
@@ -60,7 +60,7 @@ export default function NlipPage() {
             <Reveal delay={0.08}>
               <div className="card-surface card-surface-hover card-textured rounded-2xl p-8">
                 <p className="font-display text-xl font-medium text-ink">
-                  NLIP was recently adopted by ECMA as a global standard and
+                  NLIP was recently adopted by the ECMA as a global standard and
                   working group.
                 </p>
               </div>
