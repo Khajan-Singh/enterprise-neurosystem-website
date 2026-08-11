@@ -234,11 +234,12 @@ export default function Home() {
               </Reveal>
             </div>
             {/*
-              `lg:self-center` only — not `items-center` on the grid — so the
-              video centres against the taller left column while the heading
-              stays top-aligned.
+              `lg:self-stretch` makes the video's black frame exactly as tall
+              as the left column at every width, with the 16/9 video centred
+              inside it — so the two columns end level and the surplus reads
+              as letterboxing. Below `lg` the columns stack and it's inert.
             */}
-            <Reveal delay={0.12} className="lg:self-center">
+            <Reveal delay={0.12} className="lg:self-stretch">
               <VideoEmbed
                 id="qO8-n6vuYBA"
                 title="The Enterprise Neurosystem — AIM4C Grand Challenge Announcement, COP 27"
