@@ -33,7 +33,7 @@ const entryPoints = [
   {
     href: "/press",
     label: "Press",
-    description: "Announcements and coverage.",
+    description: "Coverage of the consortium in the press.",
   },
   {
     href: "/contact",

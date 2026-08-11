@@ -24,7 +24,7 @@ const columns: {
     heading: "Community",
     links: [
       { href: "/blog", label: "Blog" },
-      { href: "/press", label: "Press Releases" },
+      { href: "/press", label: "Press" },
       { href: "/projects", label: "Projects" },
     ],
   },
