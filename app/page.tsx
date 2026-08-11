@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { Container } from "@/components/Container";
-import { ArrowRight } from "@/components/ArrowRight";
 import { SectionLink } from "@/components/SectionLink";
 import { SectionHeading } from "@/components/SectionHeading";
 import { StatRow } from "@/components/StatRow";
@@ -97,19 +95,10 @@ export default function Home() {
             </Reveal>
             <Reveal delay={0.24} className="mt-9">
               <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/vision"
-                  className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-bg transition-opacity hover:opacity-85"
-                >
+                <SectionLink href="/vision" variant="solid">
                   Explore the Vision
-                  <ArrowRight className="transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
-                </Link>
-                <Link
-                  href="/projects"
-                  className="inline-flex items-center rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
-                >
-                  See our projects
-                </Link>
+                </SectionLink>
+                <SectionLink href="/projects">See our projects</SectionLink>
               </div>
             </Reveal>
           </div>

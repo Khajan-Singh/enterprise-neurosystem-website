@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container } from "@/components/Container";
 import { AmbientShadow } from "@/components/AmbientShadow";
+import { ArrowLeft } from "@/components/ArrowRight";
 import { Reveal } from "@/components/Reveal";
 import { PostBody } from "@/components/PostBody";
 import { SectionSidebar } from "@/components/SectionSidebar";
@@ -103,8 +104,12 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
                 .
               </p>
               <p className="mt-2">
-                <Link href="/blog" className="text-accent hover:underline">
-                  ← All posts
+                <Link
+                  href="/blog"
+                  className="group inline-flex items-center gap-1.5 text-accent hover:underline"
+                >
+                  <ArrowLeft className="transition-transform duration-200 group-hover:-translate-x-1 group-focus-visible:-translate-x-1" />
+                  All posts
                 </Link>
               </p>
             </div>

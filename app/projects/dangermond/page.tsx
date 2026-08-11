@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
+import { SectionLink } from "@/components/SectionLink";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 
@@ -129,12 +129,9 @@ export default function DangermondPage() {
                 </p>
               </div>
               <div className="mt-10 lg:mt-auto lg:pt-10">
-                <Link
-                  href="/projects"
-                  className="inline-block rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
-                >
-                  ← Back to all projects
-                </Link>
+                <SectionLink href="/projects" direction="back">
+                  Back to all projects
+                </SectionLink>
               </div>
             </Reveal>
             <Reveal delay={0.1}>
