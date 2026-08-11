@@ -85,8 +85,10 @@ export default function Home() {
             </Reveal>
             <Reveal delay={0.16} className="mt-6">
               <p className="max-w-2xl text-lg leading-relaxed text-pretty text-ink-muted">
-                The Enterprise Neurosystem is a single global AI neurology,
-                with equal access for all nations. It analyzes natural
+                The Enterprise Neurosystem is an open source AI research
+                community, founded on the principle that all the species and
+                ecosystems on this planet are part of a single system. It
+                analyzes natural
                 systems at planetary scale — integrating satellites, and
                 atmospheric, oceanic, seismic and agricultural sensors — to
                 act as an early warning architecture and an AI
