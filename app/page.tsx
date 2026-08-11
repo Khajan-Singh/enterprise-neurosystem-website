@@ -179,9 +179,21 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+          {/*
+            The whitepaper sits here rather than in the hero on purpose: this is
+            the one point on the page where the visitor has just been walked
+            through the architecture, so the full technical account reads as the
+            next step down rather than as a heavy ask of someone who has read
+            one headline.
+          */}
           <Reveal delay={0.2}>
             <div className="mt-10">
-              <SectionLink href="/vision">Read the full vision</SectionLink>
+              <SectionLink
+                href="/The-Enterprise-Neurosystem-Whitepaper.pdf"
+                newTab
+              >
+                Read the whitepaper (PDF)
+              </SectionLink>
             </div>
           </Reveal>
         </Container>

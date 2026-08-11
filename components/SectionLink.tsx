@@ -12,19 +12,23 @@ import { ArrowLeft, ArrowRight } from "@/components/ArrowRight";
  *
  * `variant` picks the fill (solid = primary, ghost = secondary); `direction`
  * flips the arrow to the left and moves it ahead of the label, for links that
- * back out of a page rather than advance into one.
+ * back out of a page rather than advance into one. `newTab` is for the targets
+ * that aren't pages — the whitepaper PDF — where staying in the tab would drop
+ * the visitor out of the site into a document viewer with no way back.
  */
 export function SectionLink({
   href,
   children,
   variant = "ghost",
   direction = "forward",
+  newTab = false,
   className = "",
 }: {
   href: string;
   children: React.ReactNode;
   variant?: "ghost" | "solid";
   direction?: "forward" | "back";
+  newTab?: boolean;
   className?: string;
 }) {
   const fill =
@@ -45,6 +49,8 @@ export function SectionLink({
   return (
     <Link
       href={href}
+      target={newTab ? "_blank" : undefined}
+      rel={newTab ? "noopener noreferrer" : undefined}
       className={`group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium ${fill} ${className}`}
     >
       {direction === "back" && arrow}

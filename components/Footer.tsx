@@ -2,13 +2,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "./Container";
 
-const columns = [
+const columns: {
+  heading: string;
+  links: { href: string; label: string; newTab?: boolean }[];
+}[] = [
   {
     heading: "About",
     links: [
       { href: "/mission", label: "Mission" },
       { href: "/charter", label: "Charter" },
       { href: "/board", label: "Board" },
+      {
+        href: "/The-Enterprise-Neurosystem-Whitepaper.pdf",
+        label: "Whitepaper",
+        // Not a page — same-tab would drop the visitor into a PDF viewer.
+        newTab: true,
+      },
     ],
   },
   {
@@ -72,6 +81,8 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
+                    target={link.newTab ? "_blank" : undefined}
+                    rel={link.newTab ? "noopener noreferrer" : undefined}
                     className="text-sm text-bg/70 transition-colors hover:text-bg"
                   >
                     {link.label}
