@@ -67,6 +67,20 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   cards now sit at the top of the Contact page). Each route is a plain server component; the
   only client components are ones that need interactivity/browser APIs (`Nav`, `Reveal`,
   `NeuralGlobe`, `SectionSidebar` — all marked `"use client"`).
+- **`app/not-found.tsx` is the 404**, and because it's the *root* one it serves both `notFound()`
+  calls and any unmatched URL site-wide. It's the one page that breaks the usual
+  header-band-then-white-body shape: a single `bg-page-header` section sized
+  `min-h-[calc(100svh-6rem)]` (the `6rem` is `Nav`'s `h-24` — update it if the nav height ever
+  changes) and vertically centered, so the blue fills the viewport under the nav rather than
+  leaving a white gap above the footer. Inside it is a two-column split: the headline, copy, and
+  homepage pill on the left; a "Suggested entry points" list on the right, whose rows are the
+  **nav's top-level destinations in nav order** (Vision, Projects, Partners, Blog, Press,
+  Contact) — if you add or reorder a top-level nav item, mirror it here, since the list exists to
+  match what the visitor was reaching for. The rows use `divide-ink/10` hairlines instead of
+  cards, and each label sits in a fixed `sm:w-28` column so the descriptions start on one axis.
+  Do **not** add a `metadata` export: Next ignores it in `not-found.tsx` (only the experimental
+  `global-not-found.js` supports one), so the page inherits the layout's default title, and Next
+  injects `noindex` on 404 responses automatically.
 - **`components/Nav.tsx`** is permanently translucent/blurred (`bg-nav/70`, `backdrop-blur-sm`) —
   there is no scroll-triggered solid-to-transparent toggle (removed on purpose; it caused a
   visible lag/jump). "Mission", "Charter", and "Board" are grouped under an "About" dropdown
