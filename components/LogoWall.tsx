@@ -23,7 +23,15 @@ export function LogoWall({
       <p className="text-center text-xs font-medium uppercase tracking-widest text-ink-muted underline underline-offset-7">
         {label}
       </p>
-      <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+      {/*
+        Two failure modes to stay between. gap-x-8 / gap-y-3 (32px against 12px)
+        pulled the rows apart sideways while stacking them almost on top of each
+        other, so the wrap points read as ragged. Dropping to an even 12px fixed
+        the raggedness but packed nineteen bordered pills into a solid mass.
+        24px across / 16px down keeps the two gutters in proportion and gives
+        each pill room to read as its own object.
+      */}
+      <ul className="mx-auto mt-6 flex max-w-5xl flex-wrap items-center justify-center gap-x-6 gap-y-4">
         {organizations.map((org) => (
           <li
             key={org}

@@ -19,13 +19,23 @@ export function FlowDiagram({
   steps,
   detailed = false,
   showTitles = true,
+  columnGap = 0,
 }: {
   steps: FlowStep[];
   detailed?: boolean;
   showTitles?: boolean;
+  /**
+   * Horizontal gap (px) between the desktop columns. Set it to match the gap of
+   * a grid rendered directly below the diagram (the homepage's `gap-6` step
+   * cards) so each node sits on its card's centre rather than ~8px off it.
+   */
+  columnGap?: number;
 }) {
   const n = steps.length;
-  const inset = 50 / n; // % — half a column width, so the line spans first-to-last node center
+  // Half a column width, so the line spans first-node-centre to last-node-centre.
+  // Written as a calc rather than `50/n %` because the gaps come out of the
+  // available width before it's divided; with columnGap 0 the two are identical.
+  const inset = `calc((100% - ${(n - 1) * columnGap}px) / ${2 * n})`;
 
   return (
     <div>
@@ -39,8 +49,8 @@ export function FlowDiagram({
         <div
           className="absolute top-7 h-px"
           style={{
-            left: `${inset}%`,
-            right: `${inset}%`,
+            left: inset,
+            right: inset,
             background: "color-mix(in srgb, var(--color-ink) 30%, var(--color-line))",
           }}
         />
@@ -53,7 +63,7 @@ export function FlowDiagram({
         */}
         <div
           className="pointer-events-none absolute top-7"
-          style={{ left: `${inset}%`, right: `${inset}%` }}
+          style={{ left: inset, right: inset }}
         >
           <div className="flow-pulse-x relative h-0 w-full">
             <div
@@ -68,7 +78,10 @@ export function FlowDiagram({
         </div>
         <div
           className="relative grid"
-          style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}
+          style={{
+            gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))`,
+            columnGap: `${columnGap}px`,
+          }}
         >
           {steps.map((step) => (
             <div key={step.number} className="flex flex-col items-center px-2 text-center">
