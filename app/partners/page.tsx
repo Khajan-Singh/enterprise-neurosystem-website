@@ -62,7 +62,7 @@ export default function PartnersPage() {
                     </p>
                   </div>
                   {item.image && (
-                    <div className="relative aspect-[3/2] w-full overflow-hidden rounded-xl">
+                    <div className="relative aspect-[3/2] w-full overflow-hidden rounded-xl border border-line">
                       <Image
                         src={item.image}
                         alt={item.title}
