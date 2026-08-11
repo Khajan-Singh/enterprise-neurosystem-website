@@ -114,34 +114,41 @@ export default function DangermondPage() {
       {/* Sponsor */}
       <section>
         <Container className="py-20">
-          <Reveal>
-            <div className="mx-auto flex max-w-2xl items-center gap-4 rounded-2xl border border-line p-4 sm:p-6">
-              <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full sm:h-20 sm:w-20">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16">
+            <Reveal className="flex flex-col">
+              <p className="text-xs font-medium uppercase tracking-widest text-accent">
+                Executive sponsor
+              </p>
+              <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+                David Schimel, JPL
+              </h2>
+              <div className="mt-5 flex flex-col gap-4 text-base leading-relaxed text-ink-muted sm:text-lg">
+                <p>
+                  David Schimel (Nobel Peace Prize) is the JPL executive
+                  sponsor for this project, pictured here with Ravi Sinha.
+                </p>
+              </div>
+              <div className="mt-10 lg:mt-auto lg:pt-10">
+                <Link
+                  href="/projects"
+                  className="inline-block rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
+                >
+                  ← Back to all projects
+                </Link>
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <div className="card-surface card-surface-hover card-textured relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl">
                 <Image
                   src="/jpl/schimel-and-sinha.jpg"
                   alt="David Schimel and Ravi Sinha"
                   fill
                   className="object-cover"
+                  sizes="(min-width: 1024px) 24rem, 100vw"
                 />
               </div>
-              <p className="text-sm text-ink-muted sm:text-base">
-                <span className="font-semibold text-ink">David Schimel</span>{" "}
-                (Nobel Peace Prize) is the JPL executive sponsor for this
-                project, pictured with{" "}
-                <span className="font-semibold text-ink">Ravi Sinha</span>.
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <div className="mt-10 flex justify-center">
-              <Link
-                href="/projects"
-                className="inline-block rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
-              >
-                ← Back to all projects
-              </Link>
-            </div>
-          </Reveal>
+            </Reveal>
+          </div>
         </Container>
       </section>
     </>
