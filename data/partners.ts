@@ -32,8 +32,8 @@ export const engagements: Engagement[] = [
   {
     title: "UNFCCC TEC / CTCN Joint Meetings",
     description:
-      "AI presentations delivered at UNFCCC TEC and CTCN joint meetings in Korea and Germany, deepening technical collaboration with the UN climate technology community.",
-    image: "/partners/cop28-uae-ctcn-panel.jpg",
+      "AI presentations delivered at UNFCCC TEC and CTCN joint meetings in Korea and Germany, deepening our collaboration with the UNFCCC technology community.",
+    image: "/partners/unfccc-tec-ctcn-joint-meeting.jpg",
   },
 ];
 
