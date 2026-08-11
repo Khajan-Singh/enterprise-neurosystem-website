@@ -243,12 +243,28 @@ older Next.js knowledge. Before relying on memory for App Router APIs, check
   `BeeSenz—Using`.
 - **`max-w-3xl` is a prose rule, not a card rule.** A post's *body* is capped at `max-w-3xl` for
   line length, like `/mission` and `/charter`. Card lists are not: the card spans the full
-  `Container` width and only the text inside it is capped (`max-w-2xl`). `/press` is the
-  reference implementation — `Container className="flex flex-col gap-8 py-20"` with each card
-  `card-surface card-surface-hover card-textured flex flex-col gap-4 rounded-2xl p-8 sm:p-10` — and
-  `/blog` follows it. `/press` used to cap its whole list at `max-w-3xl`, which
-  went unnoticed only because it has a single item; that has been fixed, so there is no longer a
-  narrow-card-list precedent anywhere to copy by mistake.
+  `Container` width and only the text inside it is capped (`max-w-2xl`). **`/blog` is the
+  reference implementation** — `Container className="flex flex-col gap-8 py-20"` with each card
+  `card-surface card-surface-hover card-textured ... rounded-2xl` and only its text capped (see
+  the comment in `components/BlogCard.tsx`). `/press` used to be that reference and no longer is:
+  it holds no cards at all now (see the `/press` note below). There is no narrow-card-list
+  precedent anywhere to copy by mistake.
+- **`/press` is a link list of *external* coverage, and the only hairline-row list besides the
+  404.** `data/press.ts` holds `PressItem[]` (`outlet`, `title`, `date`, `url` — nothing else, by
+  decision: no summary, no logos), and `components/PressList.tsx` renders it as divided rows
+  (`divide-y divide-ink/10`) rather than cards, because the list only grows and a long stack of
+  `card-textured` cards reads as noise. The row idiom is shared with the "Suggested entry points"
+  list in `app/not-found.tsx` — change one, consider the other. Three things that look arbitrary
+  but aren't: rows are plain `<a target="_blank" rel="noopener noreferrer">` not `next/link`
+  (every href is external, so there's nothing to prefetch); sorting is `b.date.localeCompare(a.date)`
+  on ISO strings, like `lib/blog.ts`; and the date formatter pins `timeZone: "UTC"` for the same
+  reason `formatPostDate` does — without it a `YYYY-MM-DD` renders as the previous day, and
+  therefore sometimes the previous *month*, west of UTC. The page carries no press releases: the
+  one that used to live here (AI Grand Challenge 2024, still in
+  `content/enterprise-neurosystem-content.md` as a record of the old site) was deliberately
+  dropped, so don't reintroduce a releases section without asking. Entries must actually mention
+  Enterprise Neurosystem — verify before adding, and prefer third-party coverage over the org's
+  own material or a partner's announcement.
 - **Blog images are committed locally, not hotlinked** (`public/blog/<slug>/`, 26 images, 3.3MB).
   Medium's CDN is hotlinkable, but that would mean the optimizer resizing a full-size Medium
   original on every cache miss — exactly what the "size the source to how it's rendered" rule
