@@ -42,3 +42,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large source deck, kept locally but not tracked (94MB — over GitHub's push limit)
+/Enterprise_Neurosystem_Project_Overview_Redesigned.pptx
