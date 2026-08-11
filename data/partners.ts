@@ -2,9 +2,18 @@ export type Engagement = {
   title: string;
   description: string;
   image?: string;
+  /** Optional trailing link rendered at the end of the description. */
+  link?: { label: string; href: string };
 };
 
 export const engagements: Engagement[] = [
+  {
+    title: "AI for Climate Action Competition",
+    description:
+      "The UNFCCC Technology Mechanism AI for Climate Action (AICA) Award 2026 recognizes open-source, AI-powered solutions that contribute to climate change adaptation and mitigation in least developed countries (LDCs) and small island developing States (SIDS).",
+    image: "/partners/aica-award-2026.jpg",
+    link: { label: "Learn more here", href: "https://aica.awardsplatform.com/" },
+  },
   {
     title: "UNFCCC AI Innovation Grand Challenge",
     description:

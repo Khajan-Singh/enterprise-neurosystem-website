@@ -46,6 +46,19 @@ export default function PartnersPage() {
                     </h2>
                     <p className="text-sm leading-relaxed text-ink-muted sm:text-base">
                       {item.description}
+                      {item.link && (
+                        <>
+                          {" "}
+                          <a
+                            href={item.link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-medium text-link hover:underline"
+                          >
+                            {item.link.label}
+                          </a>
+                        </>
+                      )}
                     </p>
                   </div>
                   {item.image && (
