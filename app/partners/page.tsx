@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
+import { SectionLink } from "@/components/SectionLink";
 import { LogoWall } from "@/components/LogoWall";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
@@ -85,12 +85,9 @@ export default function PartnersPage() {
                 integrating satellite data, atmospherics, ground sensors and
                 multi-species analysis.
               </p>
-              <Link
-                href="/projects/dangermond"
-                className="mt-6 inline-block rounded-full border border-ink/60 px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/5"
-              >
-                Read the full case study →
-              </Link>
+              <SectionLink href="/projects/dangermond" className="mt-6">
+                Read the full case study
+              </SectionLink>
             </Reveal>
             <Reveal delay={0.1}>
               <div className="card-surface card-surface-hover card-textured relative aspect-[4/3] overflow-hidden rounded-2xl">

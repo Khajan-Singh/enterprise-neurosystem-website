@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "@/components/ArrowRight";
 import { formatPostDate, type Post } from "@/lib/blog";
 
 /**
@@ -44,14 +45,9 @@ export function BlogCard({ post, eager = false }: { post: Post; eager?: boolean 
           {post.excerpt}
         </p>
 
-        <span className="mt-4 w-fit text-sm font-medium text-accent">
+        <span className="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-accent">
           Read post
-          <span
-            aria-hidden="true"
-            className="ml-1 inline-block transition-transform group-hover:translate-x-1"
-          >
-            →
-          </span>
+          <ArrowRight className="transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
         </span>
       </div>
     </Link>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { ArrowRight } from "@/components/ArrowRight";
+import { SectionLink } from "@/components/SectionLink";
 import { Reveal } from "@/components/Reveal";
 
 // The site's top-level destinations, in nav order — a lost visitor was almost
@@ -59,13 +60,9 @@ export default function NotFound() {
               back to the homepage, or pick up the thread from one of the
               entry points here.
             </p>
-            <Link
-              href="/"
-              className="group mt-9 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-bg transition-opacity hover:opacity-85"
-            >
+            <SectionLink href="/" variant="solid" className="mt-9">
               Back to the homepage
-              <ArrowRight className="transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1" />
-            </Link>
+            </SectionLink>
           </div>
         </Reveal>
 
