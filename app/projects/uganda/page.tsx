@@ -44,7 +44,8 @@ const photoSections = [
     title: "Lake Victoria",
     body: [
       "Millions of Africans rely on Lake Victoria for fresh water, agriculture, and power. It is the heart of the Nile River, which in turn supports agriculture across Egypt and Sudan. Sewage, climate change, and agricultural runoff have led to algal blooms that create \"dead zones\" for marine life.",
-      "Uganda's Space and Aeronautics Ministry proposed a robotic sensor with AI capabilities to monitor the lake. The Enterprise Neurosystem has been engaged to develop this project: a full-stack architecture has been designed for the AI infrastructure, and sensor design and implementation are now underway. JPL/Caltech formally partners on sensor and network technology design and knowledge transfer, and Makerere University partners on environmental sensor and AI model design.",
+      "Uganda's Space and Aeronautics Ministry proposed a robotic sensor with AI capabilities to monitor the lake. The Enterprise Neurosystem has been engaged to develop this project: a full-stack architecture has been designed for the AI infrastructure, and sensor design and implementation are now underway.",
+      "In this arrangement, JPL/Caltech partners on sensor and network technology design and knowledge transfer, and Makerere University partners on environmental sensor and AI model design.",
       "The economic benefits are immediate: water and agriculture security, and wide-scale species preservation. And because Uganda now has deep manufacturing capabilities, it will manufacture the advanced sensors required for a global environmental analysis network.",
     ],
     images: [
