@@ -85,14 +85,17 @@ export default function Home() {
             </Reveal>
             <Reveal delay={0.16} className="mt-6">
               <p className="max-w-2xl text-lg leading-relaxed text-pretty text-ink-muted">
-                The Enterprise Neurosystem is an open source AI research
-                community, founded on the principle that all the species and
-                ecosystems on this planet are part of a single system. It
-                analyzes natural
-                systems at planetary scale — integrating satellites, and
-                atmospheric, oceanic, seismic and agricultural sensors — to
-                act as an early warning architecture and an AI
-                recommendation engine for course-correction.
+                The Enterprise Neurosystem is a non-profit, open source AI
+                research community, founded on the principle that all the
+                species and ecosystems on this planet are part of a single
+                system. And given our complete reliance on this system, and the
+                subsequent challenges this system now faces, humanity requires a
+                real-time AI architecture that analyzes our environment at
+                planetary scale — integrating satellites, and atmospheric,
+                oceanic, seismic and agricultural sensors in a unified AI
+                network. This will establish a complete early warning
+                architecture, and enable a highly accurate AI recommendation
+                engine for course-correction.
               </p>
             </Reveal>
             <Reveal delay={0.24} className="mt-9">
@@ -263,7 +266,7 @@ export default function Home() {
             <SectionHeading
               eyebrow="Deployments"
               title="Global deployments with partners"
-              description="From the mountain gorillas of Bwindi to the coastline of the Dangermond Preserve, the Enterprise Neurosystem architecture is already live in the field."
+              description="From the mountain gorillas of Bwindi to the coastline of the Dangermond Preserve, the Enterprise Neurosystem architecture is emerging around the world."
             />
           </Reveal>
           <div className="mt-10 grid gap-6 lg:grid-cols-2">

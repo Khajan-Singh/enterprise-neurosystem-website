@@ -21,7 +21,7 @@ export default function DangermondPage() {
           <Reveal>
             <SectionHeading
               title="Dangermond Preserve"
-              description="The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, built with JPL/Caltech and The Nature Conservancy."
+              description="The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, in partnership with JPL/Caltech."
             />
           </Reveal>
         </Container>
