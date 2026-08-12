@@ -29,7 +29,7 @@ export const deployments: Deployment[] = [
     name: "Dangermond Preserve",
     location: "Santa Barbara County, California, USA",
     summary:
-      "The first US deployment of the Enterprise Neurosystem architecture, a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, developed with JPL/Caltech and The Nature Conservancy.",
+      "The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, in partnership with JPL/Caltech.",
     image: "/jpl/dangermond-coastline.jpg",
     partners: ["JPL / Caltech", "The Nature Conservancy", "NCEAS"],
     href: "/projects/dangermond",
