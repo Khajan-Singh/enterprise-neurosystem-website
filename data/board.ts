@@ -10,8 +10,8 @@ export const boardMembers: BoardMember[] = [
   {
     name: "Bill Wright",
     title: "Chair",
-    affiliation: "Chief Architect, Red Hat CTO Office",
-    bio: "Enterprise Neurosystem is the brainchild of Bill Wright, arising out of his work with R&D leaders at major telcos in the Americas. Bill is a Chief Architect in the CTO organization at Red Hat, with previous work in the field at Affirmed Networks (later acquired by Microsoft) and VMware. He is a frequent speaker on AI and open source innovation.",
+    affiliation: "Former Chief Architect, Red Hat CTO Office",
+    bio: "The Enterprise Neurosystem is the brainchild of Bill Wright, arising out of his work with R&D leaders at major telcos in the Americas. Bill is a former Chief Architect in the CTO organization at Red Hat, with previous work in the field at Affirmed Networks (later acquired by Microsoft) and VMware (acquired by Broadcom). He is a frequent speaker on AI and open source innovation at United Nations events, universities and IT industry conferences.",
     image: "/people/bill.jpg",
   },
   {

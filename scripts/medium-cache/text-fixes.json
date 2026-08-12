@@ -16,6 +16,16 @@
       "find": "Alisa luangrath",
       "replace": "Alisa Luangrath",
       "why": "surname not capitalised; appears in two posts and in one title"
+    },
+    {
+      "find": "By using natural language, an application or agent can interpret and relay requests to anyone, not just to platform participants.",
+      "replace": "By using NLIP, an application or agent can interpret and relay requests to anyone, not just to proprietary platform participants.",
+      "why": "author-requested copy update to the NLIP post (081226 website edits) — clarifies it is NLIP (not natural language alone) that enables interoperability, and that the participants being locked out are proprietary ones. Kept here so a re-import from Medium does not revert it."
+    },
+    {
+      "find": "the governance of NLIP is through standards and not via a corporation or consortia with vested interests. Updates, licenses and rights are governed by the standard and not by the ever-changing needs of shareholders.",
+      "replace": "the governance of NLIP is through standards, and not via a corporation or consortia with vested interests. Updates, licenses and rights are governed by the standard, and not by the ever-changing needs of shareholders.",
+      "why": "author-requested copy update to the NLIP post (081226 website edits) — adds the serial commas before 'and not'. Kept here so a re-import from Medium does not revert it."
     }
   ]
 }
