@@ -60,7 +60,7 @@ export const projects: Project[] = [
   {
     name: "Telecommunications Research",
     description:
-      "Led by Reliance Jio's VP with engineers from Verizon and other telecom firms, this project develops AI-enhanced 5G/6G frameworks for remote data transmission.",
+      "Led by engineers from Verizon and other telecom firms, this project develops AI-enhanced 5G/6G frameworks for remote data transmission.",
   },
   {
     name: "Neurological Framework",
