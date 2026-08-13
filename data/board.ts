@@ -52,7 +52,7 @@ export const boardMembers: BoardMember[] = [
     name: "Dennis O'Connell",
     title: "Board Member",
     affiliation: "Sr. Director, Yahoo Performance Engineering Team",
-    bio: "Dennis O'Connell has been leading technology vendor relations and Yahoo server hardware strategy for the last 15 years. He is the Sr. Director of Yahoo's Performance Engineering Team, which is in charge of exploring and on-boarding new technologies and server vendors, sponsoring proof of concepts around new tech, and finding new areas of collaboration with current and future vendors. Dennis' team runs Yahoo's benchmarking & certification lab and assists Yahoo's business units to improve their applications' latency, throughput and cost. Dennis grew up in Massachusetts and graduated at Northeastern University with a major in International Affairs.",
+    bio: "Dennis has led technology vendor relations and Yahoo's server hardware strategy for the last 15 years. His Performance Engineering Team explores and on-boards new technologies and server vendors, sponsors proofs of concept, and opens new areas of collaboration with current and future vendors. The team also runs Yahoo's benchmarking and certification lab, helping its business units improve application latency, throughput and cost. Dennis grew up in Massachusetts and graduated from Northeastern University with a major in International Affairs.",
     image: "/people/dennis.jpg",
   },
 ];
