@@ -98,11 +98,21 @@ body {
   }
 }
 
-/* Consistent, visible keyboard focus ring across the site */
+/*
+  Consistent, visible keyboard focus ring across the site.
+
+  No `border-radius` here. This rule is *unlayered*, and Tailwind's utilities
+  are inside `@layer utilities` — unlayered declarations beat layered ones no
+  matter the specificity, so a `border-radius` here overrode `rounded-2xl` /
+  `rounded-full` on the element itself (not just the ring) and snapped every
+  focused card and pill to near-square corners for as long as it held focus.
+  It isn't needed either way: `outline` already follows the element's own
+  border-radius in every browser this site supports, so the ring is round on
+  a round card and square on a square one without being told.
+*/
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
 /*

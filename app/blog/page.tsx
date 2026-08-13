@@ -25,6 +25,7 @@ export default function BlogPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
+              as="h1"
               title="Blog"
               description="Notes from the community on AI for climate action, open standards and the projects we're building."
             />
@@ -33,13 +34,35 @@ export default function BlogPage() {
       </section>
 
       <section>
-        {/* full-width card list, matching /press */}
+        {/* Full-width cards; only the text inside them is line-length-capped.
+            See the note in components/BlogCard.tsx. */}
         <Container className="flex flex-col gap-8 py-20">
-          {posts.map((post, i) => (
-            <Reveal key={post.slug} delay={0.05 * Math.min(i, 4)}>
-              <BlogCard post={post} eager={i === 0} />
+          {posts.length === 0 ? (
+            <Reveal>
+              <p className="max-w-2xl text-base leading-relaxed text-ink-muted">
+                Nothing published here yet. The community also posts on{" "}
+                <a
+                  href="https://medium.com/the-enterprise-neurosystem-blog"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline"
+                >
+                  Medium
+                </a>
+                .
+              </p>
             </Reveal>
-          ))}
+          ) : (
+            posts.map((post, i) => (
+              /* The stagger is only for the cards that are already on screen at
+                 load. Below the fold each card reveals on its own as it scrolls
+                 in, so a delay there isn't a stagger — it's just lag before the
+                 card you scrolled to appears. */
+              <Reveal key={post.slug} delay={i < 3 ? 0.05 * i : 0}>
+                <BlogCard post={post} eager={i === 0} />
+              </Reveal>
+            ))
+          )}
         </Container>
       </section>
     </>

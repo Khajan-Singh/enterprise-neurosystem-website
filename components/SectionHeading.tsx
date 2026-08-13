@@ -3,11 +3,19 @@ export function SectionHeading({
   title,
   description,
   align = "left",
+  as: Tag = "h2",
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   align?: "left" | "center";
+  /**
+   * The heading level. `h2` is right for a mid-page section, which is most
+   * uses. A page-header band is the page's *own* title and should pass `h1`
+   * so the document doesn't open at level 2 — the visual treatment is
+   * identical either way, only the outline changes.
+   */
+  as?: "h1" | "h2";
 }) {
   return (
     <div className={align === "center" ? "text-center" : "text-left"}>
@@ -16,13 +24,13 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <h2
+      <Tag
         className={`font-display text-3xl font-semibold tracking-tight text-balance text-ink sm:text-4xl ${
           eyebrow ? "mt-3" : ""
         }`}
       >
         {title}
-      </h2>
+      </Tag>
       {description && (
         <p
           // Never `text-balance`: balancing shrinks a paragraph to whatever
