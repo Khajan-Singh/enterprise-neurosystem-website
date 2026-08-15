@@ -88,9 +88,9 @@ export default function Home() {
                 The Enterprise Neurosystem is a non-profit, open source AI
                 research community, founded on the principle that all the
                 species and ecosystems on this planet are part of a single
-                system. And given our complete reliance on this system, and the
+                system. Given our complete reliance on this system, and the
                 subsequent challenges this system now faces, humanity requires a
-                real-time AI architecture that analyzes our environment at
+                real-time architecture that analyzes our environment at
                 planetary scale — integrating satellites, and atmospheric,
                 oceanic, seismic and agricultural sensors in a unified AI
                 network. This will establish a complete early warning
