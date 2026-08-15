@@ -9,6 +9,9 @@ const columns: {
   {
     heading: "About",
     links: [
+      // Parent before its children, like the nav's Vision dropdown, whose panel
+      // repeats the trigger as its first item.
+      { href: "/vision", label: "Vision" },
       { href: "/mission", label: "Mission" },
       { href: "/charter", label: "Charter" },
       { href: "/board", label: "Board" },
@@ -23,9 +26,12 @@ const columns: {
   {
     heading: "Community",
     links: [
+      // Nav order, so the column reads in the sequence a visitor met these in
+      // the header.
+      { href: "/projects", label: "Projects" },
+      { href: "/partners", label: "Partners" },
       { href: "/blog", label: "Blog" },
       { href: "/press", label: "Press" },
-      { href: "/projects", label: "Projects" },
     ],
   },
   {
@@ -35,6 +41,8 @@ const columns: {
       {
         href: "https://github.com/Enterprise-Neurosystem",
         label: "GitHub",
+        // Off-site — don't navigate the visitor away from the site in place.
+        newTab: true,
       },
     ],
   },
