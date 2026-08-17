@@ -58,7 +58,7 @@ export default function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-nav-line bg-nav">
         <AmbientShadow />
-        <Container className="relative grid gap-10 pt-10 pb-14 sm:pt-12 sm:pb-16 lg:grid-cols-2 lg:items-center lg:gap-8">
+        <Container className="hero-in relative grid gap-10 pt-10 pb-14 sm:pt-12 sm:pb-16 lg:grid-cols-2 lg:items-center lg:gap-8">
           {/*
             Spacing here is deliberately tight: the kicker hugs the headline it
             labels (20px), then the standfirst and the buttons each sit 24px
@@ -67,11 +67,13 @@ export default function Home() {
             the column gave all three the same 32px and opened it up too much.
           */}
           {/*
-            The hero is deliberately *not* wrapped in `Reveal`: it is above the
-            fold on every viewport, so a scroll-triggered fade would only ever
-            play against a visitor who has not scrolled — content arriving late
-            on the one screen that should already be there. Everything below
-            this section still reveals.
+            The hero animates in via the `hero-in` class on the Container
+            above, NOT via `Reveal`. Two reasons, both deliberate: it is above
+            the fold on every viewport, so a scroll-triggered fade would only
+            ever play for a visitor who has not scrolled (and would wait on
+            hydration to do it); and it arrives as one unit — copy and globe
+            together, no per-element stagger. Everything below this section
+            still uses `Reveal`.
           */}
           <div className="flex flex-col">
             <p className="text-xs font-medium uppercase tracking-widest text-accent">

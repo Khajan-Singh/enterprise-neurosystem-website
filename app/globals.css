@@ -145,6 +145,46 @@ body {
 }
 
 /*
+  Hero load-in
+  --------------------------------------------------------------
+  The homepage hero is above the fold on every viewport, so it must not use
+  `.reveal`: that waits on an IntersectionObserver, which means it waits on
+  hydration, and it would only ever play for a visitor who has not scrolled.
+  This is a plain CSS animation instead — it starts on first paint, with no
+  JS involved, so the hero cannot get stuck invisible if hydration is slow or
+  fails.
+
+  It is deliberately ONE animation on ONE wrapper (the hero's whole grid,
+  copy and globe together) rather than a per-element stagger: the hero is a
+  single unit arriving, not a sequence. Animating the wrapper also keeps this
+  to a single composited layer.
+
+  Fill is `backwards`, not `both`: the keyframes end exactly at the element's
+  natural state (opacity 1, no transform), so there is nothing worth holding
+  afterwards, and letting the animation stop cleanly means no lingering
+  transform to act as a containing block for the canvas inside. The backwards
+  half does matter — it pins the start frame so the hero cannot flash at full
+  opacity before the animation takes over.
+
+  The global `prefers-reduced-motion` rule near the top of this file collapses
+  the duration to ~0, which lands on that same end state.
+*/
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-in {
+  animation: hero-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/*
   Traveling pulse (FlowDiagram) and radiating ring (SensorGrid)
   --------------------------------------------------------------
   Both were infinite Framer Motion loops; the FlowDiagram one animated
