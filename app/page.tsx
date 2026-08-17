@@ -60,19 +60,24 @@ export default function Home() {
         <AmbientShadow />
         <Container className="relative grid gap-10 pt-10 pb-14 sm:pt-12 sm:pb-16 lg:grid-cols-2 lg:items-center lg:gap-8">
           {/*
-            Spacing here is grouped, not uniform: the kicker hugs the headline it
-            labels (20px), the standfirst sits a step further out (24px), and the
-            buttons get the widest gap (36px) so they read as a separate act.
-            A single `gap-8` on the column gave all three the same 32px and
-            flattened that relationship.
+            Spacing here is deliberately tight: the kicker hugs the headline it
+            labels (20px), then the standfirst and the buttons each sit 24px
+            from what precedes them — a matched pair of gaps below the headline,
+            so the whole block reads as one compact unit. A single `gap-8` on
+            the column gave all three the same 32px and opened it up too much.
+          */}
+          {/*
+            The hero is deliberately *not* wrapped in `Reveal`: it is above the
+            fold on every viewport, so a scroll-triggered fade would only ever
+            play against a visitor who has not scrolled — content arriving late
+            on the one screen that should already be there. Everything below
+            this section still reveals.
           */}
           <div className="flex flex-col">
-            <Reveal>
-              <p className="text-xs font-medium uppercase tracking-widest text-accent">
-                Internet of Nature · Planetary AI · Equal Access for All
-              </p>
-            </Reveal>
-            <Reveal delay={0.08} className="mt-5">
+            <p className="text-xs font-medium uppercase tracking-widest text-accent">
+              Internet of Nature · Planetary AI · Equal Access for All
+            </p>
+            <div className="mt-5">
               {/*
                 No `max-w-*` here: on lg the grid column is already narrower than
                 max-w-3xl, and below lg the container is narrower still, so the
@@ -82,8 +87,8 @@ export default function Home() {
               <h1 className="font-display text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl">
                 A global AI architecture for environmental intelligence.
               </h1>
-            </Reveal>
-            <Reveal delay={0.16} className="mt-6">
+            </div>
+            <div className="mt-6">
               <p className="max-w-2xl text-lg leading-relaxed text-pretty text-ink-muted">
                 The Enterprise Neurosystem is a non-profit, open source AI
                 research community, founded on the principle that all species
@@ -95,15 +100,15 @@ export default function Home() {
                 agricultural sensors into one AI network for a complete early
                 warning and highly accurate course-correction engine.
               </p>
-            </Reveal>
-            <Reveal delay={0.24} className="mt-9">
+            </div>
+            <div className="mt-6">
               <div className="flex flex-wrap gap-3">
                 <SectionLink href="/vision" variant="solid">
                   Explore the Vision
                 </SectionLink>
                 <SectionLink href="/projects">See our projects</SectionLink>
               </div>
-            </Reveal>
+            </div>
           </div>
 
           {/*
@@ -111,9 +116,7 @@ export default function Home() {
             canvases (one hidden per breakpoint), each building the sphere's
             edge graph and allocating its own backing store.
           */}
-          <Reveal delay={0.2}>
-            <NeuralGlobe className="h-64 w-full sm:h-80 lg:aspect-square lg:h-auto" />
-          </Reveal>
+          <NeuralGlobe className="h-64 w-full sm:h-80 lg:aspect-square lg:h-auto" />
         </Container>
       </section>
 
