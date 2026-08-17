@@ -89,7 +89,7 @@ export default function Home() {
                 research community, founded on the principle that all the
                 species and ecosystems on this planet are part of a single
                 system. Given our complete reliance on this system, and the
-                subsequent challenges this system now faces, humanity requires a
+                subsequent challenges it now faces, humanity requires a
                 real-time architecture that analyzes our environment at
                 planetary scale — integrating satellites, and atmospheric,
                 oceanic, seismic and agricultural sensors in a unified AI
