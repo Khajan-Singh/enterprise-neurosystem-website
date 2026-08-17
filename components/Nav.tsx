@@ -197,6 +197,119 @@ function NavDropdown({
   );
 }
 
+/**
+ * A collapsible group in the *mobile* menu — the small-screen counterpart to
+ * NavDropdown.
+ *
+ * The group header is two separate targets, not one: the label is a plain link
+ * straight to the section's own page (/vision, /projects), and the chevron
+ * beside it is a button that only expands the group. Merging them would mean
+ * either losing the link to the overview page or making every expand a
+ * navigation.
+ *
+ * Collapsed by default, including for the section you're currently in: the
+ * point of the menu at this width is to fit every destination on one screen
+ * without scrolling.
+ */
+function MobileNavGroup({
+  label,
+  href,
+  items,
+  active,
+  className = "",
+  onNavigate,
+  onItemClick,
+  isItemActive,
+}: {
+  label: string;
+  href: string;
+  items: { href: string; label: string }[];
+  active: boolean;
+  className?: string;
+  onNavigate: () => void;
+  onItemClick?: (href: string) => (e: React.MouseEvent) => void;
+  isItemActive: (href: string) => boolean;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const panelId = `mobile-nav-${label.toLowerCase()}`;
+
+  return (
+    /*
+      The group owns the hairline that closes it, and owns it in exactly one
+      place at a time: collapsed, the header's own `border-b` is the closing
+      line; expanded, the header keeps that line (now separating header from
+      sublinks) and the container adds a second one below the last sublink.
+      The menu therefore has no standalone divider before Partners — one there
+      sat only ~8px under a collapsed Projects header and read as a doubled
+      line.
+    */
+    <div
+      className={`${expanded ? "border-b border-nav-line pb-2" : ""} ${className}`}
+    >
+      <div className="flex items-center border-b border-nav-line">
+        <Link
+          href={href}
+          onClick={onNavigate}
+          className={`flex-1 px-2 pb-2 pt-2 text-xs font-medium uppercase tracking-widest ${
+            active ? "text-ink" : "text-ink-muted"
+          }`}
+        >
+          {label}
+        </Link>
+        {/*
+          `-mr-2` pulls the button's padding back over the container's own
+          gutter so the chevron sits on the same right edge as the text above
+          it, while the tap target itself stays a full 40px square.
+        */}
+        <button
+          type="button"
+          aria-expanded={expanded}
+          aria-controls={panelId}
+          aria-label={`${expanded ? "Collapse" : "Expand"} ${label} links`}
+          onClick={() => setExpanded((v) => !v)}
+          className="-mr-2 flex h-10 w-10 items-center justify-center text-ink-muted transition-colors hover:text-ink"
+        >
+          {/*
+            `transition-[rotate]`, not `transition-transform`: in Tailwind v4
+            `rotate-180` sets the standalone `rotate` property rather than
+            writing a `transform`, so a transform transition never sees it and
+            the chevron snaps. (The desktop NavDropdown above still has that
+            snap for the same reason.)
+          */}
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 12 8"
+            className={`h-2.5 w-2.5 fill-current transition-[rotate] duration-200 ${
+              expanded ? "rotate-180" : ""
+            }`}
+          >
+            <path d="M6 8 0 0h12z" />
+          </svg>
+        </button>
+      </div>
+
+      {expanded && (
+        <div id={panelId} className="flex flex-col gap-1 pt-1">
+          {items.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={onItemClick ? onItemClick(link.href) : onNavigate}
+              className={`rounded-md py-2.5 pl-5 pr-2 text-base ${
+                isItemActive(link.href)
+                  ? "font-semibold text-ink"
+                  : "text-ink/70"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -292,55 +405,32 @@ export function Nav() {
       {open && (
         <nav className="border-t border-nav-line bg-nav md:hidden">
           <Container className="flex flex-col gap-1 py-4">
-            <Link
+            <MobileNavGroup
+              label="Vision"
               href="/vision"
-              onClick={closeMobile}
-              className={`border-b border-nav-line px-2 pb-2 pt-2 text-xs font-medium uppercase tracking-widest ${
-                visionActive ? "text-ink" : "text-ink-muted"
-              }`}
-            >
-              Vision
-            </Link>
-            {visionLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={closeMobile}
-                className={`rounded-md px-2 py-2.5 text-base ${
-                  pathname === link.href
-                    ? "font-semibold text-ink"
-                    : "text-ink/70"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+              items={visionLinks}
+              active={visionActive}
+              onNavigate={closeMobile}
+              isItemActive={(href) => pathname === href}
+            />
 
-            <Link
+            <MobileNavGroup
+              label="Projects"
               href="/projects"
-              onClick={closeMobile}
-              className={`mt-2 border-y border-nav-line px-2 pb-2 pt-4 text-xs font-medium uppercase tracking-widest ${
-                projectsActive ? "text-ink" : "text-ink-muted"
-              }`}
-            >
-              Projects
-            </Link>
-            {projectsLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={handleMobileHashClick(link.href)}
-                className={`rounded-md px-2 py-2.5 text-base ${
-                  isSubLinkActive(pathname, link.href)
-                    ? "font-semibold text-ink"
-                    : "text-ink/70"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+              items={projectsLinks}
+              active={projectsActive}
+              className="mt-1"
+              onNavigate={closeMobile}
+              onItemClick={handleMobileHashClick}
+              isItemActive={(href) => isSubLinkActive(pathname, href)}
+            />
 
-            <div className="my-2 border-t border-nav-line" />
+            {/*
+              No divider here — the Projects group above already closes itself
+              with a hairline in both states (see MobileNavGroup). `mt-1` just
+              keeps Partners off that line.
+            */}
+            <div className="mt-1" />
 
             {links.map((link) => (
               <Link
