@@ -93,9 +93,8 @@ export default function Home() {
                 real-time architecture that analyzes our environment at
                 planetary scale — integrating satellites, and atmospheric,
                 oceanic, seismic and agricultural sensors in a unified AI
-                network. This will establish a complete early warning
-                architecture, and enable a highly accurate AI recommendation
-                engine for course-correction.
+                network. This will enable an early warning architecture and
+                highly accurate AI recommendation engine for course-correction.
               </p>
             </Reveal>
             <Reveal delay={0.24} className="mt-9">
