@@ -86,16 +86,14 @@ export default function Home() {
             <Reveal delay={0.16} className="mt-6">
               <p className="max-w-2xl text-lg leading-relaxed text-pretty text-ink-muted">
                 The Enterprise Neurosystem is a non-profit, open source AI
-                research community, founded on the principle that all the
-                species and ecosystems on this planet are part of a single
-                system. Given our complete reliance on this system, and the
-                subsequent challenges it now faces, humanity requires a
-                real-time architecture that analyzes our environment at
-                planetary scale — integrating satellites, and atmospheric,
-                oceanic, seismic and agricultural sensors in a unified AI
-                network. This will enable a complete early warning architecture
-                and a highly accurate AI recommendation engine for
-                course-correction.
+                research community, founded on the principle that all species
+                and ecosystem on this planet are part of a single system. Given
+                our complete reliance on this system, and the subsequent
+                challenges it now faces, humanity requires a real-time
+                architecture that analyzes our environment at planetary scale —
+                integrating satellites and atmospheric, oceanic, seismic and
+                agricultural sensors into one AI network for a complete early
+                warning and highly accurate course-correction engine.
               </p>
             </Reveal>
             <Reveal delay={0.24} className="mt-9">
