@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -8,11 +8,12 @@ import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 import { projects, deployments } from "@/data/projects";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Projects",
   description:
     "Flagship deployments in Uganda and at the Dangermond Preserve, plus nine research workstreams — from beehives to satellites — built by the Enterprise Neurosystem community.",
-};
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   return (
@@ -22,6 +23,7 @@ export default function ProjectsPage() {
         <Container className="relative grid gap-8 pb-10 pt-14 sm:pt-20 md:grid-cols-2 md:gap-16">
           <Reveal>
             <SectionHeading
+              as="h1"
               title="Projects"
               description="From national sensor networks in Uganda to research on beehives and mussel beds, the community builds the sensors, AI models, and infrastructure needed to monitor and manage climate change events."
             />

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SectionSidebar } from "@/components/SectionSidebar";
@@ -42,11 +42,12 @@ const flowSteps: FlowStep[] = [
   },
 ];
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Vision",
   description:
     "The Internet of Nature: how a single global AI architecture — sensors, satellites, and cross-correlated AI instances — delivers equal access, early warning, and course correction for every nation.",
-};
+  path: "/vision",
+});
 
 const sections = [
   {
@@ -119,6 +120,7 @@ export default function VisionPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
+              as="h1"
               title="Vision"
               description="Internet of Nature · Planetary AI · Equal Access for All."
             />

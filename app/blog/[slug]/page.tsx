@@ -9,6 +9,11 @@ import { PostBody } from "@/components/PostBody";
 import { SectionSidebar } from "@/components/SectionSidebar";
 import { formatPostDate, getAllPosts, getPostBySlug, getPostHeadings } from "@/lib/blog";
 import { getAuthor } from "@/data/authors";
+import { postDescriptions } from "@/data/post-descriptions";
+import { OG_IMAGE } from "@/lib/seo";
+import { SITE_NAME } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { blogPostingSchema, breadcrumbSchema } from "@/lib/schema";
 
 /** Every post is known at build time, so 404 anything else. */
 export const dynamicParams = false;
@@ -22,19 +27,43 @@ export async function generateMetadata(props: PageProps<"/blog/[slug]">): Promis
   const post = getPostBySlug(slug);
   if (!post) return {};
 
+  // A post's own hero if it has one, otherwise the sitewide card — never an
+  // empty `images`, which would leave the share as a bare link.
+  const image = post.hero
+    ? { url: post.hero, width: post.heroWidth, height: post.heroHeight, alt: post.heroAlt }
+    : OG_IMAGE;
+
+  // The visible card blurb on /blog stays the Medium excerpt; only the search
+  // and share description prefers the hand-written override.
+  const description = postDescriptions[post.mediumId] ?? post.excerpt;
+
   return {
     title: post.title,
-    description: post.excerpt,
+    description,
     // These posts were published on Medium first and Medium canonicalises to
     // itself, so this copy defers to it rather than competing as a duplicate.
-    alternates: { canonical: post.mediumUrl },
+    // `types` is repeated because setting `alternates` replaces the layout's
+    // copy wholesale rather than merging into it.
+    alternates: {
+      canonical: post.mediumUrl,
+      types: { "application/rss+xml": "/blog/rss.xml" },
+    },
     openGraph: {
       type: "article",
+      siteName: SITE_NAME,
+      locale: "en_US",
+      url: `/blog/${post.slug}`,
       title: post.title,
-      description: post.excerpt,
+      description,
       publishedTime: post.date,
       authors: post.author ? [post.author] : undefined,
-      images: post.hero ? [post.hero] : undefined,
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      images: [image.url],
     },
   };
 }
@@ -51,6 +80,14 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
 
   return (
     <>
+      <JsonLd data={blogPostingSchema(post)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: post.title, path: `/blog/${post.slug}` },
+        ])}
+      />
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pb-10 pt-14 sm:pt-20">

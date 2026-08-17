@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SectionSidebar } from "@/components/SectionSidebar";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Charter",
   description:
     "How Enterprise Neurosystem is governed: project objectives, the Technical Committee, the Governing Board, community assets, and compliance.",
-};
+  path: "/charter",
+});
 
 const sections = [
   {
@@ -122,6 +123,7 @@ export default function CharterPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
+              as="h1"
               title="Charter"
               description="How the Enterprise Neurosystem community is scoped, governed, and held accountable — from technical contribution to board oversight."
             />

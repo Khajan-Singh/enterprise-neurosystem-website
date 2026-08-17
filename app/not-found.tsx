@@ -52,9 +52,9 @@ export default function NotFound() {
             <p className="text-xs font-medium uppercase tracking-widest text-accent">
               Error 404
             </p>
-            <h2 className="mt-3 font-display text-5xl font-semibold tracking-tight text-balance text-ink sm:text-6xl">
+            <h1 className="mt-3 font-display text-5xl font-semibold tracking-tight text-balance text-ink sm:text-6xl">
               Page not found
-            </h2>
+            </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-pretty text-ink-muted sm:text-lg">
               The link may be out of date, or the page may have moved. Head
               back to the homepage, or pick up the thread from one of the

@@ -11,6 +11,18 @@ import { AmbientShadow } from "@/components/AmbientShadow";
 import { VideoEmbed } from "@/components/VideoEmbed";
 import { deployments } from "@/data/projects";
 import { partnerOrgs } from "@/data/partners";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  // Absolute: the layout's "%s · Enterprise Neurosystem" template would
+  // otherwise render the org name twice.
+  title:
+    "Enterprise Neurosystem — A Global AI Architecture for Environmental Intelligence",
+  absoluteTitle: true,
+  description:
+    "A non-profit, open source AI research community building a planetary sensor and AI network — the Internet of Nature — for early warning, food security, and equal access for every nation.",
+  path: "/",
+});
 
 const howItWorksFlow: FlowStep[] = [
   { number: "01", title: "Sense" },

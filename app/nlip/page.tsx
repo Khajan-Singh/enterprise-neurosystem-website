@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { LogoWall } from "@/components/LogoWall";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "NLIP",
   description:
     "The Natural Language Interaction Protocol — an Enterprise Neurosystem community project for GenAI-to-GenAI communication, now adopted by the ECMA as a global standard.",
-};
+  path: "/nlip",
+});
 
 const nlipBackers = [
   "Cisco",
@@ -28,6 +29,7 @@ export default function NlipPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
+              as="h1"
               title="NLIP"
               description="The Natural Language Interaction Protocol — a GenAI-to-GenAI communications standard, born from the Enterprise Neurosystem community, now adopted by the ECMA as a global standard."
             />

@@ -52,9 +52,11 @@ export function BlogCard({ post, eager = false }: { post: Post; eager?: boolean 
             own SectionHeading is the h2, so a card title can't also be one.
             `text-pretty` because these titles run past 120 characters and wrap
             to three or four lines, which strands a single word on the last one. */}
-        <h3 className="mt-2 max-w-2xl font-display text-xl font-semibold tracking-tight text-pretty text-ink">
+        {/* h2, not h3: /blog's page title is the h1 and these sit directly
+            under it, so h3 would skip a level in the outline. */}
+        <h2 className="mt-2 max-w-2xl font-display text-xl font-semibold tracking-tight text-pretty text-ink">
           {post.title}
-        </h3>
+        </h2>
 
         {/* Clamped so the row of cards keeps a regular rhythm: these excerpts
             are Medium's own auto-generated ones and already trail off mid

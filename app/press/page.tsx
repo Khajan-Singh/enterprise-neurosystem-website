@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 import { PressList } from "@/components/PressList";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Press",
   description:
     "Enterprise Neurosystem in the press — coverage of the consortium and its projects from outlets around the world.",
-};
+  path: "/press",
+});
 
 export default function PressPage() {
   return (
@@ -19,6 +20,7 @@ export default function PressPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
+              as="h1"
               title="Press"
               description="Coverage of the consortium and its projects, published elsewhere."
             />

@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Contact",
   description:
     "Join us. Change the planet. Reach the Enterprise Neurosystem community directly, and see what organizations and individuals can expect from getting involved.",
-};
+  path: "/contact",
+});
 
 const paths = [
   {
@@ -36,6 +37,7 @@ export default function ContactPage() {
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
+              as="h1"
               title="Contact"
               description="We're looking for philanthropic partners, volunteer scientists, AI engineers, and network architects. Here's what organizations and individuals can expect when they reach out to join the community."
             />

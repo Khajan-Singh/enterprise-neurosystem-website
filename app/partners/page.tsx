@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -8,11 +8,12 @@ import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 import { engagements, partnerOrgs } from "@/data/partners";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Partners",
   description:
     "Enterprise Neurosystem's global engagement: UNFCCC and UN University programs, the AI Innovation Grand Challenge, the JPL/Caltech and Nature Conservancy partnership at Dangermond Preserve, and the partner organizations behind the work.",
-};
+  path: "/partners",
+});
 
 export default function PartnersPage() {
   return (

@@ -1,4 +1,6 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -6,11 +8,18 @@ import { SectionLink } from "@/components/SectionLink";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Uganda",
   description:
     "Inside the Enterprise Neurosystem's flagship Uganda deployment: a national AI sensor network spanning Bwindi's mountain gorillas and Lake Victoria, built with the Uganda STI Ministry, JPL/Caltech, and Makerere University.",
-};
+  path: "/projects/uganda",
+});
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Projects", path: "/projects" },
+  { name: "Uganda", path: "/projects/uganda" },
+]);
 
 const photoSections = [
   {
@@ -59,11 +68,13 @@ const photoSections = [
 export default function UgandaPage() {
   return (
     <>
+      <JsonLd data={breadcrumbs} />
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
+              as="h1"
               title="Uganda"
               description="A national AI sensor network, from the mountain gorillas of Bwindi to the shores of Lake Victoria."
             />

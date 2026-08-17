@@ -1,4 +1,6 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -6,20 +8,29 @@ import { SectionLink } from "@/components/SectionLink";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Dangermond Preserve",
   description:
     "The first US deployment of the Enterprise Neurosystem architecture — built with JPL/Caltech and The Nature Conservancy at the Jack and Laura Dangermond Preserve.",
-};
+  path: "/projects/dangermond",
+});
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Projects", path: "/projects" },
+  { name: "Dangermond Preserve", path: "/projects/dangermond" },
+]);
 
 export default function DangermondPage() {
   return (
     <>
+      <JsonLd data={breadcrumbs} />
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
             <SectionHeading
+              as="h1"
               title="Dangermond Preserve"
               description="The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, in partnership with JPL/Caltech."
             />
@@ -61,7 +72,7 @@ export default function DangermondPage() {
               <div className="card-surface card-surface-hover card-textured relative aspect-[4/3] overflow-hidden rounded-2xl">
                 <Image
                   src="/jpl/dangermond-coastline.jpg"
-                  alt="Dangermond Preserve coastline"
+                  alt="Layered sandstone sea cliffs and coastal scrub along the Dangermond Preserve shoreline, with surf breaking on rocks below and the Pacific stretching to the horizon."
                   fill
                   className="object-cover"
                   sizes="(min-width: 1024px) 50vw, 100vw"
@@ -100,7 +111,7 @@ export default function DangermondPage() {
               <div className="card-surface card-surface-hover card-textured relative aspect-[4/3] overflow-hidden rounded-2xl">
                 <Image
                   src="/jpl/dangermond-historical-imagery-tool.jpg"
-                  alt="Dangermond Preserve historical imagery mapping tool"
+                  alt="A wall display showing The Nature Conservancy's historical imagery map of the Jack and Laura Dangermond Preserve, its boundary outlined over satellite imagery beside a scrollable list of 29 layers dating from 1850 onward."
                   fill
                   className="object-cover"
                   sizes="(min-width: 1024px) 50vw, 100vw"
@@ -138,7 +149,7 @@ export default function DangermondPage() {
               <div className="card-surface card-surface-hover card-textured relative mx-auto aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl">
                 <Image
                   src="/jpl/schimel-and-sinha.jpg"
-                  alt="David Schimel and Ravi Sinha"
+                  alt="David Schimel and Ravi Sinha standing side by side in front of a weathered barn door at the Dangermond Preserve."
                   fill
                   className="object-cover"
                   sizes="(min-width: 1024px) 24rem, 100vw"

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { AmbientShadow } from "@/components/AmbientShadow";
@@ -6,14 +6,14 @@ import { Reveal } from "@/components/Reveal";
 import { BlogCard } from "@/components/BlogCard";
 import { getAllPosts } from "@/lib/blog";
 
-export const metadata: Metadata = {
+// The RSS `alternates.types` link that used to be inlined here is now emitted
+// by pageMetadata() on every page, so it survives the canonical being set.
+export const metadata = pageMetadata({
   title: "Blog",
   description:
     "Updates from the Enterprise Neurosystem community — AI for climate action, the NLIP standard, sensor deployments and grand challenge results.",
-  alternates: {
-    types: { "application/rss+xml": "/blog/rss.xml" },
-  },
-};
+  path: "/blog",
+});
 
 export default function BlogPage() {
   const posts = getAllPosts();

@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
 import { SectionSidebar } from "@/components/SectionSidebar";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Mission",
   description:
     "The Enterprise Neurosystem mission: a unified, global-scale AI framework built to understand and respond to climate change.",
-};
+  path: "/mission",
+});
 
 const sections = [
   {
@@ -79,7 +80,7 @@ export default function MissionPage() {
         <AmbientShadow opacity={0.07} />
         <Container className="relative pb-10 pt-14 sm:pt-20">
           <Reveal>
-            <SectionHeading title="Mission" />
+            <SectionHeading as="h1" title="Mission" />
           </Reveal>
         </Container>
       </section>
