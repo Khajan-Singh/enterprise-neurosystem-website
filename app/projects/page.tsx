@@ -33,10 +33,10 @@ export default function ProjectsPage() {
               When integrated with sensors like satellites, atmospheric and
               water quality indicators, underground monitoring and other
               systems, a comprehensive multi-layered neurology for the
-              planet is formed. One that allows deeper analysis of climate
-              change patterns, leads to new discoveries and corrective
-              actions, and fosters a deeper understanding of
-              humanity&rsquo;s role in the preservation of our environment.
+              planet is formed. One that allows analysis of climate patterns,
+              leads to new discoveries and corrective actions, and fosters a
+              deeper understanding of humanity&rsquo;s role in the
+              preservation of our environment.
             </p>
           </Reveal>
         </Container>
