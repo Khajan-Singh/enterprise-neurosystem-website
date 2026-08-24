@@ -309,7 +309,14 @@ export default function Home() {
               align="center"
             />
           </Reveal>
-          <div className="mt-12">
+          {/*
+            mt-6, not the mt-12 the other sections use: the description above
+            sits mt-4 under its title, so it should sit close to the label
+            below it too — otherwise it hangs off the heading with 48px of air
+            beneath it and reads as part of the title rather than the lead-in
+            to the wall. Equal-ish gaps either side keep it centred between.
+          */}
+          <div className="mt-6">
             <Reveal delay={0.1}>
               <LogoWall
                 label="Working with organizations including"
