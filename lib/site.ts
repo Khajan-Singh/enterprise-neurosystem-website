@@ -7,7 +7,9 @@
  * enterpriseneurosystem.org → www.enterpriseneurosystem.org. Canonicals must
  * name the URL that actually serves the page; pointing them at the apex would
  * make every canonical reference a redirect. If that redirect is ever flipped
- * to apex-canonical, change it here and nowhere else.
+ * to apex-canonical, change it here *and* `CANONICAL_HOST` in next.config.ts,
+ * which enforces this host with a 308 on every other one the site answers on
+ * (the apex, and both forms of the `.com` / `.net` registrations).
  */
 export const SITE_URL = "https://www.enterpriseneurosystem.org";
 

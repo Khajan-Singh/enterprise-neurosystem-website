@@ -11,7 +11,7 @@ import { projects, deployments } from "@/data/projects";
 export const metadata = pageMetadata({
   title: "Projects",
   description:
-    "Flagship deployments in Uganda and at the Dangermond Preserve, plus nine research workstreams — from beehives to satellites — built by the Enterprise Neurosystem community.",
+    "Flagship AI sensor deployments in Uganda and at the Dangermond Preserve, plus nine research workstreams built by the Enterprise Neurosystem community.",
   path: "/projects",
 });
 

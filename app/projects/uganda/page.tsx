@@ -9,9 +9,9 @@ import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata = pageMetadata({
-  title: "Uganda",
+  title: "Uganda Deployment",
   description:
-    "Inside the Enterprise Neurosystem's flagship Uganda deployment: a national AI sensor network spanning Bwindi's mountain gorillas and Lake Victoria, built with the Uganda STI Ministry, JPL/Caltech, and Makerere University.",
+    "Enterprise Neurosystem's flagship Uganda deployment: a national AI sensor network from Bwindi's mountain gorillas to Lake Victoria, built with the STI Ministry and JPL/Caltech.",
   path: "/projects/uganda",
 });
 

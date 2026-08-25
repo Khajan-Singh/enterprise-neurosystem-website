@@ -20,7 +20,7 @@ export const metadata = pageMetadata({
     "Enterprise Neurosystem — A Global AI Architecture for Environmental Intelligence",
   absoluteTitle: true,
   description:
-    "A non-profit, open source AI research community building a planetary sensor and AI network — the Internet of Nature — for early warning, food security, and equal access for every nation.",
+    "A non-profit, open source AI research community building the Internet of Nature — a planetary sensor and AI network for early warning and food security in every nation.",
   path: "/",
 });
 

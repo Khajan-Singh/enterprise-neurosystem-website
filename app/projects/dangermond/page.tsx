@@ -11,7 +11,7 @@ import { Reveal } from "@/components/Reveal";
 export const metadata = pageMetadata({
   title: "Dangermond Preserve",
   description:
-    "The first US deployment of the Enterprise Neurosystem architecture — built with JPL/Caltech and The Nature Conservancy at the Jack and Laura Dangermond Preserve.",
+    "The first US deployment of the Enterprise Neurosystem architecture, built with JPL/Caltech and The Nature Conservancy at the Dangermond Preserve.",
   path: "/projects/dangermond",
 });
 

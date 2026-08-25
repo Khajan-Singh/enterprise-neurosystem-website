@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -12,6 +12,15 @@ const geistSans = Geist({
   variable: "--font-sans",
   subsets: ["latin"],
 });
+
+/**
+ * `themeColor` is --color-nav from app/globals.css (the same value the
+ * manifest declares), so mobile browser chrome matches the nav bar. Next
+ * requires this to live in a `viewport` export, not `metadata`.
+ */
+export const viewport: Viewport = {
+  themeColor: "#ddeeff",
+};
 
 export const metadata: Metadata = {
   // Required before any relative URL may appear in a metadata field — without

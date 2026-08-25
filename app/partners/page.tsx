@@ -11,7 +11,7 @@ import { engagements, partnerOrgs } from "@/data/partners";
 export const metadata = pageMetadata({
   title: "Partners",
   description:
-    "Enterprise Neurosystem's global engagement: UNFCCC and UN University programs, the AI Innovation Grand Challenge, the JPL/Caltech and Nature Conservancy partnership at Dangermond Preserve, and the partner organizations behind the work.",
+    "Enterprise Neurosystem's partners and global engagement: UNFCCC and UN University programs, the AI Innovation Grand Challenge, and the JPL/Caltech collaboration.",
   path: "/partners",
 });
 

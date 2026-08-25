@@ -6,9 +6,9 @@ import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata = pageMetadata({
-  title: "NLIP",
+  title: "NLIP — Natural Language Interaction Protocol",
   description:
-    "The Natural Language Interaction Protocol — an Enterprise Neurosystem community project for GenAI-to-GenAI communication, now adopted by the ECMA as a global standard.",
+    "The Natural Language Interaction Protocol (NLIP): an Enterprise Neurosystem project for GenAI-to-GenAI communication, adopted by the ECMA as a global standard.",
   path: "/nlip",
 });
 
