@@ -111,14 +111,14 @@ export default function ContactPage() {
                   Please contact Bill Wright, Chair, Enterprise Neurosystem (
                   <a
                     href="mailto:billwright@enterpriseneurosystem.ai"
-                    className="text-accent hover:underline"
+                    className="text-link hover:underline"
                   >
                     billwright@enterpriseneurosystem.ai
                   </a>{" "}
                   ·{" "}
                   <a
                     href="tel:+14157105207"
-                    className="text-accent hover:underline"
+                    className="text-link hover:underline"
                   >
                     +1-415-710-5207
                   </a>
