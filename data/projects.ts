@@ -9,7 +9,6 @@ export type Deployment = {
   location: string;
   summary: string;
   image: string;
-  partners: string[];
   href: string;
 };
 
@@ -21,7 +20,6 @@ export const deployments: Deployment[] = [
     summary:
       "A national network of environmental sensors, approved for funding by Uganda's Minister of Science, Technology and Innovation. It starts at Bwindi's mountain gorilla habitat and a robotic AI sensor monitoring Lake Victoria's algal blooms. Data stays in Uganda, on Uganda's terms.",
     image: "/uganda/bwindi-gorilla.jpg",
-    partners: ["Uganda STI Ministry", "JPL / Caltech", "Makerere University"],
     href: "/projects/uganda",
   },
   {
@@ -31,7 +29,6 @@ export const deployments: Deployment[] = [
     summary:
       "The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, in partnership with JPL/Caltech.",
     image: "/jpl/dangermond-coastline.jpg",
-    partners: ["JPL / Caltech", "The Nature Conservancy", "NCEAS"],
     href: "/projects/dangermond",
   },
 ];

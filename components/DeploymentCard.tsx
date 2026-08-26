@@ -29,16 +29,6 @@ export function DeploymentCard({ deployment }: { deployment: Deployment }) {
         <p className="text-sm leading-relaxed text-ink-muted">
           {deployment.summary}
         </p>
-        <ul className="mt-auto flex flex-wrap gap-2 pt-2">
-          {deployment.partners.map((partner) => (
-            <li
-              key={partner}
-              className="rounded-full border border-line px-3 py-1 text-xs font-medium text-ink-muted"
-            >
-              {partner}
-            </li>
-          ))}
-        </ul>
       </div>
     </Link>
   );
