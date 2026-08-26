@@ -98,7 +98,6 @@ const sections = [
     title: "Community Assets and Intellectual Property",
     body: [
       "The Platform is licensed under the Apache v2.0 license. Subsidiary Projects may choose other permissive licenses, to be specified in their respective technical charters. Project documentation, web and marketing content shall be published under Creative Commons CC BY license. The Project shall develop and own all Project repositories and social media accounts, and domain name registrations created by the Project.",
-      "Title to all trade or service marks used by the Project (\"Project Trademarks\") is currently held by Red Hat, Inc. In the event that the Project starts or joins an open source foundation or fiscal conservancy, Project Trademarks shall be transferred and assigned to that entity to hold on behalf of the Project. Any use of any Project Trademarks by participants in the Project or others shall be in accordance with the Trademark and Branding Policy.",
       "The Project may seek to integrate and contribute back to other open source projects (\"Upstream Projects\"). In such cases, the Project will conform to all license requirements of the Upstream Projects, including dependencies, leveraged by the Project. Upstream Project code contributions not stored within the Project's main code repositories shall comply with the contribution process and license terms for the applicable Upstream Project.",
     ],
   },
