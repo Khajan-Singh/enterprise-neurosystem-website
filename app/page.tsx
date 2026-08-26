@@ -17,7 +17,7 @@ export const metadata = pageMetadata({
   // Absolute: the layout's "%s · Enterprise Neurosystem" template would
   // otherwise render the org name twice.
   title:
-    "Enterprise Neurosystem — A Global AI Architecture for Environmental Intelligence",
+    "Enterprise Neurosystem · A Global AI Architecture for Environmental Intelligence",
   absoluteTitle: true,
   description:
     "A non-profit, open source AI research community building the Internet of Nature — a planetary sensor and AI network for early warning and food security in every nation.",
