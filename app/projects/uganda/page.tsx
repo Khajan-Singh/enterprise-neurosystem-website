@@ -21,7 +21,24 @@ const breadcrumbs = breadcrumbSchema([
   { name: "Uganda", path: "/projects/uganda" },
 ]);
 
-const photoSections = [
+type GalleryImage = {
+  src: string;
+  alt: string;
+  // Tailwind object-position class. Defaults to the centred crop; set it when a
+  // subject sits hard against one edge of the source and a centred crop would
+  // trim it (see /uganda/bwindi-gorilla.jpg).
+  position?: string;
+};
+
+type PhotoSection = {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  body: string[];
+  images: GalleryImage[];
+};
+
+const photoSections: PhotoSection[] = [
   {
     id: "sti-partnership",
     eyebrow: "Origins",
@@ -43,7 +60,11 @@ const photoSections = [
       "Bwindi is now proposed as the first site for a national AI sensor network to monitor environment and resources, through advanced sensor development and deployment. JPL/Caltech and the Enterprise Neurosystem are codeveloping these capabilities with Ugandan universities and scientists.",
     ],
     images: [
-      { src: "/uganda/bwindi-gorilla.jpg", alt: "Mountain gorilla in Bwindi Impenetrable Forest" },
+      {
+        src: "/uganda/bwindi-gorilla.jpg",
+        alt: "Mountain gorilla in Bwindi Impenetrable Forest",
+        position: "object-top",
+      },
       { src: "/uganda/team-and-rangers.jpg", alt: "Enterprise Neurosystem team with Uganda Wildlife Authority rangers" },
       { src: "/uganda/bwindi-forest-mist.jpg", alt: "Misty forest landscape near Bwindi" },
     ],
@@ -118,7 +139,7 @@ export default function UgandaPage() {
                         src={img.src}
                         alt={img.alt}
                         fill
-                        className="object-cover"
+                        className={`object-cover ${img.position ?? ""}`}
                         sizes="(min-width: 1024px) 30vw, 50vw"
                       />
                     </div>
