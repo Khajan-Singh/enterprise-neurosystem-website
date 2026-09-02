@@ -3,7 +3,8 @@ export type BoardMember = {
   title: string;
   affiliation?: string;
   bio: string;
-  image: string;
+  /** Path under public/. Omit while a photo is pending — BoardCard renders a monogram instead. */
+  image?: string;
 };
 
 export const boardMembers: BoardMember[] = [
@@ -54,5 +55,12 @@ export const boardMembers: BoardMember[] = [
     affiliation: "Sr. Director, Yahoo Performance Engineering Team",
     bio: "Dennis has led technology vendor relations and Yahoo's server hardware strategy for the last 15 years. His Performance Engineering Team explores and on-boards new technologies and server vendors, sponsors proofs of concept, and opens new areas of collaboration with current and future vendors. The team also runs Yahoo's benchmarking and certification lab, helping its business units improve application latency, throughput and cost. Dennis grew up in Massachusetts and graduated from Northeastern University with a major in International Affairs.",
     image: "/people/dennis.jpg",
+  },
+  {
+    name: "Angie Grimm",
+    title: "Board Member",
+    affiliation: "Senior Vice President, Growth and General Manager, Accelerators, Techstars",
+    bio: "Angie Grimm is the Senior Vice President, Growth and General Manager, Accelerators at Techstars. She is the former Head of IBM Ventures and VP, Corporate Development and Strategy for IBM Corporation. At IBM, Angie led the formation of IBM’s $600 million 10-year corporate venture capital arm, focused on investing in AI, security, sustainability, and quantum. She has been recognized by the Global Corporate Venturing Powerlist 100 (2020-2023).",
+    image: "/people/angie.jpg",
   },
 ];
