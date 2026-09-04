@@ -304,7 +304,7 @@ export default function Home() {
         <Container className="py-12 sm:py-16">
           <Reveal>
             <SectionHeading
-              title="A consortium, not a company"
+              title="Built as an open consortium"
               description="Governments, research institutions, and industry collaborate in the open — sharing sensor networks, AI models, and infrastructure in a single global architecture."
               align="center"
             />
