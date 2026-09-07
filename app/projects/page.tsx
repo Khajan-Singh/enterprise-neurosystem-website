@@ -63,7 +63,7 @@ export default function ProjectsPage() {
 
       {/* NLIP */}
       <section className="border-t border-line">
-        <Container className="py-20">
+        <Container className="pt-16 pb-20">
           <Reveal>
             <SectionHeading
               title="NLIP"
