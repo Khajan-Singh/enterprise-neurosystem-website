@@ -158,7 +158,6 @@ export default function UgandaPage() {
         <Container className="py-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Crane National AI Model"
               title="The Atomic Language Model"
               description="Developed with the Uganda Crane AI team and the Enterprise Neurosystem, it's a sustainable alternative to power-hungry, compute-heavy large language models."
             />

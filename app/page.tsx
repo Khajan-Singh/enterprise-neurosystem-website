@@ -279,7 +279,6 @@ export default function Home() {
         <Container className="relative py-12 sm:py-16">
           <Reveal>
             <SectionHeading
-              eyebrow="Deployments"
               title="Global deployments with partners"
               description="From the mountain gorillas of Bwindi to the coastline of the Dangermond Preserve, the Enterprise Neurosystem architecture is emerging around the world."
             />
