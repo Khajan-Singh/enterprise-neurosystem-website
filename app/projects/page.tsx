@@ -47,7 +47,6 @@ export default function ProjectsPage() {
         <Container className="py-20">
           <Reveal>
             <SectionHeading
-              eyebrow="In the field"
               title="Flagship deployments"
               description="Real, government-backed deployments of the Enterprise Neurosystem architecture, built with national ministries, research institutions, and local communities."
             />
@@ -67,7 +66,6 @@ export default function ProjectsPage() {
         <Container className="py-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Standards"
               title="NLIP"
               description="A GenAI-to-GenAI communications protocol, born from the Enterprise Neurosystem community and now adopted by ECMA as a global standard."
             />
