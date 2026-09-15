@@ -88,20 +88,15 @@ export default function Home() {
             still uses `Reveal`.
           */}
           <div className="flex flex-col">
-            <p className="text-xs font-medium uppercase tracking-widest text-accent">
-              Internet of Nature · Planetary AI · Equal Access for All
-            </p>
-            <div className="mt-5">
-              {/*
-                No `max-w-*` here: on lg the grid column is already narrower than
-                max-w-3xl, and below lg the container is narrower still, so the
-                cap never once applied. `text-balance` does the real work,
-                evening out the four-line wrap at the 6xl size.
-              */}
-              <h1 className="font-display text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl">
-                A global AI architecture for environmental intelligence.
-              </h1>
-            </div>
+            {/*
+              No `max-w-*` here: on lg the grid column is already narrower than
+              max-w-3xl, and below lg the container is narrower still, so the
+              cap never once applied. `text-balance` does the real work,
+              evening out the four-line wrap at the 6xl size.
+            */}
+            <h1 className="font-display text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl">
+              A global AI architecture for environmental intelligence.
+            </h1>
             <div className="mt-6">
               <p className="max-w-2xl text-lg leading-relaxed text-pretty text-ink-muted">
                 The Enterprise Neurosystem is a non-profit, open source AI
