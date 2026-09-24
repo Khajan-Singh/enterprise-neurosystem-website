@@ -17,23 +17,6 @@
   --color-ink-muted: #55585f;
   --color-line: #e4e4e0;
 
-  /*
-    Bottom stop of the `.card-textured` gradient; the top stop is always pure
-    white. This is the single knob for how deep the card sheen reads against
-    the page, and the ramp's shape never changes — only this end point.
-
-    It was #f1f1ee, which sat too dark against the white page background.
-    #f8f8f6 (half the original depth) went too far the other way and flattened
-    the gradient out. #f5f5f2 sits between them: 10/10/13 below white against
-    the original 14/14/17, so the sheen is still clearly readable while the
-    card no longer looks heavy on white.
-
-    Lighter: #f8f8f6, then #fafaf8. Darker: #f3f3f0, then the original #f1f1ee.
-
-    Not mirrored into `@theme inline` — it isn't a Tailwind color utility, only
-    a gradient stop consumed by .card-textured below.
-  */
-  --card-gradient-end: #f5f5f2;
   --color-accent: #2b3a67;
   --color-accent-soft: #eef1f8;
 
@@ -450,30 +433,21 @@ body {
 }
 
 /*
-  Textured card surface
+  Card surface
   --------------------------------------------------------------
-  A soft top-lit gradient over a flat base so cards read as a tactile raised
-  surface rather than flat white.
+  Flat Paper White with a two-tone Ink/Line border that darkens on hover. The
+  depth comes entirely from `.card-surface`'s shadow; the surface itself is
+  deliberately a single colour.
 
-  This used to carry a third background layer — a 140x140 feTurbulence SVG data
-  URI, blended `overlay` — for fine grain. It never rendered: CSS paints
-  background layers bottom-up with the first-listed on top, so the fully opaque
-  `linear-gradient(#ffffff -> #f1f1ee)` above it occluded the grain completely.
-  Verified by amplifying that layer's alpha 20x (0.05 -> 1.0) and diffing the
-  result: max difference 2/255, i.e. unchanged. So it cost a turbulence
-  rasterization plus an `overlay` blend on all 25 textured elements of the
-  homepage, and every card site-wide, to produce nothing. Don't re-add a grain
-  layer here without putting it *above* the opaque gradient.
+  The name is historical. This class used to paint a top-lit radial sheen over
+  a white-to-warm-gray linear gradient (and, before that, an feTurbulence grain
+  layer that never rendered, because the opaque gradient listed above it
+  occluded it). The gradient was removed by choice: flat cards read cleaner.
+  If texture is ever reintroduced, remember background layers paint bottom-up
+  with the first-listed on top.
 */
 .card-textured {
   background-color: var(--color-bg);
-  background-image:
-    radial-gradient(
-      120% 120% at 50% -10%,
-      rgba(255, 255, 255, 0.9),
-      rgba(255, 255, 255, 0) 55%
-    ),
-    linear-gradient(180deg, #ffffff 0%, var(--card-gradient-end) 100%);
   border-width: 1.25px;
   border-color: color-mix(in srgb, var(--color-ink) 30%, var(--color-line));
 }

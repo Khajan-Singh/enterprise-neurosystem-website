@@ -50,8 +50,8 @@ export function VideoEmbed({
       <div className="card-surface card-surface-hover card-textured relative flex flex-1 overflow-hidden rounded-2xl">
         {/*
           The black has to live on a child, not on the frame itself:
-          `.card-textured` paints an opaque gradient over the element's own
-          background, so `bg-black` there would never be visible.
+          `.card-textured` sets its own white `background-color`, and as an
+          unlayered rule it beats Tailwind's `bg-black` utility.
         */}
         <div className="flex w-full items-center justify-center bg-black">
           <div className="relative aspect-video w-full">
