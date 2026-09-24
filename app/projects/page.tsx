@@ -20,7 +20,7 @@ export default function ProjectsPage() {
     <>
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
-        <Container className="relative grid gap-8 pb-10 pt-14 sm:pt-20 md:grid-cols-2 md:gap-16">
+        <Container className="relative grid gap-8 py-10 md:grid-cols-2 md:gap-16">
           <Reveal>
             <SectionHeading
               as="h1"

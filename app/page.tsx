@@ -71,7 +71,7 @@ export default function Home() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-nav-line bg-nav">
         <AmbientShadow />
-        <Container className="hero-in relative grid gap-10 pt-10 pb-14 sm:pt-12 sm:pb-16 lg:grid-cols-2 lg:items-center lg:gap-8">
+        <Container className="hero-in relative grid gap-10 pt-10 pb-8 sm:pt-12 sm:pb-10 lg:pb-14 lg:grid-cols-2 lg:items-center lg:gap-8">
           {/*
             Spacing here is deliberately tight: the kicker hugs the headline it
             labels (20px), then the standfirst and the buttons each sit 24px
