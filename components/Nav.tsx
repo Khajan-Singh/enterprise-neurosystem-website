@@ -407,60 +407,69 @@ export function Nav() {
         </button>
       </Container>
 
-      {open && (
-        <nav className="relative border-t border-nav-line bg-nav md:hidden">
-          <Container className="flex flex-col gap-1 py-4">
-            <MobileNavGroup
-              label="Vision"
-              href="/vision"
-              items={visionLinks}
-              active={visionActive}
-              onNavigate={closeMobile}
-              isItemActive={(href) => pathname === href}
-            />
+      {/*
+        Always mounted and toggled via `data-open`, like the desktop panels,
+        so it can animate out as well as in (`.mobile-panel` in globals.css).
+        It overlays the page from under the bar rather than sitting in flow,
+        so opening it no longer shoves the page down. Being positioned also
+        keeps it painting above NavBackdrop.
+      */}
+      <nav
+        className="mobile-panel absolute inset-x-0 top-full border-t border-nav-line bg-nav shadow-[0_16px_32px_-16px_rgba(22,23,26,0.18)] md:hidden"
+        data-open={open}
+        inert={!open}
+      >
+        <Container className="flex flex-col gap-1 py-4">
+          <MobileNavGroup
+            label="Vision"
+            href="/vision"
+            items={visionLinks}
+            active={visionActive}
+            onNavigate={closeMobile}
+            isItemActive={(href) => pathname === href}
+          />
 
-            <MobileNavGroup
-              label="Projects"
-              href="/projects"
-              items={projectsLinks}
-              active={projectsActive}
-              className="mt-1"
-              onNavigate={closeMobile}
-              onItemClick={handleMobileHashClick}
-              isItemActive={(href) => isSubLinkActive(pathname, href)}
-            />
+          <MobileNavGroup
+            label="Projects"
+            href="/projects"
+            items={projectsLinks}
+            active={projectsActive}
+            className="mt-1"
+            onNavigate={closeMobile}
+            onItemClick={handleMobileHashClick}
+            isItemActive={(href) => isSubLinkActive(pathname, href)}
+          />
 
-            {/*
-              No divider here — the Projects group above already closes itself
-              with a hairline in both states (see MobileNavGroup). `mt-1` just
-              keeps Partners off that line.
-            */}
-            <div className="mt-1" />
+          {/*
+            No divider here — the Projects group above already closes itself
+            with a hairline in both states (see MobileNavGroup). `mt-1` just
+            keeps Partners off that line.
+          */}
+          <div className="mt-1" />
 
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className={`rounded-md px-2 py-2.5 text-base ${
-                  isActive(pathname, link.href)
-                    ? "font-semibold text-ink"
-                    : "text-ink/70"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+          {links.map((link) => (
             <Link
-              href="/contact"
+              key={link.href}
+              href={link.href}
               onClick={() => setOpen(false)}
-              className="mt-2 rounded-full bg-ink px-4 py-2.5 text-center text-base font-medium text-bg"
+              className={`rounded-md px-2 py-2.5 text-base ${
+                isActive(pathname, link.href)
+                  ? "font-semibold text-ink"
+                  : "text-ink/70"
+              }`}
             >
-              Contact
+              {link.label}
             </Link>
-          </Container>
-        </nav>
-      )}
+          ))}
+          <Link
+            href="/contact"
+            onClick={() => setOpen(false)}
+            className="mt-2 rounded-full bg-ink px-4 py-2.5 text-center text-base font-medium text-bg"
+          >
+            Contact
+          </Link>
+        </Container>
+      </nav>
     </header>
   );
 }

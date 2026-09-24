@@ -637,3 +637,53 @@ main > section:first-of-type > [data-ambient-shadow] {
   translate: 0 0;
   scale: 1;
 }
+
+/*
+  Mobile menu panel
+  --------------------------------------------------------------
+  Same always-mounted pattern as `.nav-panel`, so it animates both ways. It
+  drops out from under the bar (opacity + a short slide) and its rows settle
+  in with a small stagger, capped at the eighth row; closing is quicker, with
+  no stagger. Opacity and translate only, so it stays on the compositor.
+  Reduced motion is covered by the global rule, which zeroes durations (the
+  stagger delays are zeroed there too, below).
+*/
+.mobile-panel {
+  transition:
+    opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    translate 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-panel[data-open="false"] {
+  opacity: 0;
+  translate: 0 -12px;
+  pointer-events: none;
+  transition-duration: 0.16s;
+  transition-timing-function: ease-in;
+}
+
+.mobile-panel > * > * {
+  transition:
+    opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    translate 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-panel[data-open="false"] > * > * {
+  opacity: 0;
+  translate: 0 -6px;
+  transition-duration: 0.12s;
+}
+
+.mobile-panel[data-open="true"] > * > :nth-child(2) { transition-delay: 30ms; }
+.mobile-panel[data-open="true"] > * > :nth-child(3) { transition-delay: 60ms; }
+.mobile-panel[data-open="true"] > * > :nth-child(4) { transition-delay: 90ms; }
+.mobile-panel[data-open="true"] > * > :nth-child(5) { transition-delay: 120ms; }
+.mobile-panel[data-open="true"] > * > :nth-child(6) { transition-delay: 150ms; }
+.mobile-panel[data-open="true"] > * > :nth-child(7) { transition-delay: 180ms; }
+.mobile-panel[data-open="true"] > * > :nth-child(n + 8) { transition-delay: 210ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-panel > * > * {
+    transition-delay: 0s !important;
+  }
+}
