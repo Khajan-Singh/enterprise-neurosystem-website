@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Container } from "./Container";
+import { NavBackdrop } from "./NavBackdrop";
 import { useDropdown } from "./useDropdown";
 
 const visionLinks = [
@@ -325,7 +326,11 @@ export function Nav() {
     pathname === "/nlip";
 
   return (
-    <header className="sticky top-0 z-50 border-b border-nav-line/60 bg-nav/70 shadow-[0_8px_30px_-12px_rgba(22,23,26,0.1)] backdrop-blur-sm">
+    // No border, shadow or blur. At the top of the page the bar is part of
+    // the first section; it turns solid blue before that section's edge can
+    // cut through it (see NavBackdrop). `bg-nav` is the no-JS fallback.
+    <header className="sticky top-0 z-50 bg-nav">
+      <NavBackdrop pathname={pathname} />
       <Container className="relative flex h-24 items-center justify-between">
         <Link
           href="/"
@@ -403,7 +408,7 @@ export function Nav() {
       </Container>
 
       {open && (
-        <nav className="border-t border-nav-line bg-nav md:hidden">
+        <nav className="relative border-t border-nav-line bg-nav md:hidden">
           <Container className="flex flex-col gap-1 py-4">
             <MobileNavGroup
               label="Vision"

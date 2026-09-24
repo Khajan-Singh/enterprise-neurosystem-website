@@ -308,6 +308,73 @@ body {
 }
 
 /*
+  Nav backdrop (components/NavBackdrop.tsx)
+  --------------------------------------------------------------
+  `.nav-mirror` is a copy of the page's first section at document
+  coordinates, shifted up by the scroll offset so the bar is seamlessly part
+  of it at the top of the page. `.nav-solid` is the bar's own Chrome Blue
+  surface, faded in over a scroll range the component measures, ending just
+  before that section's bottom edge would reach the bar, so a section
+  boundary never cuts through it.
+
+  Both run on the root scroll timeline where supported: for the mirror,
+  progress 0..1 maps linearly onto 0..max scroll, so translating by the full
+  travel (a unitless px count set by the component) keeps it pixel-locked.
+  They only switch on once the component has measured (`.is-live`); until
+  then, and without JS, the solid layer is fully on and the bar is plain blue.
+*/
+.nav-mirror {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* The first section's shading reaches up behind the nav (6rem = Nav's h-24),
+   so the mirror continues it above the section with the same crop. The
+   section's own overflow-hidden clips that part on the page itself.
+   `first-of-type`, not `first-child`: some pages render a JSON-LD <script>
+   ahead of their first section. */
+main > section:first-of-type > [data-ambient-shadow] {
+  top: -6rem;
+}
+
+@keyframes nav-mirror {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--nav-mirror-travel, 0) * -1px));
+  }
+}
+
+@keyframes nav-solid {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.nav-backdrop.is-live .nav-solid {
+  opacity: 0;
+}
+
+@supports (animation-timeline: scroll()) {
+  .nav-backdrop.is-live .nav-mirror {
+    animation: nav-mirror linear both;
+    animation-timeline: scroll(root block);
+  }
+
+  .nav-backdrop.is-live .nav-solid {
+    animation: nav-solid linear both;
+    animation-timeline: scroll(root block);
+    animation-range: var(--nav-solid-start) var(--nav-solid-end);
+  }
+}
+
+/*
   Hero follow-on (standfirst + buttons)
   --------------------------------------------------------------
   The copy under the headline waits for it, so the hero reads headline first.
