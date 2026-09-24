@@ -99,6 +99,8 @@ export default function Home() {
             */}
             <AnimatedHeading
               text="A global AI architecture for environmental intelligence."
+              underline="environmental intelligence"
+              phraseClassName="text-emphasis"
               className="font-display text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl"
             />
             {/*

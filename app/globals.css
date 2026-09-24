@@ -27,6 +27,14 @@
   */
   --color-link: #1263c7;
 
+  /*
+    Emphasis in display type: the underlined phrase in the homepage headline.
+    A deep, saturated navy: near-black in weight, so it sits with the ink
+    headline, but clearly blue beside it. --color-accent read gray at that
+    size, and brighter blues (--color-link) looked like links.
+  */
+  --color-emphasis: #152f78;
+
   /* Nav bar blue, per user direction. */
   --color-nav: #ddeeff;
   --color-nav-line: #bcd9f2;
@@ -49,6 +57,7 @@
   --color-accent: var(--color-accent);
   --color-accent-soft: var(--color-accent-soft);
   --color-link: var(--color-link);
+  --color-emphasis: var(--color-emphasis);
   --color-nav: var(--color-nav);
   --color-nav-line: var(--color-nav-line);
   --color-net-line: var(--color-net-line);
@@ -232,6 +241,70 @@ body {
   .is-ready .word-rise {
     animation: none;
   }
+}
+
+/*
+  Underlined phrase (AnimatedHeading `underline`)
+  --------------------------------------------------------------
+  Styled like anthropic.com's hero links: the font's own thickness, a small
+  offset, in the heading's colour. The decoration sits on each word, not a
+  wrapper, because a parent's underline is never drawn under inline-block
+  children, so it rises and fades with its word.
+
+  The space between two underlined words is an ordinary inline span (not an
+  inline-block, so it still wraps like a space), faded in with opacity only.
+  The component starts it with the later of its two neighbours, so no loose
+  segment shows early. When the phrase wraps, that space becomes a trailing
+  space at the line end, which is not rendered, so nothing floats there.
+*/
+.word-underline {
+  text-decoration-line: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 0.08em;
+}
+
+@keyframes word-gap {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes word-gap-js {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.word-gap {
+  animation: word-gap 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 1.5s backwards;
+}
+
+.is-ready .word-gap {
+  animation-name: word-gap-js;
+  animation-delay: var(--delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-gap,
+  .is-ready .word-gap {
+    animation: none;
+  }
+}
+
+/*
+  With `href`, the real link is in the sr-only copy and the visible phrase is
+  a mouse-only duplicate. Keyboard focus lands on the invisible one, so the
+  focus ring is drawn on the visible phrase instead.
+*/
+:has(> .sr-only .animated-heading-link:focus-visible) .word-link {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }
 
 /*
