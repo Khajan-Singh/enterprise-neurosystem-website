@@ -185,6 +185,126 @@ body {
 }
 
 /*
+  Word rise (AnimatedHeading)
+  --------------------------------------------------------------
+  Each word fades up from 0.4em below at a random delay, so the headline
+  assembles itself in a different order on every load. The one exception to
+  `hero-in`'s "no per-element stagger": it plays inside that wrapper, on the
+  headline only.
+
+  Two animations share one set of keyframes, and the split is load-bearing:
+  - `word-rise` is the no-JS fallback. It starts on first paint and reveals
+    every word after 1.5s, so a slow or failed hydration can't strand the
+    headline invisible. (`FALLBACK_MS` in the component must match.)
+  - `word-rise-js` takes over once the component adds `.is-ready` with a
+    random `--delay` per word. It needs its own name: swapping only
+    `animation-delay` on a running animation measures the new delay from
+    first paint, not from when JS ran, so after a 400ms hydration a word
+    given 200ms would appear already halfway up. A new name starts a new
+    animation, timed from that moment.
+
+  Fill is `backwards`, like `hero-in`: it holds the hidden start frame through
+  each delay, and the keyframes end on the natural state, so nothing lingers
+  once the words settle. Opacity and transform only, so every word holds its
+  final box from the first frame.
+
+  Reduced motion needs its own rule: the global one collapses the duration
+  but not the delay, and `backwards` would hold each word invisible through
+  it.
+*/
+@keyframes word-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes word-rise-js {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.word-rise {
+  display: inline-block;
+  animation: word-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 1.5s backwards;
+}
+
+.is-ready .word-rise {
+  animation-name: word-rise-js;
+  animation-delay: var(--delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word-rise,
+  .is-ready .word-rise {
+    animation: none;
+  }
+}
+
+/*
+  Hero follow-on (standfirst + buttons)
+  --------------------------------------------------------------
+  The copy under the headline waits for it, so the hero reads headline first.
+  It is timed off the same moment as the words: the headline's start depends
+  on hydration, which varies per visit, so a fixed delay from first paint
+  would sometimes beat it. It rises as one block, not word by word, and
+  starts 500ms after the headline does, while the last words are still
+  settling.
+
+  Same two-animation split as `.word-rise`, for the same reason: the fallback
+  runs 500ms after the words' 1.5s fallback, and `.is-ready ~` swaps in a
+  fresh animation when the headline's JS runs. That selector needs these
+  elements to be later siblings of the heading.
+*/
+@keyframes hero-follow {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-follow-js {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-follow {
+  animation: hero-follow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2s backwards;
+}
+
+.is-ready ~ .hero-follow {
+  animation-name: hero-follow-js;
+  animation-delay: 0.5s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-follow,
+  .is-ready ~ .hero-follow {
+    animation: none;
+  }
+}
+
+/*
   Traveling pulse (FlowDiagram) and radiating ring (SensorGrid)
   --------------------------------------------------------------
   Both were infinite Framer Motion loops; the FlowDiagram one animated

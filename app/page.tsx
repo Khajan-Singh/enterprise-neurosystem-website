@@ -1,6 +1,7 @@
 import { Container } from "@/components/Container";
 import { SectionLink } from "@/components/SectionLink";
 import { SectionHeading } from "@/components/SectionHeading";
+import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { StatRow } from "@/components/StatRow";
 import { LogoWall } from "@/components/LogoWall";
 import { DeploymentCard } from "@/components/DeploymentCard";
@@ -84,7 +85,9 @@ export default function Home() {
             the fold on every viewport, so a scroll-triggered fade would only
             ever play for a visitor who has not scrolled (and would wait on
             hydration to do it); and it arrives as one unit — copy and globe
-            together, no per-element stagger. Everything below this section
+            together. The exception is the copy column: the headline's words
+            rise in via `AnimatedHeading`, and the standfirst and buttons
+            (`hero-follow`) wait for it. Everything below this section
             still uses `Reveal`.
           */}
           <div className="flex flex-col">
@@ -94,10 +97,16 @@ export default function Home() {
               cap never once applied. `text-balance` does the real work,
               evening out the four-line wrap at the 6xl size.
             */}
-            <h1 className="font-display text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl">
-              A global AI architecture for environmental intelligence.
-            </h1>
-            <div className="mt-6">
+            <AnimatedHeading
+              text="A global AI architecture for environmental intelligence."
+              className="font-display text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl"
+            />
+            {/*
+              The standfirst and buttons wait for the headline (`.hero-follow`
+              in globals.css): they must stay siblings after it for the
+              `.is-ready ~` selector that times them to reach them.
+            */}
+            <div className="hero-follow mt-6">
               <p className="max-w-2xl text-lg leading-relaxed text-pretty text-ink-muted">
                 The Enterprise Neurosystem is a non-profit, open source AI
                 research community, founded on the principle that all species
@@ -109,7 +118,7 @@ export default function Home() {
                 warning and course-correction engine.
               </p>
             </div>
-            <div className="mt-6">
+            <div className="hero-follow mt-6">
               <div className="flex flex-wrap gap-3">
                 <SectionLink href="/vision" variant="solid">
                   Explore the Vision
