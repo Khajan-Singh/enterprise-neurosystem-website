@@ -100,10 +100,9 @@ export default function Home() {
           */}
           <div className="flex flex-col">
             {/*
-              No `max-w-*` here: on lg the grid column is already narrower than
-              max-w-3xl, and below lg the container is narrower still, so the
-              cap never once applied. `text-balance` does the real work,
-              evening out the four-line wrap at the 6xl size.
+              No `max-w-*` here: the grid column already bounds the headline
+              (half the fluid-width Container), and `text-balance` does the
+              real work, evening out the wrap at the 6xl size.
             */}
             <AnimatedHeading
               text="A global AI architecture for environmental intelligence."
@@ -278,7 +277,7 @@ export default function Home() {
                 title="The Enterprise Neurosystem — AIM4C Grand Challenge Announcement, COP 27"
                 poster="/video/aim4c-cop27.jpg"
                 caption="Bill Wright introduces the Enterprise Neurosystem at COP 27, November 2022."
-                sizes="(min-width: 1024px) 576px, 100vw"
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </Reveal>
           </div>
