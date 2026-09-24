@@ -69,9 +69,17 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden border-b border-nav-line bg-nav">
+      {/*
+        On desktop the hero fills the first screen exactly: the viewport minus
+        the nav (6rem = Nav's h-24, same coupling as app/not-found.tsx), so
+        the blue covers everything before any scroll and the next section
+        doesn't peek in. The content is centred in the extra height; its
+        padding is balanced against the logo (see CLAUDE.md), and centring
+        adds the same space to both sides, so it stays balanced.
+      */}
+      <section className="relative overflow-hidden border-b border-nav-line bg-nav lg:flex lg:min-h-[calc(100svh-6rem)] lg:flex-col lg:justify-center">
         <AmbientShadow />
-        <Container className="hero-in relative grid gap-10 pt-10 pb-8 sm:pt-12 sm:pb-10 lg:pb-14 lg:grid-cols-2 lg:items-center lg:gap-8">
+        <Container className="hero-in relative grid gap-10 pt-4 pb-15 sm:pt-6 sm:pb-10 lg:pb-14 lg:grid-cols-2 lg:items-center lg:gap-8">
           {/*
             Spacing here is deliberately tight: the kicker hugs the headline it
             labels (20px), then the standfirst and the buttons each sit 24px

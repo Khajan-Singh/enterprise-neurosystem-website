@@ -17,7 +17,7 @@ export default function PressPage() {
     <>
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
-        <Container className="relative py-10">
+        <Container className="relative pt-4 pb-10">
           <Reveal>
             <SectionHeading
               as="h1"
