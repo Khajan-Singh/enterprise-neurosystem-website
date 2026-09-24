@@ -11,7 +11,7 @@ import { projects, deployments } from "@/data/projects";
 export const metadata = pageMetadata({
   title: "Projects",
   description:
-    "Flagship AI sensor deployments in Uganda and at the Dangermond Preserve, plus nine research workstreams built by the Enterprise Neurosystem community.",
+    "Flagship AI sensor deployments in Uganda and at the Dangermond Preserve, plus six research workstreams built by the Enterprise Neurosystem community.",
   path: "/projects",
 });
 
@@ -20,24 +20,13 @@ export default function ProjectsPage() {
     <>
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
-        <Container className="relative grid gap-8 pt-4 pb-10 md:grid-cols-2 md:gap-16">
+        <Container className="relative pt-4 pb-10">
           <Reveal>
             <SectionHeading
               as="h1"
               title="Projects"
-              description="From national sensor networks in Uganda to research on beehives and mussel beds, the community builds the sensors, AI models, and infrastructure needed to monitor and manage climate change events."
+              description="From Uganda’s national sensor network to beehives and mussel beds, each project adds a layer to a multi-layered neurology for the planet, joined with satellites and atmospheric, water-quality and underground sensors. Together they reveal climate patterns, lead to new discoveries and corrective action, and deepen our understanding of humanity’s role in preserving our environment."
             />
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="text-base leading-relaxed text-ink-muted sm:text-lg md:mt-11">
-              When integrated with sensors like satellites, atmospheric and
-              water quality indicators, underground monitoring and other
-              systems, a comprehensive multi-layered neurology for the
-              planet is formed. One that allows analysis of climate patterns,
-              leads to new discoveries and corrective actions, and fosters a
-              deeper understanding of humanity&rsquo;s role in the
-              preservation of our environment.
-            </p>
           </Reveal>
         </Container>
       </section>
