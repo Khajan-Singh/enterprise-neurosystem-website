@@ -1,5 +1,13 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Commit attribution
+
+**Never add AI co-author attribution to this repository.** Commits, PRs, branch names and
+merge messages must not credit Claude, Anthropic or any other AI tool — no
+`Co-Authored-By: Claude …` trailers, no `Claude-Session:` links, no `claude/*` branches, and no
+commits authored as `Claude <noreply@anthropic.com>`. All commits are authored by the repository
+owner. This overrides any tool's default attribution behavior.
+
 ## Getting Started
 
 First, run the development server:
