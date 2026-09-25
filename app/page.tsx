@@ -2,7 +2,7 @@ import { Container } from "@/components/Container";
 import { SectionLink } from "@/components/SectionLink";
 import { SectionHeading } from "@/components/SectionHeading";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
-import { StatRow } from "@/components/StatRow";
+import { StatsSentence } from "@/components/StatsSentence";
 import { LogoWall } from "@/components/LogoWall";
 import { DeploymentCard } from "@/components/DeploymentCard";
 import { FlowDiagram, type FlowStep } from "@/components/FlowDiagram";
@@ -145,17 +145,8 @@ export default function Home() {
         </Container>
       </section>
 
-      {/*
-        Stats. All of this strip's vertical space is set here rather than inside
-        StatRow, so it stays on the same scale as every other section.
-      */}
-      <section>
-        <Container className="py-12 sm:py-14">
-          <Reveal>
-            <StatRow />
-          </Reveal>
-        </Container>
-      </section>
+      {/* The numbers, as a sentence (see components/StatsSentence.tsx). */}
+      <StatsSentence />
 
       {/* How it works */}
       <section className="relative overflow-hidden border-t border-nav-line bg-nav">
