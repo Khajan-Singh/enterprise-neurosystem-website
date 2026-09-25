@@ -45,3 +45,12 @@ next-env.d.ts
 
 # large source deck, kept locally but not tracked (94MB — over GitHub's push limit)
 /Enterprise_Neurosystem_Project_Overview_Redesigned.pptx
+
+# AI agent / tooling files — kept locally, never committed
+/.claude/
+/.codex/
+/.impeccable/
+/AGENTS.md
+/CLAUDE.md
+/DESIGN.md
+/PRODUCT.md
