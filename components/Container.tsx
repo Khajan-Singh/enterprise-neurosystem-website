@@ -9,7 +9,7 @@ export function Container({
 }) {
   // Desktop gutters scale with the window instead of a fixed max-w-6xl
   // column, which left ~400px of dead space per side on a 1920px screen. From
-  // ~1320px they are 8vw a side, as on anthropic.com. Below that they ramp
+  // ~1320px they are 8vw a side. Below that they ramp
   // continuously from the old 32px at 1024px (25vw - 224px), because 8vw
   // there narrowed the homepage hero enough to push it past one screen at
   // 1024x768, and a stepped breakpoint would visibly jump on resize. Past

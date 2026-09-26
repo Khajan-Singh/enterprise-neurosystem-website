@@ -149,8 +149,8 @@ export default function PartnersPage() {
         <Container className="pb-20 pt-[69px]">
           <Reveal>
             {/* No eyebrow. "Working together" only restated the heading
-                underneath it, which is the exact failure DESIGN.md's mid-page
-                eyebrow rule warns about — and LogoWall already prints its own
+                underneath it, which a mid-page eyebrow should never do —
+                and LogoWall already prints its own
                 uppercase label directly below, so the two stacked. */}
             <SectionHeading
               title="Organizations we work with"

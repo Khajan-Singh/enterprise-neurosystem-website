@@ -40,7 +40,7 @@ const IMAGE_DIR = path.join(ROOT, "public", "blog");
 
 const FEED_URL = "https://medium.com/feed/the-enterprise-neurosystem-blog";
 
-// CLAUDE.md: size the source to how it's rendered before committing it.
+// Size the source to how it's rendered before committing it.
 // Post images render at most ~768px wide in the max-w-3xl prose column, so
 // 1600 covers 2x DPR with room to spare.
 const MAX_IMAGE_WIDTH = 1600;

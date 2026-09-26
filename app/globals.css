@@ -5,9 +5,8 @@
   --------------------------------------------------------------
   This is a neutral, professional stand-in palette/type system so
   every page is fully laid out and legible before the final visual
-  identity is applied. TODO: replace once the user supplies their
-  design styles/references (see content/enterprise-neurosystem-content.md
-  "Design references" section and the plan's Appendix B).
+  identity is applied. Replace these values when the final visual
+  identity is chosen.
 */
 :root {
   --color-bg: #ffffff;
@@ -246,8 +245,8 @@ body {
 /*
   Underlined phrase (AnimatedHeading `underline`)
   --------------------------------------------------------------
-  Styled like anthropic.com's hero links: the font's own thickness, a small
-  offset, in the heading's colour. The decoration sits on each word, not a
+  Uses the font's own thickness, a small offset, and the heading's
+  colour. The decoration sits on each word, not a
   wrapper, because a parent's underline is never drawn under inline-block
   children, so it rises and fades with its word.
 

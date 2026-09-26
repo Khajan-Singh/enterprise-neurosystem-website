@@ -74,7 +74,7 @@ export default function Home() {
         the nav (6rem = Nav's h-24, same coupling as app/not-found.tsx), so
         the blue covers everything before any scroll and the next section
         doesn't peek in. The content is centred in the extra height; its
-        padding is balanced against the logo (see CLAUDE.md), and centring
+        padding is balanced against the logo, and centring
         adds the same space to both sides, so it stays balanced.
       */}
       <section className="relative overflow-hidden border-b border-nav-line bg-nav lg:flex lg:min-h-[calc(100svh-6rem)] lg:flex-col lg:justify-center">

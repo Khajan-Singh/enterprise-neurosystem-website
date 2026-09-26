@@ -7,7 +7,7 @@ type VideoEmbedProps = {
   /** YouTube video ID (the `v=` parameter). */
   id: string;
   title: string;
-  /** Locally committed poster frame — see the images rule in CLAUDE.md. */
+  /** Locally committed poster frame, sized to how it renders. */
   poster: string;
   caption?: string;
   /** Rendered width of the poster, for `next/image`. Defaults to the max-w-3xl prose column. */

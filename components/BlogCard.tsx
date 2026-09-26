@@ -8,7 +8,7 @@ import { formatPostDate, type Post } from "@/lib/blog";
  *
  * The card spans the full Container width, like the cards on /partners and
  * /press — it's the text inside that is line-length-capped (`max-w-2xl`),
- * not the card. DESIGN.md's `max-w-3xl` rule is about long-form prose
+ * not the card. The `max-w-3xl` cap is for long-form prose
  * (Mission, Charter, and a post's own body), not card lists.
  */
 export function BlogCard({ post, eager = false }: { post: Post; eager?: boolean }) {

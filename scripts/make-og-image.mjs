@@ -50,7 +50,7 @@ const PAD = 80;
  *
  * Deliberately does NOT paint the background rect: it is composited *over* the
  * ambient shadow, and an opaque ground here would occlude that layer entirely
- * — the exact failure mode documented for `.card-textured` in CLAUDE.md.
+ * (background layers paint bottom-up, so anything opaque on top hides them).
  */
 const card = `
 <svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}">
@@ -89,8 +89,7 @@ async function buildOgImage() {
   /**
    * The 10% opacity is folded into the plate's *colour* rather than its alpha.
    * Scaling the mask to 10% instead would leave only ~25 distinct alpha levels
-   * and visibly band along the blob's soft edges — the same quantisation trap
-   * CLAUDE.md records for regenerating this shape. Pre-mixing accent 10% of
+   * and visibly band along the blob's soft edges. Pre-mixing accent 10% of
    * the way over the ground is algebraically identical at full alpha, and
    * keeps all 256 levels of falloff.
    */
