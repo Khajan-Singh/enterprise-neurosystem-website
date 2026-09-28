@@ -75,20 +75,29 @@ function NavDropdown({
   href,
   items,
   active,
+  isItemActive,
 }: {
   label: string;
   href?: string;
   items: { href: string; label: string }[];
   active: boolean;
+  isItemActive: (href: string) => boolean;
 }) {
   const pathname = usePathname();
   const { ref, open, onMouseEnter, onMouseLeave, togglePin, close } =
     useDropdown();
   const handleItemClick = useHashLinkClick(pathname, close);
 
+  // The trigger keeps the section highlight even while open — hovering opens
+  // the panel, so dropping it on open would unlight the tab under the
+  // pointer. The panel additionally marks the current page's own row.
   const triggerClass = `text-base transition-colors ${
     active ? "font-semibold text-ink" : "text-ink/70 hover:text-ink"
   }`;
+  const panelItemClass = (current: boolean) =>
+    `block px-4 py-2 text-sm transition-colors ${
+      current ? "font-semibold text-ink" : "text-ink-muted hover:text-ink"
+    }`;
 
   return (
     <div
@@ -175,7 +184,9 @@ function NavDropdown({
               <Link
                 href={href}
                 onClick={close}
-                className="block px-4 py-2 text-sm font-medium text-ink"
+                className={`block px-4 py-2 text-sm text-ink ${
+                  pathname === href ? "font-semibold" : "font-medium"
+                }`}
               >
                 {label}
               </Link>
@@ -187,7 +198,7 @@ function NavDropdown({
               key={link.href}
               href={link.href}
               onClick={handleItemClick(link.href)}
-              className="block px-4 py-2 text-sm text-ink-muted transition-colors hover:text-ink"
+              className={panelItemClass(isItemActive(link.href))}
             >
               {link.label}
             </Link>
@@ -231,8 +242,13 @@ function MobileNavGroup({
   onItemClick?: (href: string) => (e: React.MouseEvent) => void;
   isItemActive: (href: string) => boolean;
 }) {
+  const pathname = usePathname();
   const [expanded, setExpanded] = useState(false);
   const panelId = `mobile-nav-${label.toLowerCase()}`;
+  // Collapsed, the header stands in for the whole section. Expanded, the
+  // current sublink carries the highlight instead, so the header keeps it
+  // only when it *is* the current page (the section overview).
+  const headerHighlighted = expanded ? pathname === href : active;
 
   return (
     /*
@@ -252,7 +268,7 @@ function MobileNavGroup({
           href={href}
           onClick={onNavigate}
           className={`flex-1 px-2 pb-2 pt-2 text-xs font-medium uppercase tracking-widest ${
-            active ? "text-ink" : "text-ink-muted"
+            headerHighlighted ? "text-ink" : "text-ink-muted"
           }`}
         >
           {label}
@@ -353,12 +369,14 @@ export function Nav() {
             href="/vision"
             items={visionLinks}
             active={visionActive}
+            isItemActive={(href) => pathname === href}
           />
           <NavDropdown
             label="Projects"
             href="/projects"
             items={projectsLinks}
             active={projectsActive}
+            isItemActive={(href) => isSubLinkActive(pathname, href)}
           />
 
           {links.map((link) => {
