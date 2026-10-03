@@ -95,6 +95,13 @@ export default function Home() {
           */}
           <div className="flex flex-col">
             {/*
+              The `max-height` type steps exist for the same reason as the globe
+              cap: on short windows (a 1366×768 laptop is ~1366×625 once the
+              browser bar is counted) the copy at full size is taller than the
+              first screen, so the gap under it collapses. Smaller type only
+              where the window is short; every taller window is unchanged.
+            */}
+            {/*
               No `max-w-*` here: the grid column already bounds the headline
               (half the fluid-width Container), and `text-balance` does the
               real work, evening out the wrap at the 6xl size.
@@ -103,7 +110,7 @@ export default function Home() {
               text="A global AI architecture for environmental intelligence."
               underline="environmental intelligence"
               phraseClassName="text-emphasis"
-              className="font-display text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl"
+              className="font-display text-4xl font-semibold tracking-tight text-balance text-ink sm:text-5xl lg:text-6xl lg:[@media(max-height:43rem)]:text-5xl"
             />
             {/*
               The standfirst and buttons wait for the headline (`.hero-follow`
@@ -111,7 +118,7 @@ export default function Home() {
               `.is-ready ~` selector that times them to reach them.
             */}
             <div className="hero-follow mt-6">
-              <p className="max-w-2xl text-lg leading-relaxed text-pretty text-ink-muted">
+              <p className="max-w-2xl text-lg leading-relaxed text-pretty text-ink-muted lg:[@media(max-height:43rem)]:text-base">
                 The Enterprise Neurosystem is a non-profit, open source AI
                 research community, founded on the principle that all species
                 and ecosystems on this planet are part of a single system. Given
@@ -136,7 +143,16 @@ export default function Home() {
             canvases (one hidden per breakpoint), each building the sphere's
             edge graph and allocating its own backing store.
           */}
-          <NeuralGlobe className="h-64 w-full sm:h-80 lg:aspect-square lg:h-auto" />
+          {/*
+            `lg:max-h-[…]` caps the globe at the space under the nav minus this
+            Container's lg padding (6rem + 1.5rem + 3.5rem). Sized by width
+            alone, a square globe outgrew short laptop windows (~1536×730 is a
+            1080p screen at 125% scaling, once the browser bar is counted),
+            pushed the hero past the first screen, and left far less space under
+            the text than above it. The canvas draws to min(width, height), so a
+            capped box still gives a round, centred sphere.
+          */}
+          <NeuralGlobe className="h-64 w-full sm:h-80 lg:aspect-square lg:h-auto lg:max-h-[calc(100svh-11rem)]" />
         </Container>
       </section>
 
