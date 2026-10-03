@@ -1,6 +1,6 @@
 import { CSSProperties, ReactNode } from "react";
 import { mulberry32 } from "@/lib/rng";
-import { ZoneDividers, ZoneHeader } from "@/components/FigureZones";
+import { ZONES, ZoneDividers, ZoneHeader } from "@/components/FigureZones";
 
 /*
   Overlay: five data layers, each lighting a scatter of raster cells. Every
@@ -158,9 +158,12 @@ function Plate({
   );
 }
 
-const Z1 = "calc(var(--z) * var(--z1))";
-const Z2 = "calc(var(--z) * 1.5 + 24px)";
-const Z3 = "calc(var(--z) * 2.5 + 48px)";
+// Each zone's centre. Desktop: the three card columns. Phones: all three are
+// the same centre, so one card plays every stage in place. Set on .lay-stage in
+// globals.css, with the plate sizes.
+const Z1 = "var(--x1)";
+const Z2 = "var(--x2)";
+const Z3 = "var(--x3)";
 
 export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
   const halo = `lay-halo-${mode}`;
@@ -170,21 +173,39 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
       role="img"
       aria-label="Five data layers (satellite, atmosphere, ocean, species, soil) each show scattered readings. Stacked together, only the cells all five agree on stand out, revealing one cluster, which is outlined and flagged as an early warning."
     >
-      <ZoneHeader />
+      <ZoneHeader className="hidden sm:grid" />
+      {/*
+        Phones: one card plays all three stages in place, so the three zone
+        labels become one label that changes with the stage, under three
+        hairline segments that fill as the visitor scrolls through each.
+      */}
+      <div className="sm:hidden" aria-hidden="true">
+        <div className="flex gap-2">
+          {ZONES.map((zone, i) => (
+            <span key={zone.number} className="relative h-px flex-1 bg-ink/15">
+              <span className={`laym-seg laym-seg${i + 1} absolute inset-0 origin-left bg-accent`} />
+            </span>
+          ))}
+        </div>
+        <div className="relative mt-3 h-4">
+          {ZONES.map((zone, i) => (
+            <p
+              key={zone.number}
+              className={`laym-l${i + 1} absolute inset-0 flex gap-x-2 text-xs font-medium tracking-widest text-ink-muted uppercase`}
+            >
+              <span className="text-accent">{zone.number}</span>
+              <span>{zone.title}</span>
+            </p>
+          ))}
+        </div>
+      </div>
       <div className="@container mt-4">
-        <div
-          // Zone 01 is a compact deck (--pw1, tight --sp) and zones 02/03 get
-          // the larger --pw, so the three zones carry similar visual weight and
-          // the resolved map, not the stack, is the biggest object. At five
-          // layers a full-size, widely spread stack made the left third twice
-          // the height of the others. Phones get bigger plates and a fixed
-          // spread: at a third of 342px the desktop proportions are a smudge.
-          className="lay-stage relative isolate h-[160px] [--z1:0.5] sm:[--z1:0.4] [--pw1:calc(var(--z)*0.7)] [--pw:calc(var(--z)*0.82)] [--sp:14px] sm:h-[calc(var(--z)*0.66)] sm:[--pw1:calc(var(--z)*0.44)] sm:[--pw:calc(var(--z)*0.6)] sm:[--sp:calc(var(--z)*0.075)]"
-          style={{ "--z": "calc((100cqw - 48px) / 3)" } as CSSProperties}
-        >
-          <ZoneDividers />
+        {/* Sizes and zone centres per breakpoint: .lay-stage in globals.css. */}
+        <div className="lay-stage relative isolate">
+          <ZoneDividers className="hidden sm:block" />
 
           {/* Zone 01: the layers, exploded */}
+          <div className="lay-g1 absolute inset-0">
           {LAYERS.map((layer, i) => (
             <Plate
               key={layer.label}
@@ -220,8 +241,19 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
               {layer.label}
             </span>
           ))}
+          </div>
+          {/* Phones name the layers in one line instead: no room beside the deck. */}
+          <p className="laym-caption absolute inset-x-0 bottom-0 text-center text-xs text-ink-muted sm:hidden">
+            Satellite, atmosphere, ocean, species and soil
+          </p>
 
-          {/* Zone 02: the same layers pressed onto one card */}
+          {/*
+            Zone 02: the same layers pressed onto one card. Wrapped (like zone
+            01) so phones can fade the whole stage out as the next one takes
+            its place; the wrapper also keeps the ghosts' multiply blend
+            against this card's white.
+          */}
+          <div className="lay-g2 absolute inset-0">
           <Plate className="lay-base" zoneX={Z2} surface="card">
             {CLUSTER.map(([c, r]) => (
               <Tile key={key(c, r)} c={c} r={r} opacity={1} className="lay-lock" />
@@ -243,6 +275,7 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
               </g>
             </Plate>
           ))}
+          </div>
 
           {/* Zone 03: only what all five agree on */}
           <Plate className="lay-z3" zoneX={Z3} surface="lifted">
@@ -272,9 +305,7 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
             </g>
           </Plate>
           <span
-            // Phones: zone 03 is narrower than the phrase, which ran it across the
-            // zone divider, so it wraps to two centred lines within its column.
-            className="lay-warn absolute w-(--z) -translate-x-1/2 text-center text-xs font-semibold tracking-widest text-ink uppercase sm:w-auto sm:whitespace-nowrap"
+            className="lay-warn absolute -translate-x-1/2 text-xs font-semibold tracking-widest whitespace-nowrap text-ink uppercase"
             style={{ left: Z3, top: "calc(50% + var(--pw) * 0.3 + 18px)" }}
           >
             Early warning
