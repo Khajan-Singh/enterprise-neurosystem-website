@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Container } from "@/components/Container";
 import { SectionLink } from "@/components/SectionLink";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -5,7 +6,7 @@ import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { StatsSentence } from "@/components/StatsSentence";
 import { LogoWall } from "@/components/LogoWall";
 import { DeploymentCard } from "@/components/DeploymentCard";
-import { FlowDiagram, type FlowStep } from "@/components/FlowDiagram";
+import { LayerStack } from "@/components/LayerStack";
 import { Reveal } from "@/components/Reveal";
 import { NeuralGlobe } from "@/components/NeuralGlobe";
 import { AmbientShadow } from "@/components/AmbientShadow";
@@ -24,12 +25,6 @@ export const metadata = pageMetadata({
     "A non-profit, open source AI research community building the Internet of Nature — a planetary sensor and AI network for early warning and food security in every nation.",
   path: "/",
 });
-
-const howItWorksFlow: FlowStep[] = [
-  { number: "01", title: "Sense" },
-  { number: "02", title: "Cross-correlate" },
-  { number: "03", title: "Warn & advise" },
-];
 
 const howItWorks = [
   {
@@ -149,42 +144,50 @@ export default function Home() {
       <StatsSentence />
 
       {/* How it works */}
-      <section className="relative overflow-hidden border-t border-nav-line bg-nav">
+      {/*
+        `overflow-clip`, not `overflow-hidden` like the other blue sections:
+        hidden would make this section a scroll container, and the pinned
+        hold's view timeline resolves against the nearest one, which would then
+        never scroll. See "How it works: the pinned hold" in globals.css.
+      */}
+      <section className="relative overflow-clip border-t border-nav-line bg-nav">
         <AmbientShadow />
         <Container className="relative py-12 sm:py-16">
-          <Reveal>
-            <SectionHeading
-              eyebrow="How it works"
-              title="From sensor to early warning"
-              description="One architecture, from the ground to orbit: sensors and satellites feed national AI instances, which cross-correlate in real time to surface patterns no single dataset could reveal alone."
-            />
-          </Reveal>
           {/*
-            `columnGap={24}` matches the `gap-6` of the card grid below, so each
-            numbered node sits on its card's centre. Without it the diagram's
-            columns were sized from the full width while the cards' were sized
-            from the width minus two gutters, putting the outer nodes ~8px off
-            the cards they label.
+            The pinned hold: the heading and the Overlay figure stick under the
+            nav for 1.6 screens of scrolling, and that scroll plays the figure
+            (five sensing layers that each read as noise, pressed together
+            until only their agreement remains, which raises the warning). The
+            track wraps only the heading and figure, never the cards. Where
+            there are no scroll timelines, or motion is reduced, nothing sticks
+            and the runway collapses.
           */}
-          <Reveal delay={0.1}>
-            <div className="mt-10 hidden lg:block">
-              <FlowDiagram
-                steps={howItWorksFlow}
-                showTitles={false}
-                columnGap={24}
-              />
+          <div className="how-pin" style={{ "--runway": "160vh" } as CSSProperties}>
+            <div className="how-pin-sticky">
+              <Reveal>
+                <SectionHeading
+                  eyebrow="How it works"
+                  title="From sensor to early warning"
+                  description="One architecture, from the ground to orbit: sensors and satellites feed national AI instances, which cross-correlate in real time to surface patterns no single dataset could reveal alone."
+                />
+              </Reveal>
+              <div className="mt-10">
+                <Reveal>
+                  <LayerStack mode="scroll" />
+                </Reveal>
+              </div>
             </div>
-          </Reveal>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3 lg:mt-6">
+            <div aria-hidden="true" className="how-pin-runway" />
+          </div>
+          <div className="mt-8 grid gap-6 sm:grid-cols-3">
             {howItWorks.map((item, i) => (
               <Reveal key={item.step} delay={0.06 * i}>
                 <div className="card-surface card-surface-hover card-textured flex h-full flex-col rounded-2xl p-6">
                   {/*
-                    The step number was only ever on the diagram, leaving the
-                    cards to be matched to their node by column position alone —
-                    and on mobile, where the diagram is hidden, not at all. The
-                    sequence is the point of this section, so each card carries
-                    its own number.
+                    Each card carries its step number, matching the zone labels
+                    on the figure above (components/FigureZones.tsx, on the same
+                    gap-6 three-column grid) so a card pairs with its zone even
+                    on phones, where the cards stack beneath the figure.
                   */}
                   <p className="font-display text-xs font-semibold tracking-widest text-accent">
                     {item.step}

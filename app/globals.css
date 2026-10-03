@@ -539,6 +539,361 @@ main > section:first-of-type > [data-ambient-shadow] {
 }
 
 /*
+  How it works: the pinned hold
+  --------------------------------------------------------------
+  The homepage's How-it-works heading and figure stick under the nav while the
+  visitor scrolls a runway (`--runway`, set inline on `.how-pin`), and that
+  scroll plays the figure's animation (components/LayerStack.tsx). The track
+  wraps only the heading and figure: wrapping the cards too would scroll them
+  up underneath the stuck block.
+
+  The hold exists only where it can do its job: with scroll timelines AND
+  motion allowed. Elsewhere the runway collapses and nothing sticks, so a
+  reduced-motion visitor doesn't scroll through 1.6 screens of a frozen figure,
+  and a browser without scroll timelines gets the timed version instead.
+
+  The section must be `overflow-clip`, not `overflow-hidden`: hidden makes it
+  a scroll container, and a view timeline resolves against the nearest one,
+  which would then never scroll. `7.5rem` is the nav's h-24 plus 24px of air.
+*/
+.how-pin-runway {
+  display: none;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .how-pin {
+      view-timeline-name: --how;
+      /* Range starts as the track top reaches the sticky offset and ends at
+         the end of the runway, i.e. exactly while the block is stuck. */
+      --s0: calc(100vh - 7.5rem);
+      --s1: calc(100vh - 7.5rem + var(--runway, 100vh));
+    }
+
+    .how-pin-sticky {
+      position: sticky;
+      top: 7.5rem;
+    }
+
+    .how-pin-runway {
+      display: block;
+      height: var(--runway, 100vh);
+    }
+  }
+}
+
+/*
+  How it works: Overlay (components/LayerStack.tsx)
+  --------------------------------------------------------------
+  Base styles are the finished figure; initial states and motion live only
+  under `prefers-reduced-motion: no-preference`, so reduced motion (or a
+  Reveal that never fires) shows it complete. Two drivers share the same
+  keyframes: `.reveal-in` plays it once in time (the fallback), and
+  `[data-mode="scroll"]` scrubs it on the pinned hold's `--how` timeline,
+  where each piece claims a window [--a, --b] of the runway.
+*/
+.lay-ring {
+  opacity: 0;
+}
+
+.lay-ring,
+.lay-mark,
+.lay-lock {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.lay-contour {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+/* Zone 02's finished state: agreement solid, single readings receded. */
+.lay-z2 .lay-lit {
+  opacity: 0.5;
+}
+
+@keyframes lay-pop {
+  from {
+    opacity: 0;
+    scale: 0.2;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes lay-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lay-pulse {
+  0% {
+    opacity: 0.7;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 3.2;
+  }
+}
+
+@keyframes lay-lock {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes lay-recede {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+@keyframes lay-drop {
+  from {
+    opacity: 0;
+    translate: 0 -18px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes lay-compress {
+  0% {
+    opacity: 0;
+    translate: 0 var(--dy0);
+  }
+  18% {
+    opacity: 1;
+    translate: 0 var(--dy0);
+  }
+  100% {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes lay-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal:not(.reveal-in) :is(.lay-z1, .lay-label, .lay-base, .lay-z2, .lay-z3, .lay-mark, .lay-warn, .lay-lock) {
+    opacity: 0;
+  }
+
+  .reveal:not(.reveal-in) .lay-contour {
+    stroke-dashoffset: 1;
+  }
+
+  .reveal:not(.reveal-in) .lay-z2 .lay-lit {
+    opacity: 1;
+  }
+
+  /* Timed (fallback). Keep these at two-class specificity: anything higher
+     would outrank the scroll rules below and reset their timeline the moment
+     Reveal adds .reveal-in. */
+  .reveal-in .lay-z1 {
+    animation: lay-drop 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--d) both;
+  }
+
+  .reveal-in .lay-label {
+    animation: lay-fade 0.5s ease-out var(--d) both;
+  }
+
+  .reveal-in .lay-base {
+    animation: lay-fade 0.4s ease-out 0.9s both;
+  }
+
+  /* The press is the whole argument: slow in, decisive landing. */
+  .reveal-in .lay-z2 {
+    animation: lay-compress 1.4s cubic-bezier(0.7, 0, 0.2, 1) 0.9s both;
+  }
+
+  /* As the layers land, the agreement locks in and the single readings step
+     back, so zone 02 ends on its output rather than on a blend. */
+  .reveal-in .lay-lock {
+    animation: lay-lock 0.5s cubic-bezier(0.16, 1, 0.3, 1) 2.25s both;
+  }
+
+  .reveal-in .lay-lit {
+    animation: lay-recede 0.6s ease-out 2.25s both;
+  }
+
+  .reveal-in .lay-z3 {
+    animation: lay-drop 0.7s cubic-bezier(0.16, 1, 0.3, 1) 2.6s both;
+  }
+
+  .reveal-in .lay-contour {
+    animation: lay-draw 0.9s cubic-bezier(0.45, 0, 0.2, 1) 3s both;
+  }
+
+  .reveal-in .lay-mark {
+    animation: lay-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) 3.7s both;
+  }
+
+  .reveal-in .lay-ring {
+    animation: lay-pulse 1.8s cubic-bezier(0.16, 1, 0.3, 1) 3.8s 2 both;
+  }
+
+  .reveal-in .lay-warn {
+    animation: lay-fade 0.5s ease-out 3.8s both;
+  }
+
+  @supports (animation-timeline: view()) {
+    [data-mode="scroll"]
+      :is(.lay-z1, .lay-label, .lay-base, .lay-z2, .lay-lock, .lay-lit, .lay-z3, .lay-contour, .lay-mark, .lay-warn) {
+      animation-timeline: --how;
+      animation-range:
+        cover calc(var(--s0) + (var(--s1) - var(--s0)) * var(--a))
+        cover calc(var(--s0) + (var(--s1) - var(--s0)) * var(--b));
+      animation-duration: auto;
+      animation-delay: 0s;
+      animation-iteration-count: 1;
+      animation-fill-mode: both;
+      animation-direction: normal;
+      /* Explicit: otherwise the timed shorthand's easing leaks in the moment
+         Reveal adds .reveal-in, and the curve changes mid-scrub. */
+      animation-timing-function: linear;
+    }
+
+    /* A ring that pulses in time means nothing on a scrubbed timeline. */
+    [data-mode="scroll"] .lay-ring {
+      animation: none;
+    }
+
+    /* 160vh runway. The setup is the argument's first half, so it gets real
+       time: the layers land one at a time from the top (~130px of scroll
+       each), then nothing moves for a beat (0.33 to 0.38) so the visitor sees
+       five separate scatters before anything combines them. Everything lands
+       by 0.9, holding the finished figure for the last stretch. */
+    [data-mode="scroll"] .lay-z1 {
+      animation-name: lay-drop;
+      --a: calc(var(--i) * 0.06);
+      --b: calc(var(--i) * 0.06 + 0.09);
+    }
+    [data-mode="scroll"] .lay-label {
+      animation-name: lay-fade;
+      --a: calc(var(--i) * 0.06 + 0.03);
+      --b: calc(var(--i) * 0.06 + 0.11);
+    }
+    [data-mode="scroll"] .lay-base {
+      animation-name: lay-fade;
+      --a: 0.36;
+      --b: 0.42;
+    }
+    [data-mode="scroll"] .lay-z2 {
+      animation-name: lay-compress;
+      animation-timing-function: ease-in-out;
+      --a: 0.38;
+      --b: 0.64;
+    }
+    [data-mode="scroll"] .lay-lock {
+      animation-name: lay-lock;
+      --a: 0.62;
+      --b: 0.68;
+    }
+    [data-mode="scroll"] .lay-lit {
+      animation-name: lay-recede;
+      --a: 0.62;
+      --b: 0.69;
+    }
+    [data-mode="scroll"] .lay-z3 {
+      animation-name: lay-drop;
+      --a: 0.68;
+      --b: 0.75;
+    }
+    [data-mode="scroll"] .lay-contour {
+      animation-name: lay-draw;
+      --a: 0.73;
+      --b: 0.82;
+    }
+    [data-mode="scroll"] .lay-mark {
+      animation-name: lay-pop;
+      --a: 0.82;
+      --b: 0.86;
+    }
+    [data-mode="scroll"] .lay-warn {
+      animation-name: lay-fade;
+      --a: 0.84;
+      --b: 0.9;
+    }
+  }
+}
+
+/*
+  Typographic steps (components/TypographicSteps.tsx)
+  --------------------------------------------------------------
+  Not used on any page yet: kept on purpose as the reference for a planned
+  typographic treatment (large light numerals joined by hairlines that draw
+  across the grid, ending in the one orange tick). Finished state by default;
+  motion only under no-preference, started by Reveal's `.reveal-in`.
+*/
+@keyframes typo-rise {
+  from {
+    opacity: 0;
+    translate: 0 0.25em;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes typo-rule {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal:not(.reveal-in) :is(.typo-num, .typo-tick) {
+    opacity: 0;
+  }
+
+  .reveal:not(.reveal-in) .typo-rule {
+    scale: 0 1;
+  }
+
+  .reveal-in .typo-num {
+    animation: typo-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--d) both;
+  }
+
+  .reveal-in .typo-rule {
+    animation: typo-rule 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--d) both;
+  }
+
+  .reveal-in .typo-tick {
+    animation: lay-pop 0.45s cubic-bezier(0.16, 1, 0.3, 1) 1.5s both;
+  }
+}
+
+/*
   Card elevation
   --------------------------------------------------------------
   A soft, layered shadow (tight contact shadow + a longer ambient
