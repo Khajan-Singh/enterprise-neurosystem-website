@@ -101,12 +101,16 @@ export default function RootLayout({
           The ambient shadow's mask is referenced from an inline style, so the
           browser can't discover it until the CSSOM is built — and it sits in the
           above-the-fold header band on every page. Preload it.
+          `crossOrigin` is required: CSS masks are always fetched in CORS mode,
+          and a preload whose mode doesn't match is discarded, so without it the
+          browser downloads the image twice.
         */}
         <link
           rel="preload"
           as="image"
           href="/ambient-shadow-shape.webp"
           type="image/webp"
+          crossOrigin="anonymous"
         />
         {/*
           The org and site entities, declared once for the whole site. Page-
