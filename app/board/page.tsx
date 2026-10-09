@@ -19,13 +19,11 @@ export default function BoardPage() {
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
-          <Reveal>
-            <SectionHeading
-              as="h1"
-              title="Board"
-              description="The Governing Board sets strategic direction for the Enterprise Neurosystem and oversees budget, policy, and community growth."
-            />
-          </Reveal>
+          <SectionHeading
+            as="h1"
+            title="Board"
+            description="The Governing Board sets strategic direction for the Enterprise Neurosystem and oversees budget, policy, and community growth."
+          />
         </Container>
       </section>
 

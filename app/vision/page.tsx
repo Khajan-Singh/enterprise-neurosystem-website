@@ -118,13 +118,11 @@ export default function VisionPage() {
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
-          <Reveal>
-            <SectionHeading
-              as="h1"
-              title="Vision"
-              description="Internet of Nature · Planetary AI · Equal Access for All."
-            />
-          </Reveal>
+          <SectionHeading
+            as="h1"
+            title="Vision"
+            description="Internet of Nature · Planetary AI · Equal Access for All."
+          />
         </Container>
       </section>
 

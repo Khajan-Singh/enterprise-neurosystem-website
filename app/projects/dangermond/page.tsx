@@ -28,13 +28,11 @@ export default function DangermondPage() {
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
-          <Reveal>
-            <SectionHeading
-              as="h1"
-              title="Dangermond Preserve"
-              description="The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, in partnership with JPL/Caltech."
-            />
-          </Reveal>
+          <SectionHeading
+            as="h1"
+            title="Dangermond Preserve"
+            description="The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, in partnership with JPL/Caltech."
+          />
         </Container>
       </section>
 

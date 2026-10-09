@@ -27,13 +27,11 @@ export default function NlipPage() {
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
-          <Reveal>
-            <SectionHeading
-              as="h1"
-              title="NLIP"
-              description="The Natural Language Interaction Protocol — a GenAI-to-GenAI communications standard, born from the Enterprise Neurosystem community, now adopted by the ECMA as a global standard."
-            />
-          </Reveal>
+          <SectionHeading
+            as="h1"
+            title="NLIP"
+            description="The Natural Language Interaction Protocol — a GenAI-to-GenAI communications standard, born from the Enterprise Neurosystem community, now adopted by the ECMA as a global standard."
+          />
         </Container>
       </section>
 

@@ -18,13 +18,11 @@ export default function PressPage() {
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
-          <Reveal>
-            <SectionHeading
-              as="h1"
-              title="Press"
-              description="Coverage of the consortium and its projects, published elsewhere."
-            />
-          </Reveal>
+          <SectionHeading
+            as="h1"
+            title="Press"
+            description="Coverage of the consortium and its projects, published elsewhere."
+          />
         </Container>
       </section>
 

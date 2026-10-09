@@ -91,24 +91,22 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
-          <Reveal>
-            <div className="max-w-3xl">
-              {/* SectionHeading renders an h2; a post's own title is the h1. */}
-              <h1 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                {post.title}
-              </h1>
-              <p className="mt-4 text-sm text-ink-muted">
-                <time dateTime={post.date}>{formatPostDate(post.date)}</time>
-                {post.author && (
-                  <>
-                    <span aria-hidden="true"> · </span>
-                    {post.author}
-                    {author?.role && <span className="text-ink-muted">, {author.role}</span>}
-                  </>
-                )}
-              </p>
-            </div>
-          </Reveal>
+          <div className="max-w-3xl">
+            {/* SectionHeading renders an h2; a post's own title is the h1. */}
+            <h1 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              {post.title}
+            </h1>
+            <p className="mt-4 text-sm text-ink-muted">
+              <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+              {post.author && (
+                <>
+                  <span aria-hidden="true"> · </span>
+                  {post.author}
+                  {author?.role && <span className="text-ink-muted">, {author.role}</span>}
+                </>
+              )}
+            </p>
+          </div>
         </Container>
       </section>
 

@@ -23,13 +23,11 @@ export default function BlogPage() {
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
-          <Reveal>
-            <SectionHeading
-              as="h1"
-              title="Blog"
-              description="Notes from the community on AI for climate action, open standards and the projects we're building."
-            />
-          </Reveal>
+          <SectionHeading
+            as="h1"
+            title="Blog"
+            description="Notes from the community on AI for climate action, open standards and the projects we're building."
+          />
         </Container>
       </section>
 
@@ -54,11 +52,7 @@ export default function BlogPage() {
             </Reveal>
           ) : (
             posts.map((post, i) => (
-              /* The stagger is only for the cards that are already on screen at
-                 load. Below the fold each card reveals on its own as it scrolls
-                 in, so a delay there isn't a stagger — it's just lag before the
-                 card you scrolled to appears. */
-              <Reveal key={post.slug} delay={i < 3 ? 0.05 * i : 0}>
+              <Reveal key={post.slug}>
                 <BlogCard post={post} eager={i === 0} />
               </Reveal>
             ))

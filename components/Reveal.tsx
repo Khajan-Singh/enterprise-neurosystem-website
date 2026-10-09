@@ -1,13 +1,20 @@
 "use client";
 
-import { CSSProperties, ReactNode, useEffect, useRef } from "react";
+import { CSSProperties, ReactNode, useLayoutEffect, useRef } from "react";
 
 /**
  * Scroll-triggered fade/slide-in. The animation itself lives in
- * `.reveal` / `.reveal-in` in globals.css — this component only decides
- * *when* to add the class, using a single module-level IntersectionObserver
- * shared by every instance on the page (the homepage mounts ~23 of them).
- * `prefers-reduced-motion` is handled in CSS, not here.
+ * `.reveal-pending` / `.reveal-in` in globals.css — this component only
+ * decides *when* to add the classes, using a single module-level
+ * IntersectionObserver shared by every instance on the page (the homepage
+ * mounts ~23 of them). `prefers-reduced-motion` is handled in CSS, not here.
+ *
+ * Only content below the fold at mount animates. Anything already on screen
+ * (or scrolled past) gets `.reveal-in` straight away with no hidden state, so
+ * a page never arrives with its visible content drifting up. It still gets
+ * `.reveal-in` because LayerStack and TypographicSteps key their own timed
+ * animations on it. A layout effect, so on client navigation the check runs
+ * before the first paint.
  */
 let sharedObserver: IntersectionObserver | null = null;
 
@@ -39,17 +46,18 @@ export function Reveal({
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
 
     const observer = getObserver();
-    if (!observer) {
-      // no IntersectionObserver — show the content rather than hiding it
+    // no IntersectionObserver, or already in view — show it as it is
+    if (!observer || el.getBoundingClientRect().top < window.innerHeight) {
       el.classList.add("reveal-in");
       return;
     }
 
+    el.classList.add("reveal-pending");
     observer.observe(el);
     return () => observer.unobserve(el);
   }, []);

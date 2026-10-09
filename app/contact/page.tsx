@@ -35,13 +35,11 @@ export default function ContactPage() {
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
-          <Reveal>
-            <SectionHeading
-              as="h1"
-              title="Contact"
-              description="We're looking for philanthropic partners, volunteer scientists, AI engineers, and network architects. Here's what organizations and individuals can expect when they reach out to join the community."
-            />
-          </Reveal>
+          <SectionHeading
+            as="h1"
+            title="Contact"
+            description="We're looking for philanthropic partners, volunteer scientists, AI engineers, and network architects. Here's what organizations and individuals can expect when they reach out to join the community."
+          />
         </Container>
       </section>
 

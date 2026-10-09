@@ -21,13 +21,11 @@ export default function PartnersPage() {
       <section className="relative overflow-hidden border-b border-line bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
-          <Reveal>
-            <SectionHeading
-              as="h1"
-              title="Partners & Engagement"
-              description="From UNFCCC panels at COP to JPL/Caltech laboratories, the Enterprise Neurosystem works alongside the UN system, national governments, research institutions, and industry to bring the Internet of Nature to life."
-            />
-          </Reveal>
+          <SectionHeading
+            as="h1"
+            title="Partners & Engagement"
+            description="From UNFCCC panels at COP to JPL/Caltech laboratories, the Enterprise Neurosystem works alongside the UN system, national governments, research institutions, and industry to bring the Internet of Nature to life."
+          />
         </Container>
       </section>
 
