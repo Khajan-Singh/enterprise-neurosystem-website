@@ -40,7 +40,7 @@ const photoSections = [
     title: "Bwindi Impenetrable Forest",
     body: [
       "The Enterprise Neurosystem team visited Uganda for government meetings with the STI Ministry, and toured the Bwindi Impenetrable Forest and its mountain gorillas. It quickly became evident this area would be an ideal site for a sensor monitoring project.",
-      "Bwindi is now proposed as the first site for a national AI sensor network to monitor environment and resources, through advanced sensor development and deployment. JPL/Caltech and the Enterprise Neurosystem are codeveloping these capabilities with Ugandan universities and scientists.",
+      "Bwindi, 321 square kilometres of montane rainforest, is now proposed as the first site for a national AI sensor network to monitor environment and resources, through advanced sensor development and deployment. JPL/Caltech and the Enterprise Neurosystem are codeveloping these capabilities with Ugandan universities and scientists.",
     ],
     images: [
       { src: "/uganda/bwindi-gorilla.jpg", alt: "Mountain gorilla in Bwindi Impenetrable Forest" },
