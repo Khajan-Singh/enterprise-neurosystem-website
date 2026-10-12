@@ -166,6 +166,7 @@ const Z2 = "var(--x2)";
 const Z3 = "var(--x3)";
 
 export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
+  const halo = `lay-halo-${mode}`;
   return (
     <div
       data-mode={mode}
@@ -290,9 +291,16 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
               strokeWidth="0.06"
               strokeLinecap="round"
             />
-            {/* The ground mark: a flat navy core, the beacon's foot. */}
+            {/* The ground mark, the beacon's foot: a signal-red core in a soft glow. */}
+            <defs>
+              <radialGradient id={halo}>
+                <stop offset="0" style={{ stopColor: "var(--color-signal)", stopOpacity: 0.4 }} />
+                <stop offset="1" style={{ stopColor: "var(--color-signal)", stopOpacity: 0 }} />
+              </radialGradient>
+            </defs>
             <g className="lay-mark">
-              <circle cx={centroid.x} cy={centroid.y} r="0.36" fill="var(--color-accent)" />
+              <circle cx={centroid.x} cy={centroid.y} r="1.5" fill={`url(#${halo})`} />
+              <circle cx={centroid.x} cy={centroid.y} r="0.36" fill="var(--color-signal)" />
             </g>
           </Plate>
           {/*
@@ -302,15 +310,16 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
             rotated plate can't be counter-rotated reliably. Its foot is the
             ground mark's screen position, derived from the plate transform
             in globals.css (--bx/--by on .lay-stage); the stem's height is
-            --bh. Flat Governing Navy throughout, no glow: the user wanted the
-            warning neither orange nor gradient-lit.
+            --bh. Signal red (--color-signal) with a soft glow on the core and
+            head: orange and flat navy were both tried and rejected.
           */}
           <div className="lay-beacon absolute" aria-hidden="true">
             <span className="lay-stem absolute" />
             <span className="lay-head absolute">
               <span className="lay-ring-1 absolute rounded-full" />
               <span className="lay-ring-2 absolute rounded-full" />
-              <span className="lay-core absolute rounded-full bg-accent" />
+              <span className="lay-glow absolute rounded-full" />
+              <span className="lay-core absolute rounded-full" />
             </span>
           </div>
           <span className="lay-warn absolute text-xs font-semibold tracking-widest whitespace-nowrap text-ink uppercase">

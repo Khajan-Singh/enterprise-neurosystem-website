@@ -42,6 +42,10 @@
   --color-net-line: #737373;
   --color-net-core: #ffa500;
 
+  /* The How-it-works early-warning beacon: a signal red, so it stands off both
+     the navy readings and the pale blue band (orange and navy were both tried). */
+  --color-signal: #e0393e;
+
   --font-display: var(--font-sans);
   --font-body: var(--font-sans);
 }
@@ -61,6 +65,7 @@
   --color-nav-line: var(--color-nav-line);
   --color-net-line: var(--color-net-line);
   --color-net-core: var(--color-net-core);
+  --color-signal: var(--color-signal);
   --font-display: var(--font-sans);
   --font-body: var(--font-sans);
 }
@@ -689,7 +694,7 @@ main > section:first-of-type > [data-ambient-shadow] {
   bottom: 0;
   width: 2px;
   height: var(--bh);
-  background: var(--color-accent);
+  background: var(--color-signal);
   transform-origin: bottom;
 }
 
@@ -706,16 +711,27 @@ main > section:first-of-type > [data-ambient-shadow] {
   translate: -50% -50%;
 }
 
+.lay-glow {
+  width: 48px;
+  height: 48px;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-signal) 40%, transparent),
+    transparent 70%
+  );
+}
+
 .lay-core {
   width: 10px;
   height: 10px;
+  background: var(--color-signal);
 }
 
 .lay-ring-1,
 .lay-ring-2 {
   width: 28px;
   height: 28px;
-  border: 1px solid var(--color-accent);
+  border: 1px solid var(--color-signal);
   opacity: 0;
 }
 
