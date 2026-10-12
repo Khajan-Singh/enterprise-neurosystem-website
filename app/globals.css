@@ -639,6 +639,16 @@ main > section:first-of-type > [data-ambient-shadow] {
   --x2: calc(var(--z) * 1.5 + 24px);
   --x3: calc(var(--z) * 2.5 + 48px);
   height: calc(var(--z) * 0.66);
+  /* The beacon's foot: the zone-03 ground mark's screen position. The plate
+     is `rotateX(60deg) rotateZ(-45deg)` with no perspective, so a plate
+     offset (u, v) in cells from the centre lands at
+     (u·cos45 − v·sin45, (u·sin45 + v·cos45)·cos60). The cluster centroid is
+     (8.0, 3.625) on the 12×8 grid, (2, −0.375) from the centre, which is
+     (+1.149, −0.840) cells, and a cell is --pw / 12. Re-derive if CLUSTER
+     moves. */
+  --bx: calc(var(--x3) + var(--pw) * 0.0957);
+  --by: calc(50% - var(--pw) * 0.07);
+  --bh: calc(var(--pw) * 0.32);
 }
 
 @media (width < 40rem) {
@@ -672,15 +682,79 @@ main > section:first-of-type > [data-ambient-shadow] {
   }
 }
 
-.lay-ring {
-  opacity: 0;
-}
-
-.lay-ring,
 .lay-mark,
 .lay-lock {
   transform-box: fill-box;
   transform-origin: center;
+}
+
+/* The beacon (zone 03). Finished state: stem and head up, rings gone. */
+.lay-beacon {
+  left: var(--bx);
+  top: var(--by);
+  width: 0;
+  height: 0;
+}
+
+.lay-stem {
+  left: -1px;
+  bottom: 0;
+  width: 2px;
+  height: var(--bh);
+  background: var(--color-net-core);
+  transform-origin: bottom;
+}
+
+.lay-head {
+  left: 0;
+  top: calc(-1 * var(--bh));
+  width: 0;
+  height: 0;
+}
+
+.lay-head > * {
+  left: 0;
+  top: 0;
+  translate: -50% -50%;
+}
+
+.lay-glow {
+  width: 44px;
+  height: 44px;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-net-core) 45%, transparent),
+    transparent 70%
+  );
+}
+
+.lay-core {
+  width: 10px;
+  height: 10px;
+}
+
+.lay-ring-1,
+.lay-ring-2 {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--color-net-core);
+  opacity: 0;
+}
+
+/* The label sits beside the head, or above it where there is no room to
+   the right (the phone card is centred, and below lg the zone is narrow). */
+.lay-warn {
+  left: calc(var(--bx) + 30px);
+  top: calc(var(--by) - var(--bh));
+  translate: 0 -50%;
+}
+
+@media (width < 64rem) {
+  .lay-warn {
+    left: var(--bx);
+    top: calc(var(--by) - var(--bh) - 22px);
+    translate: -50% -50%;
+  }
 }
 
 .lay-contour {
@@ -713,14 +787,27 @@ main > section:first-of-type > [data-ambient-shadow] {
   }
 }
 
-@keyframes lay-pulse {
+@keyframes lay-rise {
+  from {
+    scale: 1 0;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+/* Starts invisible, so a ring waiting for its scroll window shows nothing. */
+@keyframes lay-spread {
   0% {
-    opacity: 0.7;
+    opacity: 0;
     scale: 1;
+  }
+  12% {
+    opacity: 0.6;
   }
   100% {
     opacity: 0;
-    scale: 3.2;
+    scale: 2.6;
   }
 }
 
@@ -780,7 +867,7 @@ main > section:first-of-type > [data-ambient-shadow] {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .reveal:not(.reveal-in) :is(.lay-z1, .lay-label, .lay-base, .lay-z2, .lay-z3, .lay-mark, .lay-warn, .lay-lock) {
+  .reveal:not(.reveal-in) :is(.lay-z1, .lay-label, .lay-base, .lay-z2, .lay-z3, .lay-mark, .lay-stem, .lay-head, .lay-warn, .lay-lock) {
     opacity: 0;
   }
 
@@ -831,20 +918,32 @@ main > section:first-of-type > [data-ambient-shadow] {
   }
 
   .reveal-in .lay-mark {
-    animation: lay-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) 3.7s both;
+    animation: lay-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1) 3.5s both;
   }
 
-  .reveal-in .lay-ring {
-    animation: lay-pulse 1.8s cubic-bezier(0.16, 1, 0.3, 1) 3.8s 2 both;
+  .reveal-in .lay-stem {
+    animation: lay-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) 3.7s both;
+  }
+
+  .reveal-in .lay-head {
+    animation: lay-pop 0.4s cubic-bezier(0.16, 1, 0.3, 1) 4.1s both;
+  }
+
+  .reveal-in .lay-ring-1 {
+    animation: lay-spread 1.6s ease-out 4.3s 2 both;
+  }
+
+  .reveal-in .lay-ring-2 {
+    animation: lay-spread 1.6s ease-out 4.6s 2 both;
   }
 
   .reveal-in .lay-warn {
-    animation: lay-fade 0.5s ease-out 3.8s both;
+    animation: lay-fade 0.5s ease-out 4.3s both;
   }
 
   @supports (animation-timeline: view()) {
     [data-mode="scroll"]
-      :is(.lay-z1, .lay-label, .lay-base, .lay-z2, .lay-lock, .lay-lit, .lay-z3, .lay-contour, .lay-mark, .lay-warn) {
+      :is(.lay-z1, .lay-label, .lay-base, .lay-z2, .lay-lock, .lay-lit, .lay-z3, .lay-contour, .lay-mark, .lay-stem, .lay-head, .lay-ring-1, .lay-ring-2, .lay-warn) {
       animation-timeline: --how;
       animation-range:
         cover calc(var(--s0) + (var(--s1) - var(--s0)) * var(--a))
@@ -857,11 +956,6 @@ main > section:first-of-type > [data-ambient-shadow] {
       /* Explicit: otherwise the timed shorthand's easing leaks in the moment
          Reveal adds .reveal-in, and the curve changes mid-scrub. */
       animation-timing-function: linear;
-    }
-
-    /* A ring that pulses in time means nothing on a scrubbed timeline. */
-    [data-mode="scroll"] .lay-ring {
-      animation: none;
     }
 
     /* 160vh runway. The setup is the argument's first half, so it gets real
@@ -912,13 +1006,36 @@ main > section:first-of-type > [data-ambient-shadow] {
     }
     [data-mode="scroll"] .lay-mark {
       animation-name: lay-pop;
-      --a: 0.82;
-      --b: 0.86;
+      --a: 0.8;
+      --b: 0.84;
+    }
+    /* The beacon climbs out of the ground mark, then spreads: a timed pulse
+       means nothing on a scrubbed timeline, but rings that grow with the
+       scroll do. */
+    [data-mode="scroll"] .lay-stem {
+      animation-name: lay-rise;
+      --a: 0.83;
+      --b: 0.89;
+    }
+    [data-mode="scroll"] .lay-head {
+      animation-name: lay-pop;
+      --a: 0.88;
+      --b: 0.92;
+    }
+    [data-mode="scroll"] .lay-ring-1 {
+      animation-name: lay-spread;
+      --a: 0.9;
+      --b: 0.98;
+    }
+    [data-mode="scroll"] .lay-ring-2 {
+      animation-name: lay-spread;
+      --a: 0.93;
+      --b: 1;
     }
     [data-mode="scroll"] .lay-warn {
       animation-name: lay-fade;
-      --a: 0.84;
-      --b: 0.9;
+      --a: 0.9;
+      --b: 0.95;
     }
   }
 }

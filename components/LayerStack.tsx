@@ -297,17 +297,32 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
               strokeWidth="0.06"
               strokeLinecap="round"
             />
-            {/* The neural globe's node: an orange core in a soft glow. */}
-            <circle className="lay-ring" cx={centroid.x} cy={centroid.y} r="0.42" fill="none" stroke="var(--color-net-core)" strokeWidth="0.07" />
+            {/* The neural globe's node on the ground: an orange core in a soft glow. */}
             <g className="lay-mark">
               <circle cx={centroid.x} cy={centroid.y} r="1.5" fill={`url(#${halo})`} />
               <circle cx={centroid.x} cy={centroid.y} r="0.36" fill="var(--color-net-core)" />
             </g>
           </Plate>
-          <span
-            className="lay-warn absolute -translate-x-1/2 text-xs font-semibold tracking-widest whitespace-nowrap text-ink uppercase"
-            style={{ left: Z3, top: "calc(50% + var(--pw) * 0.3 + 18px)" }}
-          >
+          {/*
+            The beacon: the mark extends up out of the plate on a stem to a
+            larger head, which then spreads two rings. It is drawn in screen
+            space (HTML in the stage, like the label) because a child of the
+            rotated plate can't be counter-rotated reliably. Its foot is the
+            ground mark's screen position, derived from the plate transform
+            in globals.css (--bx/--by on .lay-stage); the stem's height is
+            --bh. Only ever one orange mark on the page (DESIGN.md): this is
+            still it, taller.
+          */}
+          <div className="lay-beacon absolute" aria-hidden="true">
+            <span className="lay-stem absolute" />
+            <span className="lay-head absolute">
+              <span className="lay-ring-1 absolute rounded-full" />
+              <span className="lay-ring-2 absolute rounded-full" />
+              <span className="lay-glow absolute rounded-full" />
+              <span className="lay-core absolute rounded-full bg-net-core" />
+            </span>
+          </div>
+          <span className="lay-warn absolute text-xs font-semibold tracking-widest whitespace-nowrap text-ink uppercase">
             Early warning
           </span>
         </div>
