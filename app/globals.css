@@ -253,67 +253,55 @@ body {
 /*
   Underlined phrase (AnimatedHeading `underline`)
   --------------------------------------------------------------
-  The phrase's words rise bare. Once the last of them has landed, the
-  component lays one `.word-stroke` under each line the phrase occupies
-  (measured with a Range, so a wrapped phrase gets one per line, drawn in
-  turn) and the stroke draws left-to-right with `scaleX`. Thickness and
-  offset are in em so they follow the heading's type steps; the colour is
-  copied from the phrase so a `phraseClassName` colour applies to both.
+  Uses the font's own thickness, a small offset, and the heading's
+  colour. The decoration sits on each word, not a
+  wrapper, because a parent's underline is never drawn under inline-block
+  children, so it rises and fades with its word.
 
-  `.word-underline` is a plain text-decoration on each word, kept as the
-  fallback: it is what shows without JS (the words appear at 1.5s with it),
-  and under reduced motion, where nothing is measured and no stroke is made.
-  It used to be the only underline, and that is why it was replaced: each
-  word is an inline-block, so the decoration rose in pieces at different
-  moments and heights, and the space between the words was a third piece,
-  filled in afterwards.
-
-  `.is-drawn` is set after the first stroke finishes, so later measurements
-  (font swap, resize) place the strokes in their finished state without
-  replaying the draw. `DRAW_MS` in the component must match the duration.
+  The space between two underlined words is an ordinary inline span (not an
+  inline-block, so it still wraps like a space), faded in with opacity only.
+  The component starts it with the later of its two neighbours, so no loose
+  segment shows early. When the phrase wraps, that space becomes a trailing
+  space at the line end, which is not rendered, so nothing floats there.
 */
-.animated-heading {
-  position: relative;
-}
-
 .word-underline {
   text-decoration-line: underline;
   text-decoration-color: currentColor;
   text-underline-offset: 0.08em;
 }
 
-.is-ready .word-underline {
-  text-decoration-line: none;
+@keyframes word-gap {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes word-gap-js {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.word-gap {
+  animation: word-gap 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 1.5s backwards;
+}
+
+.is-ready .word-gap {
+  animation-name: word-gap-js;
+  animation-delay: var(--delay, 0ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .is-ready .word-underline {
-    text-decoration-line: underline;
+  .word-gap,
+  .is-ready .word-gap {
+    animation: none;
   }
-}
-
-@keyframes word-stroke {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: none;
-  }
-}
-
-.word-stroke {
-  position: absolute;
-  /* From the baseline: the decoration it replaces sat 0.08em below it. */
-  height: 0.05em;
-  margin-top: 0.1em;
-  background: currentColor;
-  transform-origin: left center;
-  animation: word-stroke 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--draw-delay, 0ms) backwards;
-  pointer-events: none;
-}
-
-.is-drawn .word-stroke {
-  animation: none;
 }
 
 /*
