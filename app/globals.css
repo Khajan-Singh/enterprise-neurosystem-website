@@ -42,9 +42,9 @@
   --color-net-line: #737373;
   --color-net-core: #ffa500;
 
-  /* The How-it-works early-warning beacon: a signal red, so it stands off both
-     the navy readings and the pale blue band (orange and navy were both tried). */
-  --color-signal: #e0393e;
+  /* The How-it-works early-warning beacon: the globe's orange, by the user's
+     decision after trying flat navy (blended in) and a signal red. */
+  --color-signal: var(--color-net-core);
 
   --font-display: var(--font-sans);
   --font-body: var(--font-sans);

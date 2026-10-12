@@ -310,8 +310,8 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
             rotated plate can't be counter-rotated reliably. Its foot is the
             ground mark's screen position, derived from the plate transform
             in globals.css (--bx/--by on .lay-stage); the stem's height is
-            --bh. Signal red (--color-signal) with a soft glow on the core and
-            head: orange and flat navy were both tried and rejected.
+            --bh. Signal Orange (--color-signal) with a soft glow on the core and
+            head; flat navy and a red were tried and rejected.
           */}
           <div className="lay-beacon absolute" aria-hidden="true">
             <span className="lay-stem absolute" />
