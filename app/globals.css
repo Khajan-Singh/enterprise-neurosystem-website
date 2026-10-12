@@ -689,7 +689,7 @@ main > section:first-of-type > [data-ambient-shadow] {
   bottom: 0;
   width: 2px;
   height: var(--bh);
-  background: var(--color-net-core);
+  background: var(--color-accent);
   transform-origin: bottom;
 }
 
@@ -706,16 +706,6 @@ main > section:first-of-type > [data-ambient-shadow] {
   translate: -50% -50%;
 }
 
-.lay-glow {
-  width: 44px;
-  height: 44px;
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--color-net-core) 45%, transparent),
-    transparent 70%
-  );
-}
-
 .lay-core {
   width: 10px;
   height: 10px;
@@ -725,7 +715,7 @@ main > section:first-of-type > [data-ambient-shadow] {
 .lay-ring-2 {
   width: 28px;
   height: 28px;
-  border: 1px solid var(--color-net-core);
+  border: 1px solid var(--color-accent);
   opacity: 0;
 }
 

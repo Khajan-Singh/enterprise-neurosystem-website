@@ -166,7 +166,6 @@ const Z2 = "var(--x2)";
 const Z3 = "var(--x3)";
 
 export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
-  const halo = `lay-halo-${mode}`;
   return (
     <div
       data-mode={mode}
@@ -279,12 +278,6 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
 
           {/* Zone 03: only what all five agree on */}
           <Plate className="lay-z3" zoneX={Z3} surface="lifted">
-            <defs>
-              <radialGradient id={halo}>
-                <stop offset="0" style={{ stopColor: "var(--color-net-core)", stopOpacity: 0.45 }} />
-                <stop offset="1" style={{ stopColor: "var(--color-net-core)", stopOpacity: 0 }} />
-              </radialGradient>
-            </defs>
             {CLUSTER.map(([c, r]) => (
               <Tile key={key(c, r)} c={c} r={r} opacity={1} />
             ))}
@@ -297,10 +290,9 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
               strokeWidth="0.06"
               strokeLinecap="round"
             />
-            {/* The neural globe's node on the ground: an orange core in a soft glow. */}
+            {/* The ground mark: a flat navy core, the beacon's foot. */}
             <g className="lay-mark">
-              <circle cx={centroid.x} cy={centroid.y} r="1.5" fill={`url(#${halo})`} />
-              <circle cx={centroid.x} cy={centroid.y} r="0.36" fill="var(--color-net-core)" />
+              <circle cx={centroid.x} cy={centroid.y} r="0.36" fill="var(--color-accent)" />
             </g>
           </Plate>
           {/*
@@ -310,16 +302,15 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
             rotated plate can't be counter-rotated reliably. Its foot is the
             ground mark's screen position, derived from the plate transform
             in globals.css (--bx/--by on .lay-stage); the stem's height is
-            --bh. Only ever one orange mark on the page (DESIGN.md): this is
-            still it, taller.
+            --bh. Flat Governing Navy throughout, no glow: the user wanted the
+            warning neither orange nor gradient-lit.
           */}
           <div className="lay-beacon absolute" aria-hidden="true">
             <span className="lay-stem absolute" />
             <span className="lay-head absolute">
               <span className="lay-ring-1 absolute rounded-full" />
               <span className="lay-ring-2 absolute rounded-full" />
-              <span className="lay-glow absolute rounded-full" />
-              <span className="lay-core absolute rounded-full bg-net-core" />
+              <span className="lay-core absolute rounded-full bg-accent" />
             </span>
           </div>
           <span className="lay-warn absolute text-xs font-semibold tracking-widest whitespace-nowrap text-ink uppercase">
