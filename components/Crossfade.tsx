@@ -5,10 +5,13 @@ import { useEffect, useRef, useState } from "react";
 
 export type CrossfadeImage = { src: string; alt: string };
 
-const HOLD_MS = 5500;
+// Short enough that a visitor scrolling past sees at least one change; the
+// cards are on screen for a few seconds at most. (Was 5.5s, which most
+// visitors never saw turn over.)
+const HOLD_MS = 2500;
 
 /**
- * A slow crossfade through a few photographs of the same place, used on the
+ * A crossfade through a few photographs of the same place, used on the
  * homepage deployment cards so each card shows more than one view of the
  * site it names. Only opacity animates (`.xfade-img` in globals.css), and the
  * cycle runs only while the card is on screen and the tab is visible. Under

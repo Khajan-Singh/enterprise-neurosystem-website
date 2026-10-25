@@ -1393,15 +1393,15 @@ main > section:first-of-type > [data-ambient-shadow] {
 /*
   Crossfade (components/Crossfade.tsx)
   --------------------------------------------------------------
-  Opacity only, so the change is a compositor job. The long duration is the
-  point: the photographs should drift into each other like shifting light,
-  not swap. The global reduced-motion rule zeroes the transition, and the
+  Opacity only, so the change is a compositor job. The 0.8s fade keeps
+  the change soft without being so slow that a visitor scrolling past
+  misses it. The global reduced-motion rule zeroes the transition, and the
   component never advances under reduced motion anyway.
 */
 .xfade-img {
   opacity: 0;
   transition:
-    opacity 1.6s cubic-bezier(0.45, 0, 0.55, 1),
+    opacity 0.8s cubic-bezier(0.45, 0, 0.55, 1),
     scale 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
