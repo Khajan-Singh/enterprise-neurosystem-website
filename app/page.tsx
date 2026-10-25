@@ -5,7 +5,6 @@ import { SectionLink } from "@/components/SectionLink";
 import { SectionHeading } from "@/components/SectionHeading";
 import { AnimatedHeading } from "@/components/AnimatedHeading";
 import { StatsSentence } from "@/components/StatsSentence";
-import { LogoWall } from "@/components/LogoWall";
 import { DeploymentCard } from "@/components/DeploymentCard";
 import { LayerStack } from "@/components/LayerStack";
 import { Reveal } from "@/components/Reveal";
@@ -13,7 +12,7 @@ import { NeuralGlobe } from "@/components/NeuralGlobe";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { VideoEmbed } from "@/components/VideoEmbed";
 import { deployments } from "@/data/projects";
-import { partnerOrgs } from "@/data/partners";
+import { partnerGroups } from "@/data/partners";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -310,8 +309,7 @@ export default function Home() {
 
       {/* The consortium */}
       {/*
-        The heading and the partner names, set large as a typeset list, hold
-        the left; a photograph from the UNFCCC meetings fills the right at
+        The heading and the partner names, grouped by kind, hold the left; a photograph from the UNFCCC meetings fills the right at
         the same height. It was a centred heading over a wall of text pills.
       */}
       <section>
@@ -324,14 +322,27 @@ export default function Home() {
                   description="Governments, research institutions, and industry collaborate in the open, sharing sensor networks, AI models, and infrastructure in a single global architecture."
                 />
               </Reveal>
-              <Reveal delay={0.06}>
-                <h3 className="mt-8 text-lg font-semibold text-accent">
-                  Working with organizations including
-                </h3>
-                <LogoWall organizations={partnerOrgs} className="mt-5" />
-              </Reveal>
+              {/*
+                The names, grouped by kind. The group titles carry the weight
+                and colour; the names are set regular so each column reads as
+                a heading over its members rather than one even block.
+              */}
+              <div className="mt-10 grid gap-8 sm:grid-cols-3 sm:gap-6">
+                {partnerGroups.map((group, i) => (
+                  <Reveal key={group.title} delay={0.06 * (i + 1)}>
+                    <h3 className="font-display text-base font-semibold text-accent">
+                      {group.title}
+                    </h3>
+                    <ul className="mt-3 flex flex-col gap-1.5 text-base text-ink">
+                      {group.orgs.map((org) => (
+                        <li key={org}>{org}</li>
+                      ))}
+                    </ul>
+                  </Reveal>
+                ))}
+              </div>
               <Reveal delay={0.12}>
-                <div className="mt-8">
+                <div className="mt-10">
                   <SectionLink href="/partners">
                     See our partners &amp; engagement
                   </SectionLink>

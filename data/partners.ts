@@ -88,3 +88,47 @@ export const partnerOrgs: string[] = [
   "Microsoft",
   "Red Hat",
 ];
+
+/**
+ * The same organizations as `partnerOrgs`, grouped by kind, for the
+ * homepage's consortium section. The three groups mirror that section's own
+ * description ("Governments, research institutions, and industry"), so the
+ * list reads as who takes part rather than one undifferentiated block of
+ * names. Keep the two lists in step when adding or removing an organization.
+ */
+export const partnerGroups: { title: string; orgs: string[] }[] = [
+  {
+    title: "Governments & UN",
+    orgs: [
+      "UNFCCC",
+      "CTCN",
+      "ITU",
+      "UN University",
+      "Uganda STI Ministry",
+      "USDA",
+      "UAE",
+    ],
+  },
+  {
+    title: "Research & conservation",
+    orgs: [
+      "JPL / Caltech",
+      "NCEAS",
+      "Makerere University",
+      "The Nature Conservancy",
+    ],
+  },
+  {
+    title: "Industry & standards",
+    orgs: [
+      "IBM",
+      "Microsoft",
+      "Cisco",
+      "Hewlett Packard",
+      "Hitachi",
+      "Red Hat",
+      "ECMA",
+      "UOR Foundation",
+    ],
+  },
+];
