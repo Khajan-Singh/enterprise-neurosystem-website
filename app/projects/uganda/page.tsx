@@ -24,7 +24,6 @@ const breadcrumbs = breadcrumbSchema([
 const photoSections = [
   {
     id: "sti-partnership",
-    eyebrow: "Origins",
     title: "A partnership born at COP 29",
     body: [
       "Uganda's Chief Scientist contacted the Enterprise Neurosystem following a UNFCCC panel discussion at COP 29. Uganda's Ministry of Science, Technology and Innovation (STI) was formed by the Presidency to drive a stronger economic foundation through advanced technology. The country now has an electric bus factory and lithium battery production coming online, with materials largely sourced in-country and powered by 100 percent renewable energy.",
@@ -69,7 +68,7 @@ export default function UgandaPage() {
   return (
     <>
       <JsonLd data={breadcrumbs} />
-      <section className="relative overflow-hidden border-b border-line bg-page-header">
+      <section className="relative overflow-hidden bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
           <SectionHeading
@@ -85,10 +84,7 @@ export default function UgandaPage() {
           <Container className="py-20">
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
               <Reveal className={i % 2 === 1 ? "lg:order-2" : ""}>
-                <p className="text-xs font-medium uppercase tracking-widest text-accent">
-                  {section.eyebrow}
-                </p>
-                <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+                <h2 className="font-display text-2xl font-semibold tracking-tight text-balance text-ink sm:text-3xl">
                   {section.title}
                 </h2>
                 <div className="mt-5 flex flex-col gap-4 text-base leading-relaxed text-ink-muted sm:text-lg">
@@ -129,14 +125,13 @@ export default function UgandaPage() {
       ))}
 
       {/* National Network Effect */}
-      <section className="relative overflow-hidden border-t border-nav-line bg-nav">
+      <section className="relative overflow-hidden bg-nav">
         <AmbientShadow />
         <Container className="relative py-20">
           <Reveal>
             <SectionHeading
-              eyebrow="Objective"
               title="The National Network Effect"
-              description="Lake Victoria and Bwindi will be networked together, providing a unified frame of analysis. In time, agricultural regions, forests and wetlands across the country will be added — thousands of ecosystems and impacts charted in real time."
+              description="Lake Victoria and Bwindi will be networked together, providing a unified frame of analysis. In time, agricultural regions, forests and wetlands across the country will be added: thousands of ecosystems and impacts charted in real time."
             />
           </Reveal>
           <Reveal delay={0.1}>
@@ -182,7 +177,7 @@ export default function UgandaPage() {
                   <p className="font-display text-2xl font-semibold text-ink">
                     {item.stat}
                   </p>
-                  <p className="text-sm leading-relaxed text-ink-muted">
+                  <p className="text-[15px] leading-relaxed text-ink-muted">
                     {item.label}
                   </p>
                 </div>
@@ -190,7 +185,7 @@ export default function UgandaPage() {
             ))}
           </div>
           <Reveal delay={0.15}>
-            <p className="mt-6 max-w-2xl text-sm leading-relaxed text-ink-muted">
+            <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-ink-muted">
               Larger LLMs present real issues in power consumption and raw
               compute requirements. Their climate impact and business model
               are unsustainable at global scale. The Atomic Model is a

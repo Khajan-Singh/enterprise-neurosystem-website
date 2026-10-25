@@ -1,10 +1,10 @@
 import Image from "next/image";
 
 const tiles = [
-  { src: "/vision/sensor-satellite.jpg", label: "Satellites", alt: "Satellite in orbit above Earth" },
-  { src: "/vision/sensor-camera.jpg", label: "Cameras", alt: "Camera trap monitoring wildlife in a forest" },
-  { src: "/vision/sensor-forest.jpg", label: "Forest sensors", alt: "Environmental sensor embedded in forest floor" },
-  { src: "/vision/sensor-river.jpg", label: "River sensors", alt: "Sensor deployed under a bridge monitoring a river" },
+  { src: "/vision/sensor-satellite.jpg", alt: "Satellite in orbit above Earth" },
+  { src: "/vision/sensor-camera.jpg", alt: "Camera trap monitoring wildlife in a forest" },
+  { src: "/vision/sensor-forest.jpg", alt: "Environmental sensor embedded in forest floor" },
+  { src: "/vision/sensor-river.jpg", alt: "Sensor deployed under a bridge monitoring a river" },
 ];
 
 /**
@@ -41,9 +41,6 @@ export function SensorGrid() {
               className="object-cover"
               sizes="200px"
             />
-            <span className="absolute bottom-2 left-2 rounded-full bg-ink/70 px-2 py-0.5 text-[10px] font-medium text-bg backdrop-blur-sm">
-              {tile.label}
-            </span>
           </div>
         ))}
       </div>

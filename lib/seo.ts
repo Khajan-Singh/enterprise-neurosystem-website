@@ -16,7 +16,7 @@ export const OG_IMAGE = {
   url: "/og.png",
   width: 1200,
   height: 630,
-  alt: "Enterprise Neurosystem — a global AI architecture for environmental intelligence.",
+  alt: "Enterprise Neurosystem: a global AI architecture for environmental intelligence.",
 } as const;
 
 /** Autodiscovery for the blog feed. Repeated on every page, see below. */

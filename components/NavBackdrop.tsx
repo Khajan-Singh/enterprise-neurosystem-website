@@ -26,9 +26,13 @@ const FADE = 80;
  *    there on it stays one solid blue bar.
  *
  * Both are driven by the root scroll timeline where supported (`.nav-mirror`
- * and `.nav-solid` in globals.css), so neither can lag the page; elsewhere a
- * passive scroll listener sets them. Rebuilt on navigation and on resize.
- * Without JS the solid layer simply stays on: a plain blue bar.
+ * and `.nav-solid` in globals.css), so neither can lag the page. Elsewhere
+ * there is deliberately no scroll listener: the mirror stays put (it is only
+ * the section's flat colour and shading, so a fixed copy is close enough
+ * over the short distance it shows), and an IntersectionObserver fades the
+ * solid layer in, on a short transition rather than scroll-linked, once the
+ * first section has passed under the bar. Rebuilt on navigation and on
+ * resize. Without JS the solid layer simply stays on: a plain blue bar.
  */
 export function NavBackdrop({ pathname }: { pathname: string }) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -45,13 +49,26 @@ export function NavBackdrop({ pathname }: { pathname: string }) {
     let frame = 0;
     let solidStart = 0;
     let solidEnd = 0;
+    let io: IntersectionObserver | undefined;
 
-    const sync = () => {
+    // Fallback only. The first section counts as "under the bar" while any
+    // of it is below the line FADE px beneath the bar, which is where the
+    // scroll-linked version starts its fade.
+    const watch = (section: HTMLElement | null) => {
+      io?.disconnect();
       if (timeline) return;
-      const y = window.scrollY;
-      mirror.style.transform = `translateY(${-y}px)`;
-      const t = (y - solidStart) / Math.max(1, solidEnd - solidStart);
-      solid.style.opacity = String(Math.min(1, Math.max(0, t)));
+      solid.style.transition = "opacity 0.25s ease-out";
+      if (!section) {
+        solid.style.opacity = "1";
+        return;
+      }
+      io = new IntersectionObserver(
+        ([entry]) => {
+          solid.style.opacity = entry.isIntersecting ? "0" : "1";
+        },
+        { rootMargin: `-${BAR_HEIGHT + FADE}px 0px 0px 0px` },
+      );
+      io.observe(section);
     };
 
     const build = () => {
@@ -105,7 +122,7 @@ export function NavBackdrop({ pathname }: { pathname: string }) {
       wrapper.style.setProperty("--nav-solid-start", `${solidStart}px`);
       wrapper.style.setProperty("--nav-solid-end", `${solidEnd}px`);
       wrapper.classList.add("is-live");
-      sync();
+      watch(section);
     };
 
     const schedule = () => {
@@ -116,13 +133,12 @@ export function NavBackdrop({ pathname }: { pathname: string }) {
     const observer = new ResizeObserver(schedule);
     observer.observe(document.body);
     window.addEventListener("resize", schedule);
-    if (!timeline) window.addEventListener("scroll", sync, { passive: true });
 
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
       window.removeEventListener("resize", schedule);
-      window.removeEventListener("scroll", sync);
+      io?.disconnect();
     };
   }, [pathname]);
 

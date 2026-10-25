@@ -47,9 +47,7 @@ export default function NotFound() {
       <AmbientShadow opacity={0.07} />
       <Container className="relative grid gap-14 py-20 lg:grid-cols-2 lg:items-center lg:gap-20">
         <div>
-          <p className="text-xs font-medium uppercase tracking-widest text-accent">
-            Error 404
-          </p>
+          <p className="text-base font-medium text-accent">Error 404</p>
           <h1 className="mt-3 font-display text-5xl font-semibold tracking-tight text-balance text-ink sm:text-6xl">
             Page not found
           </h1>
@@ -64,7 +62,7 @@ export default function NotFound() {
         </div>
 
         <div>
-          <h3 className="text-xs font-medium uppercase tracking-widest text-ink-muted">
+          <h3 className="text-base font-semibold text-ink">
             Suggested entry points
           </h3>
           <ul className="mt-4 divide-y divide-ink/10 border-y border-ink/10">
@@ -79,7 +77,7 @@ export default function NotFound() {
                   <span className="font-display text-lg font-semibold text-ink transition-colors group-hover:text-accent sm:w-28 sm:shrink-0">
                     {entry.label}
                   </span>
-                  <span className="flex-1 text-sm leading-relaxed text-ink-muted">
+                  <span className="flex-1 text-[15px] leading-relaxed text-ink-muted">
                     {entry.description}
                   </span>
                   <ArrowRight className="shrink-0 self-center text-ink-muted transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1" />

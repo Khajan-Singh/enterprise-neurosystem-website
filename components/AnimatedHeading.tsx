@@ -10,7 +10,7 @@ import { useEffect, useRef, type ReactNode } from "react";
  *
  * The random delays are assigned in an effect, never during render, so the
  * server and client markup match. Until then the words sit in their hidden
- * start frame under a CSS fallback animation that reveals them after 1.5s on
+ * start frame under a CSS fallback animation that reveals them after 0.7s on
  * its own, so a slow or failed hydration can't leave the headline invisible.
  * See `.word-rise` in `globals.css`.
  *
@@ -28,7 +28,7 @@ import { useEffect, useRef, type ReactNode } from "react";
  */
 
 // Must match the fallback animation's delay in `globals.css`.
-const FALLBACK_MS = 1500;
+const FALLBACK_MS = 700;
 
 /** Locate `phrase` as a run of whole words; the last may carry punctuation. */
 function findPhrase(words: string[], phrase?: string) {
@@ -50,8 +50,8 @@ export function AnimatedHeading({
   text,
   as: Tag = "h1",
   className,
-  minDelay = 100,
-  maxDelay = 500,
+  minDelay = 60,
+  maxDelay = 250,
   underline,
   phraseClassName,
   href,

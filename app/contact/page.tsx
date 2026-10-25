@@ -32,7 +32,7 @@ const paths = [
 export default function ContactPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-line bg-page-header">
+      <section className="relative overflow-hidden bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
           <SectionHeading
@@ -52,7 +52,7 @@ export default function ContactPage() {
                   <h2 className="font-display text-lg font-semibold text-ink">
                     {path.title}
                   </h2>
-                  <p className="text-sm leading-relaxed text-ink-muted">
+                  <p className="text-[15px] leading-relaxed text-ink-muted">
                     {path.description}
                   </p>
                 </div>
@@ -67,7 +67,7 @@ export default function ContactPage() {
                   <h2 className="font-display text-xl font-semibold text-ink">
                     For organizations
                   </h2>
-                  <p className="text-base leading-relaxed text-ink-muted sm:text-lg">
+                  <p className="max-w-3xl text-base leading-relaxed text-ink-muted sm:text-lg">
                     As this is a volunteer organization, the development
                     commitments can be considered variables based on each
                     member&apos;s availability. However, resourcing should
@@ -85,7 +85,7 @@ export default function ContactPage() {
                   <h2 className="font-display text-xl font-semibold text-ink">
                     For individuals
                   </h2>
-                  <p className="text-base leading-relaxed text-ink-muted sm:text-lg">
+                  <p className="max-w-3xl text-base leading-relaxed text-ink-muted sm:text-lg">
                     Community involvement can span a variety of activities.
                     This includes any of the following: community management,
                     marketing support, general participation via sharing
@@ -95,8 +95,8 @@ export default function ContactPage() {
                     development and documentation. A wide variety of talents
                     and interest areas are welcome.
                   </p>
-                  <p className="text-base leading-relaxed text-ink-muted sm:text-lg">
-                    In return, participants can expect a number of benefits –
+                  <p className="max-w-3xl text-base leading-relaxed text-ink-muted sm:text-lg">
+                    In return, participants can expect a number of benefits:
                     an open exchange of ideas on the latest AI research, new
                     areas of enterprise development, leveraging and
                     incorporating solutions built on an open-source framework,

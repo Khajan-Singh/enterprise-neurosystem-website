@@ -20,7 +20,7 @@ export const postDescriptions: Record<string, string> = {
   d2c4f60f4cc7:
     "AgroSpace CTO Tomás Acuña on how winning the AIM for Climate Grand Challenge brought publicity, Enterprise Neurosystem guidance and AWS cloud credits.",
   b7e673ac4713:
-    "Ecma International has recognized NLIP — the Natural Language Interaction Protocol — as a family of standards for open, secure AI agent ecosystems.",
+    "Ecma International has recognized NLIP (the Natural Language Interaction Protocol) as a family of standards for open, secure AI agent ecosystems.",
   d06acc551f6c:
     "Four finalists are named for UN Climate Change's AI for Climate Action Award 2025, recognizing open-source AI for climate work in LDCs and SIDS.",
   "59ec12787f19":

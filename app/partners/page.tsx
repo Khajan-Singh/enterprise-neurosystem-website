@@ -18,7 +18,7 @@ export const metadata = pageMetadata({
 export default function PartnersPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-line bg-page-header">
+      <section className="relative overflow-hidden bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
           <SectionHeading
@@ -55,7 +55,7 @@ export default function PartnersPage() {
                       {/* Capped like every other card's text on the site (see
                           BlogCard): the text column is ~780px at md, which runs
                           these paragraphs past 95 characters a line. */}
-                      <p className="max-w-2xl text-sm leading-relaxed text-ink-muted sm:text-base">
+                      <p className="max-w-2xl text-[15px] leading-relaxed text-ink-muted">
                         {item.description}
                         {item.link && (
                           <>
@@ -97,15 +97,12 @@ export default function PartnersPage() {
       </section>
 
       {/* JPL / Nature Conservancy teaser */}
-      <section className="relative overflow-hidden border-t border-nav-line bg-nav">
+      <section className="relative overflow-hidden bg-nav">
         <AmbientShadow />
         <Container className="relative py-20">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
             <Reveal>
-              <p className="text-xs font-medium uppercase tracking-widest text-accent">
-                United States deployment
-              </p>
-              <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-balance text-ink sm:text-3xl">
                 CalTech / JPL and The Nature Conservancy
               </h2>
               <p className="mt-5 text-base leading-relaxed text-ink-muted sm:text-lg">
@@ -136,31 +133,16 @@ export default function PartnersPage() {
 
       {/* Partner org wall */}
       <section>
-        {/*
-          pt is 69px, not the usual 80px, so that this section's top and bottom
-          white space *reads* equal. Both were literally 80px, but the top gap
-          is measured to the heading's line box, and 11px of that box is empty
-          space above the capitals (2px half-leading + 9px of font ascent at
-          36px/40px). The bottom gap is measured to a pill's hard border edge,
-          with no such slack. Measured: 91px optical vs 80px. 69 + 11 = 80.
-        */}
-        <Container className="pb-20 pt-[69px]">
+        <Container className="py-20">
           <Reveal>
-            {/* No eyebrow. "Working together" only restated the heading
-                underneath it, which a mid-page eyebrow should never do —
-                and LogoWall already prints its own
-                uppercase label directly below, so the two stacked. */}
             <SectionHeading
               title="Organizations we work with"
-              align="center"
+              description="Governments, research institutions, and industry."
             />
           </Reveal>
           <div className="mt-14">
             <Reveal delay={0.1}>
-              <LogoWall
-                label="Governments, research institutions, and industry"
-                organizations={partnerOrgs}
-              />
+              <LogoWall organizations={partnerOrgs} />
             </Reveal>
           </div>
         </Container>

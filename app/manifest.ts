@@ -8,7 +8,7 @@ import { SITE_NAME } from "@/lib/site";
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${SITE_NAME} — A Global AI Architecture for Environmental Intelligence`,
+    name: `${SITE_NAME}: A Global AI Architecture for Environmental Intelligence`,
     short_name: SITE_NAME,
     description:
       "An open source AI research community building a global-scale AI network to understand and respond to climate change.",

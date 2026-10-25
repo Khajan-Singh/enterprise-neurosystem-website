@@ -16,10 +16,9 @@ export function ZoneHeader({ className = "" }: { className?: string }) {
       {ZONES.map((zone) => (
         <p
           key={zone.number}
-          className="flex gap-x-2 px-6 text-xs font-medium tracking-widest text-ink-muted uppercase"
+          className="px-6 text-sm font-semibold text-ink"
         >
-          <span className="text-accent">{zone.number}</span>
-          <span>{zone.title}</span>
+          {zone.title}
         </p>
       ))}
     </div>

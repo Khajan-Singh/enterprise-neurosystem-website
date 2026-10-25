@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Deployment } from "@/data/projects";
+import { Crossfade } from "./Crossfade";
 
 export function DeploymentCard({ deployment }: { deployment: Deployment }) {
   return (
@@ -8,15 +8,11 @@ export function DeploymentCard({ deployment }: { deployment: Deployment }) {
       href={deployment.href}
       className="card-surface card-surface-hover card-textured group flex h-full flex-col overflow-hidden rounded-2xl"
     >
-      <div className="relative aspect-[16/10] w-full overflow-hidden">
-        <Image
-          src={deployment.image}
-          alt={deployment.name}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="(min-width: 1024px) 50vw, 100vw"
-        />
-      </div>
+      <Crossfade
+        images={deployment.gallery}
+        className="aspect-[16/10] w-full"
+        sizes="(min-width: 1024px) 50vw, 100vw"
+      />
       <div className="flex flex-1 flex-col gap-3 p-6">
         <div>
           <h3 className="font-display text-xl font-semibold text-ink">
@@ -26,7 +22,7 @@ export function DeploymentCard({ deployment }: { deployment: Deployment }) {
             {deployment.location}
           </p>
         </div>
-        <p className="text-sm leading-relaxed text-ink-muted">
+        <p className="text-[15px] leading-relaxed text-ink-muted">
           {deployment.summary}
         </p>
       </div>

@@ -45,7 +45,7 @@ const flowSteps: FlowStep[] = [
 export const metadata = pageMetadata({
   title: "Vision",
   description:
-    "The Internet of Nature: how a single global AI architecture — sensors, satellites, and cross-correlated AI instances — delivers equal access, early warning, and course correction for every nation.",
+    "The Internet of Nature: how a single global AI architecture (sensors, satellites, and cross-correlated AI instances) delivers equal access, early warning, and course correction for every nation.",
   path: "/vision",
 });
 
@@ -115,7 +115,7 @@ const sections = [
 export default function VisionPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-line bg-page-header">
+      <section className="relative overflow-hidden bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
           <SectionHeading
@@ -145,7 +145,7 @@ export default function VisionPage() {
                       <div className="mt-8">
                         <VideoEmbed
                           id="qO8-n6vuYBA"
-                          title="The Enterprise Neurosystem — AIM4C Grand Challenge Announcement, COP 27"
+                          title="The Enterprise Neurosystem: AIM4C Grand Challenge Announcement, COP 27"
                           poster="/video/aim4c-cop27.jpg"
                           caption="Bill Wright introduces the Enterprise Neurosystem at COP 27, November 2022."
                         />

@@ -11,7 +11,7 @@ import { getAllPosts } from "@/lib/blog";
 export const metadata = pageMetadata({
   title: "Blog",
   description:
-    "Updates from the Enterprise Neurosystem community — AI for climate action, the NLIP standard, sensor deployments and grand challenge results.",
+    "Updates from the Enterprise Neurosystem community: AI for climate action, the NLIP standard, sensor deployments and grand challenge results.",
   path: "/blog",
 });
 
@@ -20,7 +20,7 @@ export default function BlogPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-line bg-page-header">
+      <section className="relative overflow-hidden bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
           <SectionHeading

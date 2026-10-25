@@ -8,14 +8,14 @@ import { PressList } from "@/components/PressList";
 export const metadata = pageMetadata({
   title: "Press",
   description:
-    "Enterprise Neurosystem in the press — coverage of the consortium and its projects from outlets around the world.",
+    "Enterprise Neurosystem in the press: coverage of the consortium and its projects from outlets around the world.",
   path: "/press",
 });
 
 export default function PressPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-line bg-page-header">
+      <section className="relative overflow-hidden bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
           <SectionHeading

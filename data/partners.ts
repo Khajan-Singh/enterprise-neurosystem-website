@@ -19,7 +19,7 @@ export const engagements: Engagement[] = [
       "The UNFCCC Technology Mechanism AI for Climate Action (AICA) Award 2026 recognizes open-source, AI-powered solutions that contribute to climate change adaptation and mitigation in least developed countries (LDCs) and small island developing States (SIDS).",
     image: "/partners/aica-award-2026.jpg",
     imageAlt:
-      "The AICA — AI for Climate Action Award 26 logo, set beside a prismatic gradient form on a pale wireframe mesh.",
+      "The AICA (AI for Climate Action) Award 26 logo, set beside a prismatic gradient form on a pale wireframe mesh.",
     link: {
       label: "See the AICA Award 2026",
       href: "https://aica.awardsplatform.com/",
@@ -39,7 +39,7 @@ export const engagements: Engagement[] = [
       "Active participants in the United Nations and ITU's Early Warning 4 All (EW4All) Initiative, alongside continued support of UNFCCC and UN University programs.",
     image: "/partners/unfccc-secretariat-panel.jpg",
     imageAlt:
-      "Three panellists at a UNFCCC session table — Bill Wright of the Enterprise Neurosystem beside Cecilia Kinuthia-Njenga of the UNFCCC secretariat — with a remote speaker on the screen behind them.",
+      "Three panellists at a UNFCCC session table: Bill Wright of the Enterprise Neurosystem beside Cecilia Kinuthia-Njenga of the UNFCCC secretariat, with a remote speaker on the screen behind them.",
   },
   {
     title: "UAE & USDA AI Grand Challenge",

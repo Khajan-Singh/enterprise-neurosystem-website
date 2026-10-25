@@ -30,7 +30,7 @@ function Heading({ member, sizer }: { member: BoardMember; sizer?: boolean }) {
 export function BoardCard({ member }: { member: BoardMember }) {
   return (
     <article className="card-surface card-surface-hover card-textured flex h-full flex-col rounded-2xl p-6">
-      <div className="flex items-start gap-4 border-b border-ink/10 pb-4">
+      <div className="flex items-start gap-4 pb-2">
         {member.image ? (
           <Image
             src={member.image}
@@ -69,7 +69,7 @@ export function BoardCard({ member }: { member: BoardMember }) {
           <Heading member={member} />
         </div>
       </div>
-      <p className="pt-4 text-sm leading-relaxed text-ink-muted">{member.bio}</p>
+      <p className="pt-4 text-[15px] leading-relaxed text-ink-muted">{member.bio}</p>
     </article>
   );
 }

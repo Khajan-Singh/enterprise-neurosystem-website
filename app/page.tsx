@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import Image from "next/image";
 import { Container } from "@/components/Container";
 import { SectionLink } from "@/components/SectionLink";
 import { SectionHeading } from "@/components/SectionHeading";
@@ -22,25 +23,22 @@ export const metadata = pageMetadata({
     "Enterprise Neurosystem · A Global AI Architecture for Environmental Intelligence",
   absoluteTitle: true,
   description:
-    "A non-profit, open source AI research community building the Internet of Nature — a planetary sensor and AI network for early warning and food security in every nation.",
+    "A non-profit, open source AI research community building the Internet of Nature: a planetary sensor and AI network for early warning and food security in every nation.",
   path: "/",
 });
 
 const howItWorks = [
   {
-    step: "01",
     title: "Sense",
     description:
       "Satellites, atmospheric and oceanic observation, and sensors among species, forests, crops and waterways together monitor soil, pollution, and human impact.",
   },
   {
-    step: "02",
     title: "Cross-correlate",
     description:
       "Sensor data flows to AI instances in each country for real-time pattern analysis, cross-correlated against historical data by area.",
   },
   {
-    step: "03",
     title: "Warn & advise",
     description:
       "Deeper patterns emerge (deforestation, drought, wildfire risk, agricultural stress), driving accurate early warnings and course-correction recommendations.",
@@ -72,7 +70,7 @@ export default function Home() {
         padding is balanced against the logo, and centring
         adds the same space to both sides, so it stays balanced.
       */}
-      <section className="relative overflow-hidden border-b border-nav-line bg-nav lg:flex lg:min-h-[calc(100svh-6rem)] lg:flex-col lg:justify-center">
+      <section className="relative overflow-hidden bg-nav lg:flex lg:min-h-[calc(100svh-6rem)] lg:flex-col lg:justify-center">
         <AmbientShadow />
         <Container className="hero-in relative grid gap-10 pt-4 pb-15 sm:pt-6 sm:pb-10 lg:pb-14 lg:grid-cols-2 lg:items-center lg:gap-8">
           {/*
@@ -123,7 +121,7 @@ export default function Home() {
                 research community, founded on the principle that all species
                 and ecosystems on this planet are part of a single system. Given
                 the challenges it now faces, humanity requires a real-time,
-                planetary-scale AI network — linking satellites with
+                planetary-scale AI network, linking satellites with
                 atmospheric, oceanic, seismic and agricultural sensors into one
                 architecture for accurate early warning and course correction.
               </p>
@@ -166,7 +164,7 @@ export default function Home() {
         hold's view timeline resolves against the nearest one, which would then
         never scroll. See "How it works: the pinned hold" in globals.css.
       */}
-      <section className="relative overflow-clip border-t border-nav-line bg-nav">
+      <section className="relative overflow-clip bg-nav">
         <AmbientShadow />
         <Container className="relative py-12 sm:py-16">
           {/*
@@ -174,15 +172,14 @@ export default function Home() {
             nav for 1.6 screens of scrolling, and that scroll plays the figure
             (five sensing layers that each read as noise, pressed together
             until only their agreement remains, which raises the warning). The
-            track wraps only the heading and figure, never the cards. Where
-            there are no scroll timelines, or motion is reduced, nothing sticks
-            and the runway collapses.
+            track wraps only the heading and figure, never the step text.
+            Where there are no scroll timelines, or motion is reduced, nothing
+            sticks and the runway collapses.
           */}
           <div className="how-pin" style={{ "--runway": "160vh" } as CSSProperties}>
             <div className="how-pin-sticky">
               <Reveal>
                 <SectionHeading
-                  eyebrow="How it works"
                   title="From sensor to early warning"
                   description="One architecture, from the ground to orbit: sensors and satellites feed national AI instances, which cross-correlate in real time to surface patterns no single dataset could reveal alone."
                 />
@@ -195,23 +192,21 @@ export default function Home() {
             </div>
             <div aria-hidden="true" className="how-pin-runway" />
           </div>
+          {/*
+            The three stages, unboxed, on the same gap-6 three-column grid as
+            the figure's zone labels (components/FigureZones.tsx) and inset by
+            the same px-6, so each stage's text starts under its own zone.
+            They were white cards with a 01/02/03 kicker; the zone above
+            already names and orders them.
+          */}
           <div className="mt-8 grid gap-6 sm:grid-cols-3">
             {howItWorks.map((item, i) => (
-              <Reveal key={item.step} delay={0.06 * i}>
-                <div className="card-surface card-surface-hover card-textured flex h-full flex-col rounded-2xl p-6">
-                  {/*
-                    Each card carries its step number, matching the zone labels
-                    on the figure above (components/FigureZones.tsx, on the same
-                    gap-6 three-column grid) so a card pairs with its zone even
-                    on phones, where the cards stack beneath the figure.
-                  */}
-                  <p className="font-display text-xs font-semibold tracking-widest text-accent">
-                    {item.step}
-                  </p>
-                  <h3 className="mt-2 font-display text-lg font-semibold text-balance text-ink">
+              <Reveal key={item.title} delay={0.06 * i}>
+                <div className="sm:px-6">
+                  <h3 className="font-display text-lg font-semibold text-balance text-ink">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-pretty text-ink-muted">
+                  <p className="mt-2 text-base leading-relaxed text-pretty text-ink-muted">
                     {item.description}
                   </p>
                 </div>
@@ -226,7 +221,7 @@ export default function Home() {
             one headline.
           */}
           <Reveal delay={0.2}>
-            <div className="mt-10">
+            <div className="mt-10 sm:px-6">
               <SectionLink
                 href="/The-Enterprise-Neurosystem-Whitepaper.pdf"
                 newTab
@@ -243,16 +238,10 @@ export default function Home() {
         <Container className="py-12 sm:py-16">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
             <div className="flex flex-col gap-8">
-              {/*
-                This heading block was a character-for-character copy of
-                SectionHeading's markup. Using the component means the four
-                homepage headings can never drift apart again.
-              */}
               <Reveal>
                 <SectionHeading
-                  eyebrow="Why it matters"
                   title="Parity at planetary scale"
-                  description="A single unified global AI architecture, enabled by satellites, sensors and mobile networks, provides the most accurate early warning capability possible — for every nation."
+                  description="A single unified global AI architecture, enabled by satellites, sensors and mobile networks, provides the most accurate early warning capability possible, for every nation."
                 />
               </Reveal>
               <Reveal delay={0.06}>
@@ -267,7 +256,7 @@ export default function Home() {
                       <h3 className="font-display text-lg font-semibold text-balance text-ink">
                         {theme.title}
                       </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-pretty text-ink-muted">
+                      <p className="mt-2 text-[15px] leading-relaxed text-pretty text-ink-muted">
                         {theme.description}
                       </p>
                     </div>
@@ -278,13 +267,13 @@ export default function Home() {
             {/*
               `lg:self-stretch` makes the video's black frame exactly as tall
               as the left column at every width, with the 16/9 video centred
-              inside it — so the two columns end level and the surplus reads
+              inside it, so the two columns end level and the surplus reads
               as letterboxing. Below `lg` the columns stack and it's inert.
             */}
             <Reveal delay={0.12} className="lg:self-stretch">
               <VideoEmbed
                 id="qO8-n6vuYBA"
-                title="The Enterprise Neurosystem — AIM4C Grand Challenge Announcement, COP 27"
+                title="The Enterprise Neurosystem: AIM4C Grand Challenge Announcement, COP 27"
                 poster="/video/aim4c-cop27.jpg"
                 caption="Bill Wright introduces the Enterprise Neurosystem at COP 27, November 2022."
                 sizes="(min-width: 1024px) 50vw, 100vw"
@@ -295,7 +284,7 @@ export default function Home() {
       </section>
 
       {/* Deployments */}
-      <section className="relative overflow-hidden border-t border-nav-line bg-nav">
+      <section className="relative overflow-hidden bg-nav">
         <AmbientShadow />
         <Container className="relative py-12 sm:py-16">
           <Reveal>
@@ -319,38 +308,53 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* Partners logo wall */}
+      {/* The consortium */}
+      {/*
+        The heading and the partner names, set large as a typeset list, hold
+        the left; a photograph from the UNFCCC meetings fills the right at
+        the same height. It was a centred heading over a wall of text pills.
+      */}
       <section>
         <Container className="py-12 sm:py-16">
-          <Reveal>
-            <SectionHeading
-              title="Built as an open consortium"
-              description="Governments, research institutions, and industry collaborate in the open — sharing sensor networks, AI models, and infrastructure in a single global architecture."
-              align="center"
-            />
-          </Reveal>
-          {/*
-            mt-6, not the mt-12 the other sections use: the description above
-            sits mt-4 under its title, so it should sit close to the label
-            below it too — otherwise it hangs off the heading with 48px of air
-            beneath it and reads as part of the title rather than the lead-in
-            to the wall. Equal-ish gaps either side keep it centred between.
-          */}
-          <div className="mt-6">
-            <Reveal delay={0.1}>
-              <LogoWall
-                label="Working with organizations including"
-                organizations={partnerOrgs}
-              />
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+            <div className="flex flex-col lg:col-span-7">
+              <Reveal>
+                <SectionHeading
+                  title="Built as an open consortium"
+                  description="Governments, research institutions, and industry collaborate in the open, sharing sensor networks, AI models, and infrastructure in a single global architecture."
+                />
+              </Reveal>
+              <Reveal delay={0.06}>
+                <h3 className="mt-8 text-lg font-semibold text-accent">
+                  Working with organizations including
+                </h3>
+                <LogoWall organizations={partnerOrgs} className="mt-5" />
+              </Reveal>
+              <Reveal delay={0.12}>
+                <div className="mt-8">
+                  <SectionLink href="/partners">
+                    See our partners &amp; engagement
+                  </SectionLink>
+                </div>
+              </Reveal>
+            </div>
+            <Reveal delay={0.1} className="lg:col-span-5">
+              <figure className="flex h-full flex-col">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-auto lg:flex-1">
+                  <Image
+                    src="/partners/unfccc-tec-ctcn-joint-meeting.jpg"
+                    alt="Delegates standing and applauding around a U-shaped table at the UNFCCC TEC and CTCN joint meeting in UN Bonn."
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 1024px) 40vw, 100vw"
+                  />
+                </div>
+                <figcaption className="mt-3 text-sm text-ink-muted">
+                  The UNFCCC TEC and CTCN joint meeting at UN Bonn.
+                </figcaption>
+              </figure>
             </Reveal>
           </div>
-          <Reveal delay={0.16}>
-            <div className="mt-10 flex justify-center">
-              <SectionLink href="/partners">
-                See our partners &amp; engagement
-              </SectionLink>
-            </div>
-          </Reveal>
         </Container>
       </section>
     </>

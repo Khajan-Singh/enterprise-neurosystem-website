@@ -17,7 +17,7 @@ const sections = [
     id: "global-network",
     title: "The Global AI Network",
     body: [
-      "Hundreds of climate projects exist in the world today. Government initiatives abound, and advanced technology providers offer powerful technology platforms. These platforms cover a wide variety of areas – mapping methane with satellite imagery, tracking animal and plant populations, crop yield analysis, water levels in reservoirs and waterways, large-scale cloud infrastructure for nation-scale deployments, and so on.",
+      "Hundreds of climate projects exist in the world today. Government initiatives abound, and advanced technology providers offer powerful technology platforms. These platforms cover a wide variety of areas: mapping methane with satellite imagery, tracking animal and plant populations, crop yield analysis, water levels in reservoirs and waterways, large-scale cloud infrastructure for nation-scale deployments, and so on.",
       "To place this collective ecosphere back into balance, a global AI neurology is required to understand the health status of our planet. It would link all the relevant climate networks and data sources in one overarching framework, and conduct a higher order analysis across all points of reference in real time.",
     ],
     cta: {
@@ -29,7 +29,7 @@ const sections = [
     id: "early-warning",
     title: "Early Warning and Food Security",
     quote:
-      "It would act as an early warning system – and monitor crops, drought conditions, air pollution, ocean temperatures and other impacts of climate change.",
+      "It would act as an early warning system, and monitor crops, drought conditions, air pollution, ocean temperatures and other impacts of climate change.",
     body: [
       "And in terms of food security, it could detect patterns across the planet, and recommend optimal planting and harvest cycles, water conservation methodologies tailored to each region, and heat-resilient seed varieties.",
     ],
@@ -38,14 +38,14 @@ const sections = [
     id: "partner-in-nature",
     title: "A Partner in Nature",
     body: [
-      "It would also enable a missing link to the most critical data of all – allow the species that share this planet to communicate these impacts back to us, through sensors unobtrusively deployed in their habitats. Because humanity needs to draw closer to nature, not create more distance. It is necessary to intertwine a sensor network in nature itself, and observe thousands of species to better understand our effect on the planet. Not only do they share this environment with us, they support our agriculture, and can provide early warnings for climate events – for example, the ability of various species to predict earthquakes is well-documented. To better manage our impact, they must become our partners in this endeavor.",
+      "It would also enable a missing link to the most critical data of all, allowing the species that share this planet to communicate these impacts back to us, through sensors unobtrusively deployed in their habitats. Because humanity needs to draw closer to nature, not create more distance. It is necessary to intertwine a sensor network in nature itself, and observe thousands of species to better understand our effect on the planet. Not only do they share this environment with us, they support our agriculture, and can provide early warnings for climate events: for example, the ability of various species to predict earthquakes is well-documented. To better manage our impact, they must become our partners in this endeavor.",
     ],
   },
   {
     id: "natural-causes",
     title: "Natural Causes and Ground Truth",
     body: [
-      "In addition, there are natural causes of climate change that have occurred over millions of years – for example, large scale volcanic eruptions can be a significant factor. The data from natural causes will be incorporated with the human-generated climate data, to create the most accurate ground truth for climate events across the planet. Accuracy of prediction and course correction requires this approach.",
+      "In addition, there are natural causes of climate change that have occurred over millions of years. For example, large scale volcanic eruptions can be a significant factor. The data from natural causes will be incorporated with the human-generated climate data, to create the most accurate ground truth for climate events across the planet. Accuracy of prediction and course correction requires this approach.",
     ],
   },
   {
@@ -60,7 +60,7 @@ const sections = [
     id: "responsibility",
     title: "Environmental Responsibility",
     body: [
-      "And an overarching set of directives need to be enacted, to ensure that all these systems operate in a responsible manner – drawing from carbon neutral energy sources, and built with green technologies and renewable components. In summary, we need to unify all these data sources and sensor networks. Use the capabilities of AI to look deeply across all climate data in real time, and contrast it to historical data, to better understand climate change dynamics. And to implement a system of this size and scope in an environmentally responsible manner.",
+      "And an overarching set of directives need to be enacted, to ensure that all these systems operate in a responsible manner, drawing from carbon neutral energy sources, and built with green technologies and renewable components. In summary, we need to unify all these data sources and sensor networks. Use the capabilities of AI to look deeply across all climate data in real time, and contrast it to historical data, to better understand climate change dynamics. And to implement a system of this size and scope in an environmentally responsible manner.",
     ],
   },
   {
@@ -68,7 +68,7 @@ const sections = [
     title: "The AI Neurosystem",
     emphasis: true,
     body: [
-      "What is required is an AI neurosystem – a single network that spans the planet, integrating all existing climate data sources and projects, and then cross-correlating this vast trove of information to search for deeper causes and conditions. And in turn, uncover and present new solutions, for restoring balance to our environment.",
+      "What is required is an AI neurosystem: a single network that spans the planet, integrating all existing climate data sources and projects, and then cross-correlating this vast trove of information to search for deeper causes and conditions. And in turn, uncover and present new solutions, for restoring balance to our environment.",
     ],
   },
 ];
@@ -76,7 +76,7 @@ const sections = [
 export default function MissionPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-line bg-page-header">
+      <section className="relative overflow-hidden bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
           <SectionHeading as="h1" title="Mission" />

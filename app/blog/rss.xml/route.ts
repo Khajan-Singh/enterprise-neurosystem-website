@@ -40,7 +40,7 @@ ${post.tags.map((tag) => `      <category>${escape(tag)}</category>`).join("\n")
   <channel>
     <title>${escape(SITE_NAME)} Blog</title>
     <link>${escape(absoluteUrl("/blog"))}</link>
-    <description>Updates from the Enterprise Neurosystem community — AI for climate action, open standards and sensor deployments.</description>
+    <description>Updates from the Enterprise Neurosystem community: AI for climate action, open standards and sensor deployments.</description>
     <language>en</language>
     <atom:link href="${escape(self)}" rel="self" type="application/rss+xml" />
 ${items}

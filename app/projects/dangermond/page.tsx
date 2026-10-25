@@ -25,13 +25,13 @@ export default function DangermondPage() {
   return (
     <>
       <JsonLd data={breadcrumbs} />
-      <section className="relative overflow-hidden border-b border-line bg-page-header">
+      <section className="relative overflow-hidden bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
           <SectionHeading
             as="h1"
             title="Dangermond Preserve"
-            description="The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, in partnership with JPL/Caltech."
+            description="The first US deployment of the Enterprise Neurosystem architecture: a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, in partnership with JPL/Caltech."
           />
         </Container>
       </section>
@@ -41,10 +41,7 @@ export default function DangermondPage() {
         <Container className="py-20">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
             <Reveal>
-              <p className="text-xs font-medium uppercase tracking-widest text-accent">
-                Origins
-              </p>
-              <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-balance text-ink sm:text-3xl">
                 From a UN University event to a JPL partnership
               </h2>
               <div className="mt-5 flex flex-col gap-4 text-base leading-relaxed text-ink-muted sm:text-lg">
@@ -82,18 +79,19 @@ export default function DangermondPage() {
       </section>
 
       {/* Data fabric / historical imagery tool */}
-      <section className="relative overflow-hidden border-t border-nav-line bg-nav">
+      <section className="relative overflow-hidden bg-nav">
         <AmbientShadow />
         <Container className="relative py-20">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
-            <Reveal className="lg:order-2">
-              <p className="text-xs font-medium uppercase tracking-widest text-accent">
-                A global data fabric
-              </p>
-              <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-                Decades of imagery, cross-correlated in real time
-              </h2>
-              <p className="mt-5 text-base leading-relaxed text-ink-muted sm:text-lg">
+          {/*
+            Stacked, not split: this sits between two image-and-text splits,
+            and three in a row read as one repeated block. The screen is the
+            subject here, so it gets the full width.
+          */}
+          <Reveal>
+            <h2 className="max-w-4xl font-display text-2xl font-semibold tracking-tight text-balance text-ink sm:text-3xl">
+              Decades of imagery, cross-correlated in real time
+            </h2>
+            <p className="mt-6 max-w-3xl text-base leading-relaxed text-ink-muted sm:text-lg">
                 The Nature Conservancy&rsquo;s historical imagery tool for
                 Dangermond already lets researchers step through the
                 preserve&rsquo;s land cover from 1850 to today. The
@@ -104,19 +102,18 @@ export default function DangermondPage() {
                 instance, the same way the Uganda deployment ties Bwindi and
                 Lake Victoria into one frame of analysis.
               </p>
-            </Reveal>
-            <Reveal delay={0.1} className="lg:order-1">
-              <div className="card-surface card-surface-hover card-textured relative aspect-[4/3] overflow-hidden rounded-2xl">
-                <Image
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="relative mt-12 aspect-[4/3] overflow-hidden rounded-2xl sm:aspect-[16/9] lg:aspect-[21/9]">
+              <Image
                   src="/jpl/dangermond-historical-imagery-tool.jpg"
                   alt="A wall display showing The Nature Conservancy's historical imagery map of the Jack and Laura Dangermond Preserve, its boundary outlined over satellite imagery beside a scrollable list of 29 layers dating from 1850 onward."
                   fill
                   className="object-cover"
-                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  sizes="100vw"
                 />
-              </div>
-            </Reveal>
-          </div>
+            </div>
+          </Reveal>
         </Container>
       </section>
 
@@ -125,11 +122,8 @@ export default function DangermondPage() {
         <Container className="py-20">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16">
             <Reveal className="flex flex-col">
-              <p className="text-xs font-medium uppercase tracking-widest text-accent">
-                Executive sponsor
-              </p>
-              <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-                David Schimel, JPL
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-balance text-ink sm:text-3xl">
+                Executive sponsor: David Schimel, JPL
               </h2>
               <div className="mt-5 flex flex-col gap-4 text-base leading-relaxed text-ink-muted sm:text-lg">
                 <p>

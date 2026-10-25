@@ -50,7 +50,7 @@ const columns: {
 
 export function Footer() {
   return (
-    <footer className="border-t border-bg/10 bg-ink">
+    <footer className="bg-ink">
       {/*
         Four equal grid tracks looked uneven: the brand blurb fills its track
         while "Board" or "GitHub" use a third of theirs, so the visible gap ran
@@ -81,7 +81,7 @@ export function Footer() {
 
         {columns.map((col) => (
           <div key={col.heading}>
-            <p className="text-xs font-medium uppercase tracking-wide text-bg underline underline-offset-5">
+            <p className="text-sm font-semibold text-bg">
               {col.heading}
             </p>
             <ul className="mt-4 flex flex-col gap-2.5">
@@ -102,8 +102,8 @@ export function Footer() {
         ))}
       </Container>
 
-      <div className="border-t border-bg/10">
-        <Container className="flex flex-col gap-2 py-6 text-xs text-bg/60 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <Container className="flex flex-col gap-2 py-6 text-sm text-bg/60 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Enterprise Neurosystem.</p>
           <p>Documentation and marketing content licensed CC BY.</p>
         </Container>

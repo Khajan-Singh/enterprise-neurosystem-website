@@ -9,14 +9,14 @@ import { boardMembers } from "@/data/board";
 export const metadata = pageMetadata({
   title: "Board",
   description:
-    "The Enterprise Neurosystem Governing Board — leaders from Red Hat, Kove, IBM, Stanford SLAC, Intel, and Yahoo guiding the community's strategic direction.",
+    "The Enterprise Neurosystem Governing Board: leaders from Red Hat, Kove, IBM, Stanford SLAC, Intel, and Yahoo guiding the community's strategic direction.",
   path: "/board",
 });
 
 export default function BoardPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-line bg-page-header">
+      <section className="relative overflow-hidden bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
           <SectionHeading

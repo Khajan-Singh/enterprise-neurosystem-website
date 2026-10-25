@@ -88,7 +88,7 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
           { name: post.title, path: `/blog/${post.slug}` },
         ])}
       />
-      <section className="relative overflow-hidden border-b border-line bg-page-header">
+      <section className="relative overflow-hidden bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
           <div className="max-w-3xl">

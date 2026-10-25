@@ -17,7 +17,7 @@ const ORG_ID = `${SITE_URL}/#organization`;
 const SITE_ID = `${SITE_URL}/#website`;
 
 const DESCRIPTION =
-  "Enterprise Neurosystem is an open source AI research community treating the planet's species and ecosystems as a single system — building a global-scale AI network to understand and respond to climate change.";
+  "Enterprise Neurosystem is an open source AI research community treating the planet's species and ecosystems as a single system, building a global-scale AI network to understand and respond to climate change.";
 
 /**
  * The org entity. `NGO` rather than plain `Organization`: the homepage

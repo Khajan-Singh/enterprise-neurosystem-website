@@ -8,7 +8,13 @@ export type Deployment = {
   name: string;
   location: string;
   summary: string;
-  image: string;
+  /**
+   * Photographs of the site, in the order the homepage card crossfades
+   * through them. The first is the card's still frame (and its only frame
+   * under reduced motion), so it must be the strongest. All are shown in a
+   * 16/10 `object-cover` box; see CLAUDE.md before re-cropping the gorilla.
+   */
+  gallery: { src: string; alt: string }[];
   href: string;
 };
 
@@ -19,7 +25,11 @@ export const deployments: Deployment[] = [
     location: "Bwindi Impenetrable Forest & Lake Victoria, Uganda",
     summary:
       "A national network of environmental sensors, approved for funding by Uganda's Minister of Science, Technology and Innovation. It starts at Bwindi's mountain gorilla habitat and a robotic AI sensor monitoring Lake Victoria's algal blooms. Data stays in Uganda, on Uganda's terms.",
-    image: "/uganda/bwindi-gorilla.jpg",
+    gallery: [
+      { src: "/uganda/bwindi-gorilla.jpg", alt: "A mountain gorilla in Bwindi Impenetrable Forest" },
+      { src: "/uganda/aerial-lake.jpg", alt: "Forested hills and a lake in south-west Uganda, seen from a light aircraft" },
+      { src: "/uganda/team-and-rangers.jpg", alt: "Enterprise Neurosystem team with Uganda Wildlife Authority rangers" },
+    ],
     href: "/projects/uganda",
   },
   {
@@ -27,8 +37,11 @@ export const deployments: Deployment[] = [
     name: "Dangermond Preserve",
     location: "Santa Barbara County, California, USA",
     summary:
-      "The first US deployment of the Enterprise Neurosystem architecture — a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, in partnership with JPL/Caltech.",
-    image: "/jpl/dangermond-coastline.jpg",
+      "The first US deployment of the Enterprise Neurosystem architecture: a global data fabric integrating satellite data, atmospherics, ground sensors and multi-species analysis, in partnership with JPL/Caltech.",
+    gallery: [
+      { src: "/jpl/dangermond-coastline.jpg", alt: "Sea cliffs and coastal scrub along the Dangermond Preserve shoreline" },
+      { src: "/jpl/dangermond-historical-imagery-tool.jpg", alt: "The Dangermond Preserve historical imagery tool on a display, showing the preserve's boundary over satellite imagery" },
+    ],
     href: "/projects/dangermond",
   },
 ];

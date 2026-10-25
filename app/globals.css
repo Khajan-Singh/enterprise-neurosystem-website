@@ -13,7 +13,7 @@
   --color-bg-subtle: #f7f7f5;
   --color-page-header: #ddeeff;
   --color-ink: #16171a;
-  --color-ink-muted: #55585f;
+  --color-ink-muted: #44474e;
   --color-line: #e4e4e0;
 
   --color-accent: #2b3a67;
@@ -198,7 +198,7 @@ body {
 
   Two animations share one set of keyframes, and the split is load-bearing:
   - `word-rise` is the no-JS fallback. It starts on first paint and reveals
-    every word after 1.5s, so a slow or failed hydration can't strand the
+    every word after 0.7s, so a slow or failed hydration can't strand the
     headline invisible. (`FALLBACK_MS` in the component must match.)
   - `word-rise-js` takes over once the component adds `.is-ready` with a
     random `--delay` per word. It needs its own name: swapping only
@@ -240,7 +240,7 @@ body {
 
 .word-rise {
   display: inline-block;
-  animation: word-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 1.5s backwards;
+  animation: word-rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) 0.7s backwards;
 }
 
 .is-ready .word-rise {
@@ -294,7 +294,7 @@ body {
 }
 
 .word-gap {
-  animation: word-gap 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 1.5s backwards;
+  animation: word-gap 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) 0.7s backwards;
 }
 
 .is-ready .word-gap {
@@ -393,11 +393,11 @@ main > section:first-of-type > [data-ambient-shadow] {
   It is timed off the same moment as the words: the headline's start depends
   on hydration, which varies per visit, so a fixed delay from first paint
   would sometimes beat it. It rises as one block, not word by word, and
-  starts 500ms after the headline does, while the last words are still
+  starts 200ms after the headline does, while the last words are still
   settling.
 
   Same two-animation split as `.word-rise`, for the same reason: the fallback
-  runs 500ms after the words' 1.5s fallback, and `.is-ready ~` swaps in a
+  runs 200ms after the words' 0.7s fallback, and `.is-ready ~` swaps in a
   fresh animation when the headline's JS runs. That selector needs these
   elements to be later siblings of the heading.
 */
@@ -424,12 +424,12 @@ main > section:first-of-type > [data-ambient-shadow] {
 }
 
 .hero-follow {
-  animation: hero-follow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 2s backwards;
+  animation: hero-follow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s backwards;
 }
 
 .is-ready ~ .hero-follow {
   animation-name: hero-follow-js;
-  animation-delay: 0.5s;
+  animation-delay: 0.2s;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1388,4 +1388,27 @@ main > section:first-of-type > [data-ambient-shadow] {
   .mobile-panel > * > * {
     transition-delay: 0s !important;
   }
+}
+
+/*
+  Crossfade (components/Crossfade.tsx)
+  --------------------------------------------------------------
+  Opacity only, so the change is a compositor job. The long duration is the
+  point: the photographs should drift into each other like shifting light,
+  not swap. The global reduced-motion rule zeroes the transition, and the
+  component never advances under reduced motion anyway.
+*/
+.xfade-img {
+  opacity: 0;
+  transition:
+    opacity 1.6s cubic-bezier(0.45, 0, 0.55, 1),
+    scale 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.xfade-img.is-active {
+  opacity: 1;
+}
+
+.group:hover .xfade-img.is-active {
+  scale: 1.03;
 }

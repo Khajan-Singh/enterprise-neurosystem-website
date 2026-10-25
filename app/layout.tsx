@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Public_Sans } from "next/font/google";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
@@ -8,7 +8,13 @@ import { JsonLd } from "@/components/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import "./globals.css";
 
-const geistSans = Geist({
+/**
+ * Public Sans replaced Geist (the create-next-app default, which made the
+ * site read as a template). Chosen by the user from a side-by-side preview:
+ * neutral and institutional, with none of the playfulness of the trialled
+ * Schibsted Grotesk. One family does every job.
+ */
+const sans = Public_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
 });
@@ -31,7 +37,7 @@ export const metadata: Metadata = {
     template: "%s · Enterprise Neurosystem",
   },
   description:
-    "Enterprise Neurosystem is an open source AI research community treating the planet's species and ecosystems as a single system — building a global-scale AI network to understand and respond to climate change.",
+    "Enterprise Neurosystem is an open source AI research community treating the planet's species and ecosystems as a single system, building a global-scale AI network to understand and respond to climate change.",
   applicationName: SITE_NAME,
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
@@ -94,7 +100,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${geistSans.variable} h-full antialiased`}
+      className={`${sans.variable} h-full antialiased`}
     >
       <head>
         {/*

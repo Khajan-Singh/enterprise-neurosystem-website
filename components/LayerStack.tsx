@@ -191,10 +191,9 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
           {ZONES.map((zone, i) => (
             <p
               key={zone.number}
-              className={`laym-l${i + 1} absolute inset-0 flex gap-x-2 text-xs font-medium tracking-widest text-ink-muted uppercase`}
+              className={`laym-l${i + 1} absolute inset-0 text-sm font-semibold text-ink`}
             >
-              <span className="text-accent">{zone.number}</span>
-              <span>{zone.title}</span>
+              {zone.title}
             </p>
           ))}
         </div>
@@ -228,7 +227,7 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
           {LAYERS.map((layer, i) => (
             <span
               key={layer.label}
-              className="lay-label absolute hidden -translate-y-1/2 text-xs font-medium tracking-widest text-ink-muted uppercase sm:block"
+              className="lay-label absolute hidden -translate-y-1/2 text-sm font-medium text-ink-muted sm:block"
               style={
                 {
                   left: `calc(${Z1} + var(--pw1) * 0.589 + 16px)`,
@@ -243,7 +242,7 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
           ))}
           </div>
           {/* Phones name the layers in one line instead: no room beside the deck. */}
-          <p className="laym-caption absolute inset-x-0 bottom-0 text-center text-xs text-ink-muted sm:hidden">
+          <p className="laym-caption absolute inset-x-0 bottom-0 text-center text-sm text-ink-muted sm:hidden">
             Satellite, atmosphere, ocean, species and soil
           </p>
 
@@ -322,7 +321,7 @@ export function LayerStack({ mode = "timed" }: { mode?: "timed" | "scroll" }) {
               <span className="lay-core absolute rounded-full" />
             </span>
           </div>
-          <span className="lay-warn absolute text-xs font-semibold tracking-widest whitespace-nowrap text-ink uppercase">
+          <span className="lay-warn absolute text-sm font-semibold whitespace-nowrap text-ink">
             Early warning
           </span>
         </div>

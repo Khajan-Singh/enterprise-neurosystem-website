@@ -1,12 +1,12 @@
 import { pageMetadata } from "@/lib/seo";
 import { Container } from "@/components/Container";
 import { SectionHeading } from "@/components/SectionHeading";
-import { LogoWall } from "@/components/LogoWall";
+import { PillWall } from "@/components/LogoWall";
 import { AmbientShadow } from "@/components/AmbientShadow";
 import { Reveal } from "@/components/Reveal";
 
 export const metadata = pageMetadata({
-  title: "NLIP — Natural Language Interaction Protocol",
+  title: "NLIP: Natural Language Interaction Protocol",
   description:
     "The Natural Language Interaction Protocol (NLIP): an Enterprise Neurosystem project for GenAI-to-GenAI communication, adopted by the ECMA as a global standard.",
   path: "/nlip",
@@ -24,13 +24,13 @@ const nlipBackers = [
 export default function NlipPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-line bg-page-header">
+      <section className="relative overflow-hidden bg-page-header">
         <AmbientShadow opacity={0.07} />
         <Container className="relative pt-4 pb-10">
           <SectionHeading
             as="h1"
             title="NLIP"
-            description="The Natural Language Interaction Protocol — a GenAI-to-GenAI communications standard, born from the Enterprise Neurosystem community, now adopted by the ECMA as a global standard."
+            description="The Natural Language Interaction Protocol, a GenAI-to-GenAI communications standard, born from the Enterprise Neurosystem community, now adopted by the ECMA as a global standard."
           />
         </Container>
       </section>
@@ -71,7 +71,7 @@ export default function NlipPage() {
                 <h2 className="font-display text-2xl font-semibold tracking-tight text-ink">
                   Why it matters for the Internet of Nature
                 </h2>
-                <p className="mt-4 text-base leading-relaxed text-ink-muted sm:text-lg">
+                <p className="mt-4 max-w-3xl text-base leading-relaxed text-ink-muted sm:text-lg">
                   The Enterprise Neurosystem architecture depends on AI
                   instances in every country cross-correlating data in real
                   time: sensor networks, satellites, and national AI models
@@ -88,7 +88,7 @@ export default function NlipPage() {
                 <h2 className="font-display text-2xl font-semibold tracking-tight text-ink">
                   Backed by industry
                 </h2>
-                <p className="mt-4 text-base leading-relaxed text-ink-muted sm:text-lg">
+                <p className="mt-4 max-w-3xl text-base leading-relaxed text-ink-muted sm:text-lg">
                   Backers now include Cisco, Hewlett Packard, Hitachi, IBM,
                   Microsoft and Red Hat, alongside multiple academic
                   institutions.
@@ -99,11 +99,11 @@ export default function NlipPage() {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden border-t border-nav-line bg-nav">
+      <section className="relative overflow-hidden bg-nav">
         <AmbientShadow />
         <Container className="relative py-16">
           <Reveal>
-            <LogoWall label="NLIP backers" organizations={nlipBackers} />
+            <PillWall label="NLIP backers" organizations={nlipBackers} />
           </Reveal>
         </Container>
       </section>

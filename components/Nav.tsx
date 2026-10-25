@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Container } from "./Container";
 import { NavBackdrop } from "./NavBackdrop";
 import { useDropdown } from "./useDropdown";
+import { CaretDown } from "./ArrowRight";
 
 const visionLinks = [
   { href: "/mission", label: "Mission" },
@@ -119,15 +120,9 @@ function NavDropdown({
             onClick={togglePin}
             className="flex items-center p-1 text-ink/70 transition-colors hover:text-ink"
           >
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 12 8"
-              className={`h-2.5 w-2.5 fill-current transition-transform ${
-                open ? "rotate-180" : ""
-              }`}
-            >
-              <path d="M6 8 0 0h12z" />
-            </svg>
+            <CaretDown
+            className={`transition-transform ${ open ? "rotate-180" : "" }`}
+          />
           </button>
         </>
       ) : (
@@ -139,15 +134,9 @@ function NavDropdown({
           className={`flex items-center gap-1 ${triggerClass}`}
         >
           {label}
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 12 8"
-            className={`h-2.5 w-2.5 fill-current transition-transform ${
-              open ? "rotate-180" : ""
-            }`}
-          >
-            <path d="M6 8 0 0h12z" />
-          </svg>
+          <CaretDown
+            className={`transition-transform ${ open ? "rotate-180" : "" }`}
+          />
         </button>
       )}
 
@@ -267,7 +256,7 @@ function MobileNavGroup({
         <Link
           href={href}
           onClick={onNavigate}
-          className={`flex-1 px-2 pb-2 pt-2 text-xs font-medium uppercase tracking-widest ${
+          className={`flex-1 px-2 pb-2 pt-2 text-sm font-semibold ${
             headerHighlighted ? "text-ink" : "text-ink-muted"
           }`}
         >
@@ -293,15 +282,9 @@ function MobileNavGroup({
             the chevron snaps. (The desktop NavDropdown above still has that
             snap for the same reason.)
           */}
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 12 8"
-            className={`h-2.5 w-2.5 fill-current transition-[rotate] duration-200 ${
-              expanded ? "rotate-180" : ""
-            }`}
-          >
-            <path d="M6 8 0 0h12z" />
-          </svg>
+          <CaretDown
+            className={`transition-[rotate] duration-200 ${ expanded ? "rotate-180" : "" }`}
+          />
         </button>
       </div>
 

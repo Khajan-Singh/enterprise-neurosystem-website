@@ -1,5 +1,6 @@
 "use client";
 
+import { Play } from "@phosphor-icons/react/dist/ssr/Play";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -84,11 +85,9 @@ export function VideoEmbed({
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-bg/90 shadow-[0_8px_24px_-6px_rgba(43,58,103,0.55)] backdrop-blur-sm transition-transform duration-200 group-hover:scale-105"
+                  className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-bg shadow-[0_8px_24px_-6px_rgba(43,58,103,0.55)] transition-transform duration-200 group-hover:scale-105"
                 >
-                  <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6 fill-ink">
-                    <path d="M8 5.14v13.72L19 12 8 5.14Z" />
-                  </svg>
+                  <Play weight="fill" className="ml-0.5 h-6 w-6 text-ink" />
                 </span>
               </button>
             )}
